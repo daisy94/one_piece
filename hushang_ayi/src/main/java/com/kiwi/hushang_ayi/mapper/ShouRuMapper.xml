@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.hushang_ayi.mapper.ShouRuMapper">
+
+	<select id="getShouRuByMonth" parameterType="integer" resultType="Map">
+		SELECT * FROM shouru WHERE LEFT(shouru_time, 6) = #{date}
+		ORDER BY shouru_time
+	</select>
+	
+	<select id="getShouRuByMonthDay" parameterType="integer" resultType="Map">
+		SELECT * FROM shouru WHERE shouru_time = #{date}
+	</select>
+	
+	<insert id="insertShouRuData" parameterType="Map">
+		INSERT INTO shouru (shouru_money, shouru_time)
+		VALUES (#{shouRuData}, #{dateYMD})
+	</insert>
+
+	<select id="getSRCountByYM" parameterType="Map" resultType="Map">
+		SELECT SUM(shouru_money)AS shouRuCount FROM shouru WHERE LEFT(shouru_time, 6) = #{dateYMD}
+	</select>
+
+</mapper>
