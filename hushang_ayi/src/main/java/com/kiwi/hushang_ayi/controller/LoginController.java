@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+//登录Controller
 @RestController
 public class LoginController {
 
     @Autowired
     LoginService loginService;
 
+    //登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JsonResult login(@RequestBody JSONObject resultMap, HttpSession session) throws Exception{
 
