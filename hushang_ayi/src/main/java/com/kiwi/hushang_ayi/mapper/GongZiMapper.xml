@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.hushang_ayi.mapper.GongZiMapper">
+
+	<select id="getGongZiByMonth" parameterType="integer" resultType="Map">
+		SELECT * FROM gongzi WHERE gongzi_time = #{date}
+		ORDER BY gongzi_time
+	</select>
+	
+	<!--<select id="getZhiChuByMonthDay" parameterType="integer" resultType="Map">
+		SELECT * FROM zhichu WHERE zhichu_time = #{date}
+	</select>-->
+
+	<select id="getGongZiByMonthEcharts" parameterType="integer" resultType="Map">
+		SELECT gongzi_money, gongzi_time FROM gongzi WHERE gongzi_time = #{date};
+	</select>
+
+	<!--<insert id="insertZhiChuData" parameterType="Map">
+		INSERT INTO zhichu (zhichu_name, zhichu_money, zhichu_time)
+		VALUES (#{zhiChuType}, #{zhiChuData}, #{zhiChuTime})
+	</insert>-->
+
+	<!--<select id="getZCCountByYM" parameterType="Map" resultType="Map">
+		SELECT SUM(zhichu_money)AS zhiChuCount FROM zhichu WHERE LEFT(zhichu_time, 6) = #{dateYMD}
+	</select>-->
+
+</mapper>

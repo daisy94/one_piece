@@ -34,7 +34,7 @@
 		          	<a class="layui-icon layui-icon-dollar" style="font-size: 20px" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;每日收入</span></a>
 		        </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><span>工资薪金</span></a>
+                    <a class="layui-icon layui-icon-dollar" style="font-size: 20px" href="<%=basePath%>gongzi/gongzi.jsp"><span>&nbsp;&nbsp;工资薪金</span></a>
                 </li>
 		        <li class="layui-nav-item">
 		        	<a class="layui-icon layui-icon-rate" style="font-size: 20px" href="<%=basePath%>touzi/touzi.jsp"><span>&nbsp;&nbsp;投资金额</span></a>
