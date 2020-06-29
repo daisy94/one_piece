@@ -17,13 +17,45 @@
 		SELECT gongzi_money, gongzi_time FROM gongzi WHERE gongzi_time = #{date};
 	</select>
 
-	<!--<insert id="insertZhiChuData" parameterType="Map">
-		INSERT INTO zhichu (zhichu_name, zhichu_money, zhichu_time)
-		VALUES (#{zhiChuType}, #{zhiChuData}, #{zhiChuTime})
-	</insert>-->
+	<insert id="insertGongZiData" parameterType="Map">
+		INSERT INTO gongzi
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		    <if test="gongzi_id != null and gongzi_id != ''">
+				gongzi_id,
+			</if>
+			<if test="gongzi_name != null and gongzi_name != ''">
+				gongzi_name,
+			</if>
+			<if test="gongzi_money != null and gongzi_money != ''">
+				gongzi_money,
+			</if>
+			<if test="gongzi_remark != null and gongzi_remark != ''">
+				gongzi_remark,
+			</if>
+			<if test="gongzi_time != null and gongzi_time != ''">
+				gongzi_time,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="gongzi_id != null and gongzi_id != ''">
+				gongzi_id,
+			</if>
+			<if test="gongzi_name != null and gongzi_name != ''">
+				gongzi_name,
+			</if>
+			<if test="gongzi_money != null and gongzi_money != ''">
+				gongzi_money,
+			</if>
+			<if test="gongzi_remark != null and gongzi_remark != ''">
+				gongzi_remark,
+			</if>
+			<if test="gongzi_time != null and gongzi_time != ''">
+				gongzi_time,
+			</if>
+		</trim>
+	</insert>
 
-	<!--<select id="getZCCountByYM" parameterType="Map" resultType="Map">
-		SELECT SUM(zhichu_money)AS zhiChuCount FROM zhichu WHERE LEFT(zhichu_time, 6) = #{dateYMD}
-	</select>-->
-
+	<select id="getGZCountByYM" parameterType="Map" resultType="Map">
+		SELECT SUM(gongzi_money) AS gongZiCount FROM gongzi WHERE gongzi_time = #{dateYMD}
+	</select>
 </mapper>

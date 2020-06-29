@@ -28,38 +28,31 @@
 	<div class="layui-form">
 		<div class="layui-form-item">
 
-			<label class="layui-form-label">支出类型：</label>
+			<label class="layui-form-label">工资明细：</label>
 			<div class="layui-input-inline">
-				<input type="text" name="insertGongZiType" id="insertGongZiType" lay-verify="required" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
+				<input type="text" name="insertGongZiType" id="insertGongZiType" placeholder="想一想工资明细是什么" autocomplete="off" class="layui-input">
 			</div>
-
-			<label class="layui-form-label">支出金额：</label>
+			<label class="layui-form-label">明细备注：</label>
 			<div class="layui-input-inline">
-				<input type="text" name="insertGongZiData" id="insertGongZiData" lay-verify="required" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
+				<input type="text" name="insertGongZiData" id="insertGongZiRemark" placeholder="明细没有的话，可以不填" autocomplete="off" class="layui-input">
 			</div>
-
-			<label class="layui-form-label">支出时间：</label>
+			<label class="layui-form-label">工资金额：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="insertGongZiData" id="insertGongZiData" placeholder="想一想工资支出了多少钱" autocomplete="off" class="layui-input">
+			</div>
+			<label class="layui-form-label">发放时间：</label>
 			<div class="layui-inline">
-				<input type="text" class="layui-input" id="insertDATEYMD" placeholder="几号的支出呢" autocomplete="off">
+				<input type="text" class="layui-input" id="insertDateYM" placeholder="几月的工资支出呢" autocomplete="off">
 			</div>
 			<div class="layui-inline">
 				<button type="button" class="layui-btn" onclick="insertGZData()">保存</button>
 			</div>
+
 		</div>
 	</div>
 
 	<div class="layui-form">
 		<div class="layui-form-item">
-
-			<div class="layui-inline">
-				<label class="layui-form-label">选择时间：</label>
-				<div class="layui-inline">
-					<input type="text" class="layui-input" id="selectDateYMD" placeholder="想查几号鸭" autocomplete="off">
-				</div>
-				<div class="layui-inline">
-					<button type="button" class="layui-btn" onclick="getGZDataByYMD()">走你</button>
-				</div>
-			</div>
 
 			<div class="layui-inline">
 				<label class="layui-form-label">选择时间：</label>
@@ -73,7 +66,7 @@
 					<button type="button" class="layui-btn" onclick="getGZCountByYM()">来康康工资付了多少钱</button>
 				</div>
 				<div class="layui-inline">
-					<button type="button" class="layui-btn" onclick="excelGongZiData()">导出支出数据</button>
+					<button type="button" class="layui-btn" onclick="excelGongZiData()">导出工资数据</button>
 				</div>
 			</div>
 
@@ -101,34 +94,9 @@
 
 	$(function() {
 
-		let date = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
+		let date = new Date().getFullYear() + formatDateMonth(new Date().getMonth());
 		getGZDataByYM_save(date);
 	});
-
-	function getGZDataByYMD(){
-
-		let date =  $("#selectDateYMD").val();
-		if(date == null || date == ''){
-
-			layer.msg("要选择一个日期哦");
-			return;
-		}
-		let dateYMD = formatDate(date);
-		table.render({
-			elem: '#test5',
-			url: '<%=basePath%>getGongZiByMonthDay',
-			where: {
-				dateYMD
-			},
-			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-			method: 'post',
-			cols: [[
-				{field:'gongZi_name', title: '支出类型', align: 'center'},
-				{field:'gongZi_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'gongZi_time', title: '支出日期', align: 'center'},
-			]]
-		});
-	};
 
 	function getGZDataByYM(){
 
@@ -151,9 +119,10 @@
 			height: 350,
 			method: 'post',
 			cols: [[
-				{field:'gongZi_name', title: '支出类型', align: 'center'},
-				{field:'gongZi_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'gongZi_time', title: '支出日期', align: 'center'},
+				{field:'gongzi_name', title: '工资明细', align: 'center'},
+				{field:'gongzi_remark', title: '工资备注', align: 'center'},
+				{field:'gongzi_money', title: '工资金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'gongzi_time', title: '发放日期', align: 'center'}
 			]]
 		});
 
@@ -184,7 +153,7 @@
 				}
 			},
 			title: {
-				text: '支出走势柱状图',
+				text: '工资走势柱状图',
 			},
 			color: ['#33ABA0'],
 			xAxis: {
@@ -216,10 +185,10 @@
 			height: 350,
 			method: 'post',
 			cols: [[
-				{field:'gongZi_name', title: '工资明细', align: 'center'},
-				{field:'gongZi_remark', title: '工资备注', align: 'center'},
-				{field:'gongZi_money', title: '工资金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'gongZi_time', title: '发放日期', align: 'center'},
+				{field:'gongzi_name', title: '工资明细', align: 'center'},
+				{field:'gongzi_remark', title: '工资备注', align: 'center'},
+				{field:'gongzi_money', title: '工资金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'gongzi_time', title: '发放日期', align: 'center'}
 			]]
 		});
 
@@ -274,10 +243,11 @@
 
 		let insertGongZiType =  $("#insertGongZiType").val();
 		let insertGongZiData =  $("#insertGongZiData").val();
-		let insertDATEYMD =  formatDate($("#insertDATEYMD").val());
+		let insertGongZiRemark =  $("#insertGongZiRemark").val();
+		let insertDateYM =  formatDate($("#insertDateYM").val());
 		if(insertGongZiType == null || insertGongZiType == ''){
 
-			layer.msg("要填一个支出类型哦");
+			layer.msg("要填一个工资明细哦");
 			return;
 		}
 		if(insertGongZiData == null || insertGongZiData == ''){
@@ -285,15 +255,16 @@
 			layer.msg("金额是不是忘填了啊");
 			return;
 		}
-		if(insertDATEYMD == null || insertDATEYMD == ''){
+		if(insertDateYM == null || insertDateYM == ''){
 
 			layer.msg("要选择一个日期哦");
 			return;
 		}
 		let params = {
 			"insertGongZiType":insertGongZiType,
+			"insertGongZiRemark":insertGongZiRemark,
 			"insertGongZiData":insertGongZiData,
-			"insertDATEYMD":insertDATEYMD
+			"insertDateYM":insertDateYM
 		};
 		$.ajax({
 			//请求方式
@@ -306,12 +277,14 @@
 			data : JSON.stringify(params),
 			//请求成功
 			success : function(result) {
-				if(result.status == "success"){
-					insertDATEYMD = insertDATEYMD.substring(0,6);
-					getGZDataByYM_save(insertDATEYMD);
+				if(result.code === "0"){
+					getGZDataByYM_save(insertDateYM);
 					$("#insertGongZiType").val("");
+					$("#insertGongZiRemark").val("");
 					$("#insertGongZiData").val("");
 					layer.msg("保存成功啦");
+				}else{
+					layer.msg("保存失败啦");
 				}
 			},
 			//请求失败，包含具体的错误信息
@@ -346,11 +319,11 @@
 			data : JSON.stringify(params),
 			//请求成功
 			success : function(result) {
-				if(result.gongZiCount == null || result.gongZiCount == undefined){
-					layer.msg("还没有花钱，开心~");
+				if(result.data == null){
+					layer.msg("还没有付工资呢，开心~");
 					return;
 				}
-				layer.alert(date+" "+"一共花了"+" "+result.gongZiCount+"~~~", {
+				layer.alert(date+" "+"一共支付了工资"+" "+result.data.gongZiCount+"~~~", {
 					skin: 'layui-layer-molv',//样式类名
 					closeBtn: 0
 				});
@@ -419,9 +392,6 @@
 				layer.msg("导出失败");
 			}
 		});
-		/*layui.use(['excel'], function() {
-
-        });*/
 	}
 
 	function formatDate(date){
@@ -450,24 +420,16 @@
 		}
 	};
 
-	//常规用法
+	//年月选择器
 	laydate.render({
-		elem: '#insertDATEYMD',
-		trigger: 'click', //采用click弹出
-		position: 'fixed'
-	});
-
-	//常规用法
-	laydate.render({
-		elem: '#selectDateYMD',
-		trigger: 'click'
+		elem: '#selectDateYM',
+		trigger: 'click',
+		type: 'month'
 	});
 
 	//年月选择器
 	laydate.render({
-		elem: '#selectDateYM',
-		/*value: new Date().,
-        isInitValue: true,*/
+		elem: '#insertDateYM',
 		trigger: 'click',
 		type: 'month'
 	});

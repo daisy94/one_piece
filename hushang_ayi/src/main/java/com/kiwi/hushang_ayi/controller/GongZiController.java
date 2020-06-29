@@ -66,38 +66,27 @@ public class GongZiController {
         return result;
     }
 
-    /*@RequestMapping(value = "/getZhiChuByMonthDay", method = RequestMethod.POST)
-    public LayUIUtil getZhiChuByMonthDay(String dateYMD, Integer page, Integer size) throws Exception{
+    @RequestMapping(value = "/insertGongZiData", method = RequestMethod.POST)
+    public JsonResult insertGongZiData(@RequestBody Map<String,String> requestMap) throws Exception{
 
-        int date = TypeUtil.toInt(dateYMD);
-
-        List<Map<String,Object>> zhiChuByMonthDay = zhiChuService.getZhiChuByMonthDay(date);
-        int count = zhiChuByMonthDay.size();
-
-        return LayUIUtil.data(count, zhiChuByMonthDay);
-    }*/
-
-    /*@RequestMapping(value = "/insertZhiChuData", method = RequestMethod.POST)
-    public Map<String, Object> insertZhiChuData(@RequestBody Map<String,String> requestMap) throws Exception{
-
-        Double zhiChuData = TypeUtil.toDouble(requestMap.get("insertZhiChuData"));
-        Long dateYMD = TypeUtil.toLong(requestMap.get("insertDATEYMD"));
+        Double gongZiData = TypeUtil.toDouble(requestMap.get("insertGongZiData"));
+        Long dateYMD = TypeUtil.toLong(requestMap.get("insertDateYM"));
         Map<String, Object> map = new HashMap<>();
-        map.put("zhiChuType", requestMap.get("insertZhiChuType"));
-        map.put("zhiChuData", zhiChuData);
-        map.put("zhiChuTime", dateYMD);
-        Map<String, Object> result = zhiChuService.insertZhiChuData(map);
+        map.put("gongzi_name", requestMap.get("insertGongZiType"));
+        map.put("gongzi_remark", requestMap.get("insertGongZiRemark"));
+        map.put("gongzi_money", gongZiData);
+        map.put("gongzi_time", dateYMD);
 
-        return result;
-    }*/
+        return gongZiService.insertGongZiData(map);
+    }
 
-    /*@RequestMapping(value = "/getZCCountByYM", method = RequestMethod.POST)
-    public Map<String, Object> getZCCountByYM(@RequestBody Map<String,String> requestMap) throws Exception{
+    @RequestMapping(value = "/getGZCountByYM", method = RequestMethod.POST)
+    public JsonResult getGZCountByYM(@RequestBody Map<String,String> requestMap) throws Exception{
 
         Long dateYMD = TypeUtil.toLong(requestMap.get("dateYM"));
         Map<String, Object> map = new HashMap<>();
         map.put("dateYMD", dateYMD);
-        Map<String, Object> zcCountByYM = zhiChuService.getZCCountByYM(map);
-        return zcCountByYM;
-    }*/
+        Map<String, Object> gzCountByYM = gongZiService.getGZCountByYM(map);
+        return new JsonResult(gzCountByYM);
+    }
 }
