@@ -13,7 +13,7 @@ public interface GongZiMapper {
 	
 	List<Map<String, Object>> getGongZiByMonthEcharts(Integer date);
 
-	JsonResult insertGongZiData(Map<String, Object> map);
+	void insertGongZiData(Map<String, Object> map);
 
 	Map<String, Object> getGZCountByYM(Map<String, Object> map);
 }

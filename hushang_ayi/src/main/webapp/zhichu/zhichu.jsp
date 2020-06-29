@@ -93,383 +93,359 @@
 <script src="<%=basePath%>resources/layui_exts/excel.js"></script>
 <script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
 <script src="<%=basePath%>resources/echarts/echarts.js"></script>
+<script src="<%=basePath%>resources/utils/utils.js"></script>
 
 <script type="text/javascript">
-var layer = layui.layer;
-var table = layui.table;
-var laydate = layui.laydate;
+	var layer = layui.layer;
+	var table = layui.table;
+	var laydate = layui.laydate;
 
-$(function() {
+	$(function() {
 
-	let date = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
-	getZCDataByYM_save(date);
-});
-
-function getZCDataByYMD(){
-
-	let date =  $("#selectDateYMD").val();
-	if(date == null || date == ''){
-
-	  layer.msg("要选择一个日期哦");
-	return;
-	}
-	let dateYMD = formatDate(date);
-	table.render({
-	elem: '#test5',
-	url: '<%=basePath%>getZhiChuByMonthDay',
-	where: {
-		dateYMD
-	},
-	cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	method: 'post',
-	cols: [[
-	  {field:'zhichu_name', title: '支出类型', align: 'center'},
-	  {field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-	  {field:'zhichu_time', title: '支出日期', align: 'center'},
-	]]
+		let date = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
+		getZCDataByYM_save(date);
 	});
-};
 
-function getZCDataByYM(){
+	function getZCDataByYMD(){
 
-	let date =  $("#selectDateYM").val();
+		let date =  $("#selectDateYMD").val();
+		if(date == null || date == ''){
 
-	if(date == null || date == ''){
+			layer.msg("要选择一个日期哦");
+			return;
+		}
+		let dateYMD = formatDate(date);
+		table.render({
+			elem: '#test5',
+			url: '<%=basePath%>getZhiChuByMonthDay',
+			where: {
+				dateYMD
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			method: 'post',
+			cols: [[
+				{field:'zhichu_name', title: '支出类型', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+	};
 
-        layer.msg("要选择一个日期哦");
-		return;
-	}
-	let dateYM = formatDate(date);
+	function getZCDataByYM(){
 
-	  table.render({
-	    elem: '#test5',
-	    url: '<%=basePath%>getZhiChuByMonth',
-	    where: {
-	    	dateYM
-	    },
-	    cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	  	height: 350,
-	    method: 'post',
-	    cols: [[
-          {field:'zhichu_name', title: '支出类型', align: 'center'},
-	      {field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-	      {field:'zhichu_time', title: '支出日期', align: 'center'},
-	    ]]
-	  });
+		let date =  $("#selectDateYM").val();
 
-	// 基于准备好的dom，初始化echarts实例
-	let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+		if(date == null || date == ''){
 
-	let echartsMoney = new Array();
-	let echartsTime = new Array();
-	$.ajax({
-		async: false,
-		type: "POST",
-		url: "<%=basePath%>getZhiChuByMonthEcharts",
-		data:{
+			layer.msg("要选择一个日期哦");
+			return;
+		}
+		let dateYM = formatDate(date);
+
+		table.render({
+			elem: '#test5',
+			url: '<%=basePath%>getZhiChuByMonth',
+			where: {
+				dateYM
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			height: 350,
+			method: 'post',
+			cols: [[
+				{field:'zhichu_name', title: '支出类型', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+
+		// 基于准备好的dom，初始化echarts实例
+		let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+
+		let echartsMoney = new Array();
+		let echartsTime = new Array();
+		$.ajax({
+			async: false,
+			type: "POST",
+			url: "<%=basePath%>getZhiChuByMonthEcharts",
+			data:{
+				"dateYM":dateYM
+			},
+			success: function(data){
+				echartsMoney = data.echartsMoney;
+				echartsTime = data.echartsTime;
+			}
+		});
+
+		// 指定图表的配置项和数据
+		let option = {
+			tooltip : {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'none'
+				}
+			},
+			title: {
+				text: '支出走势柱状图',
+			},
+			color: ['#33ABA0'],
+			xAxis: {
+				type: 'category',
+				data: echartsTime
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: echartsMoney,
+				type: 'bar'
+			}]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	};
+
+	function getZCDataByYM_save(dateYM){
+
+		table.render({
+			elem: '#test5',
+			url: '<%=basePath%>getZhiChuByMonth',
+			where: {
+				dateYM
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			height: 350,
+			method: 'post',
+			cols: [[
+				{field:'zhichu_name', title: '支出类型', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+
+		// 基于准备好的dom，初始化echarts实例
+		let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+
+		let echartsMoney = new Array();
+		let echartsTime = new Array();
+		$.ajax({
+			async: false,
+			type: "POST",
+			url: "<%=basePath%>getZhiChuByMonthEcharts",
+			data:{
+				"dateYM":dateYM
+			},
+			success: function(data){
+				echartsMoney = data.echartsMoney;
+				echartsTime = data.echartsTime;
+			}
+		});
+
+		// 指定图表的配置项和数据
+		let option = {
+			tooltip : {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'none'
+				}
+			},
+			title: {
+				text: '支出走势柱状图',
+			},
+			color: ['#33ABA0'],
+			xAxis: {
+				type: 'category',
+				data: echartsTime
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: echartsMoney,
+				type: 'bar'
+			}]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	};
+
+	function insertZCData(){
+
+		let insertZhiChuType =  $("#insertzhichuType").val();
+		let insertZhiChuData =  $("#insertzhichuData").val();
+		let insertDATEYMD =  formatDate($("#insertDATEYMD").val());
+		if(insertZhiChuType == null || insertZhiChuType == ''){
+
+			layer.msg("要填一个支出类型哦");
+			return;
+		}
+		if(insertZhiChuData == null || insertZhiChuData == ''){
+
+			layer.msg("金额是不是忘填了啊");
+			return;
+		}
+		if(insertDATEYMD == null || insertDATEYMD == ''){
+
+			layer.msg("要选择一个日期哦");
+			return;
+		}
+		if(!isNumber(insertZhiChuData)){
+			layer.msg("金额怎么能不是数字呢");
+			return;
+		}
+		let params = {
+			"insertZhiChuType":insertZhiChuType,
+			"insertZhiChuData":insertZhiChuData,
+			"insertDATEYMD":insertDATEYMD
+		};
+		$.ajax({
+			//请求方式
+			type : "POST",
+			//请求的媒体类型
+			contentType: "application/json;charset=UTF-8",
+			//请求地址
+			url : "<%=basePath%>insertZhiChuData",
+			//数据，json字符串
+			data : JSON.stringify(params),
+			//请求成功
+			success : function(result) {
+				if(result.status == "success"){
+					insertDATEYMD = insertDATEYMD.substring(0,6);
+					getZCDataByYM_save(insertDATEYMD);
+					$("#insertzhichuType").val("");
+					$("#insertzhichuData").val("");
+					layer.msg("保存成功啦");
+				}
+			},
+			//请求失败，包含具体的错误信息
+			error : function(e){
+				console.log(e.status);
+				console.log(e.responseText);
+			}
+		});
+
+	};
+
+	function getZCCountByYM(){
+
+		let date = $("#selectDateYM").val();
+		if (date == null || date == '') {
+
+			layer.msg("要选择一个日期哦");
+			return;
+		}
+		let dateYM = formatDate(date);
+		let params = {
 			"dateYM":dateYM
-		},
-		success: function(data){
-			echartsMoney = data.echartsMoney;
-            echartsTime = data.echartsTime;
-		}
-	});
-
-	// 指定图表的配置项和数据
-	let option = {
-		tooltip : {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'none'
+		};
+		$.ajax({
+			//请求方式
+			type : "POST",
+			//请求的媒体类型
+			contentType: "application/json;charset=UTF-8",
+			//请求地址
+			url : "<%=basePath%>getZCCountByYM",
+			//数据，json字符串
+			data : JSON.stringify(params),
+			//请求成功
+			success : function(result) {
+				if(result.zhiChuCount == null || result.zhiChuCount == undefined){
+					layer.msg("还没有花钱，开心~");
+					return;
+				}
+				layer.alert(date+" "+"一共花了"+" "+result.zhiChuCount+"~~~", {
+					skin: 'layui-layer-molv',//样式类名
+					closeBtn: 0
+				});
+			},
+			//请求失败，包含具体的错误信息
+			error : function(e){
+				console.log(e.status);
+				console.log(e.responseText);
 			}
-		},
-		title: {
-			text: '支出走势柱状图',
-		},
-		color: ['#33ABA0'],
-		xAxis: {
-			type: 'category',
-			data: echartsTime
-		},
-		yAxis: {
-			type: 'value'
-		},
-		series: [{
-			data: echartsMoney,
-			type: 'bar'
-		}]
+		});
 	};
 
-	// 使用刚指定的配置项和数据显示图表。
-	myChart.setOption(option);
-};
+	function excelZhiChuData(){
 
-function getZCDataByYM_save(dateYM){
+		let date =  $("#selectDateYM").val();
 
-	table.render({
-		elem: '#test5',
-		url: '<%=basePath%>getZhiChuByMonth',
-		where: {
-			dateYM
-		},
-		cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-		height: 350,
-		method: 'post',
-		cols: [[
-			{field:'zhichu_name', title: '支出类型', align: 'center'},
-			{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-			{field:'zhichu_time', title: '支出日期', align: 'center'},
-		]]
-	});
+		if(date == null || date == ''){
 
-	// 基于准备好的dom，初始化echarts实例
-	let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+			layer.msg("要选择一个日期哦");
+			return;
+		}
 
-	let echartsMoney = new Array();
-	let echartsTime = new Array();
-	$.ajax({
-		async: false,
-		type: "POST",
-		url: "<%=basePath%>getZhiChuByMonthEcharts",
-		data:{
+		let loading = layer.load();
+		let dateYM = formatDate(date);
+
+		layui.config({
+			base: '<%=basePath%>resources/layui_exts/',
+		}).extend({
+			excel: 'excel',
+		});
+
+		let excel = layui.excel;
+
+		let params = {
 			"dateYM":dateYM
-		},
-		success: function(data){
-			echartsMoney = data.echartsMoney;
-			echartsTime = data.echartsTime;
-		}
-	});
-
-	// 指定图表的配置项和数据
-	let option = {
-		tooltip : {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'none'
+		};
+		$.ajax({
+			//请求方式
+			type : "POST",
+			//请求的媒体类型
+			contentType: "application/json;charset=UTF-8",
+			//请求地址
+			url : "<%=basePath%>getZhiChuByMonthExcel",
+			//数据，json字符串
+			data : JSON.stringify(params),
+			//请求成功
+			success(res) {
+				let data = res.data;
+				// 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
+				data = excel.filterExportData(data, [
+					'zhichu_name',
+					'zhichu_money',
+					'zhichu_time',
+				]);
+				// 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
+				data.unshift({
+					zhichu_name: "支出明细",
+					zhichu_money: "支出金额",
+					zhichu_time: "支出时间"
+				});
+				excel.exportExcel(data, date + " 支出明细" + ".xlsx", "xlsx");
+				layer.close(loading);
+				layer.msg("导出成功");
+			},
+			error() {
+				layer.msg("导出失败");
 			}
-		},
-		title: {
-			text: '支出走势柱状图',
-		},
-		color: ['#33ABA0'],
-		xAxis: {
-			type: 'category',
-			data: echartsTime
-		},
-		yAxis: {
-			type: 'value'
-		},
-		series: [{
-			data: echartsMoney,
-			type: 'bar'
-		}]
+		});
 	};
 
-	// 使用刚指定的配置项和数据显示图表。
-	myChart.setOption(option);
-};
-
-function insertZCData(){
-
-    let insertZhiChuType =  $("#insertzhichuType").val();
-	let insertZhiChuData =  $("#insertzhichuData").val();
-	let insertDATEYMD =  formatDate($("#insertDATEYMD").val());
-    if(insertZhiChuType == null || insertZhiChuType == ''){
-
-        layer.msg("要填一个支出类型哦");
-        return;
-    }
-	if(insertZhiChuData == null || insertZhiChuData == ''){
-
-        layer.msg("金额是不是忘填了啊");
-	  	return;
-	}
-	if(insertDATEYMD == null || insertDATEYMD == ''){
-
-        layer.msg("要选择一个日期哦");
-	  	return;
-	}
-	let params = {
-		"insertZhiChuType":insertZhiChuType,
-		"insertZhiChuData":insertZhiChuData,
-		"insertDATEYMD":insertDATEYMD
-	};
-    $.ajax({
-        //请求方式
-        type : "POST",
-        //请求的媒体类型
-        contentType: "application/json;charset=UTF-8",
-        //请求地址
-        url : "<%=basePath%>insertZhiChuData",
-        //数据，json字符串
-        data : JSON.stringify(params),
-        //请求成功
-        success : function(result) {
-            if(result.status == "success"){
-				insertDATEYMD = insertDATEYMD.substring(0,6);
-				getZCDataByYM_save(insertDATEYMD);
-				$("#insertzhichuType").val("");
-				$("#insertzhichuData").val("");
-                layer.msg("保存成功啦");
-            }
-        },
-        //请求失败，包含具体的错误信息
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
-        }
-    });
-
-};
-
-function getZCCountByYM(){
-
-	let date = $("#selectDateYM").val();
-	if (date == null || date == '') {
-
-		layer.msg("要选择一个日期哦");
-		return;
-	}
-	let dateYM = formatDate(date);
-	let params = {
-		"dateYM":dateYM
-	};
-	$.ajax({
-		//请求方式
-		type : "POST",
-		//请求的媒体类型
-		contentType: "application/json;charset=UTF-8",
-		//请求地址
-		url : "<%=basePath%>getZCCountByYM",
-		//数据，json字符串
-		data : JSON.stringify(params),
-		//请求成功
-		success : function(result) {
-			if(result.zhiChuCount == null || result.zhiChuCount == undefined){
-				layer.msg("还没有花钱，开心~");
-				return;
-			}
-			layer.alert(date+" "+"一共花了"+" "+result.zhiChuCount+"~~~", {
-				skin: 'layui-layer-molv',//样式类名
-				closeBtn: 0
-			});
-		},
-		//请求失败，包含具体的错误信息
-		error : function(e){
-			console.log(e.status);
-			console.log(e.responseText);
-		}
-	});
-};
-
-function excelZhiChuData(){
-
-	let date =  $("#selectDateYM").val();
-
-	if(date == null || date == ''){
-
-		layer.msg("要选择一个日期哦");
-		return;
-	}
-
-	let loading = layer.load();
-	let dateYM = formatDate(date);
-
-	layui.config({
-		base: '<%=basePath%>resources/layui_exts/',
-	}).extend({
-		excel: 'excel',
+	//常规用法
+	laydate.render({
+		elem: '#insertDATEYMD',
+		trigger: 'click', //采用click弹出
+		position: 'fixed'
 	});
 
-	let excel = layui.excel;
-
-	let params = {
-		"dateYM":dateYM
-	};
-	$.ajax({
-		//请求方式
-		type : "POST",
-		//请求的媒体类型
-		contentType: "application/json;charset=UTF-8",
-		//请求地址
-		url : "<%=basePath%>getZhiChuByMonthExcel",
-		//数据，json字符串
-		data : JSON.stringify(params),
-		//请求成功
-		success(res) {
-			let data = res.data;
-			// 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
-            data = excel.filterExportData(data, [
-                'zhichu_name',
-                'zhichu_money',
-                'zhichu_time',
-            ]);
-			// 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
-			data.unshift({
-				zhichu_name: "支出明细",
-				zhichu_money: "支出金额",
-				zhichu_time: "支出时间"
-			});
-			excel.exportExcel(data, date + " 支出明细" + ".xlsx", "xlsx");
-			layer.close(loading);
-			layer.msg("导出成功");
-		},
-		error() {
-			layer.msg("导出失败");
-		}
+	//常规用法
+	laydate.render({
+		elem: '#selectDateYMD',
+		trigger: 'click'
 	});
-	/*layui.use(['excel'], function() {
 
-	});*/
-}
-
-function formatDate(date){
-
-	let str = new String();
-	let arr = new Array();
-	arr = date.split('-');
-	for(let i=0;i<arr.length;i++){
-		str += arr[i];
-	}
-	
-	return str
-};
-
-function formatDateMonth(date){
-
-	let month = new String();
-	if(date < 10){
-
-		month = "0" + date;
-		return month;
-	}else{
-
-		month = date;
-		return month;
-	}
-};
-
-//常规用法
-laydate.render({
-elem: '#insertDATEYMD',
-trigger: 'click', //采用click弹出
-position: 'fixed'
-});
-
-//常规用法
-laydate.render({
-elem: '#selectDateYMD',
-trigger: 'click'
-});
-
-//年月选择器
-laydate.render({
-elem: '#selectDateYM',
-/*value: new Date().,
-isInitValue: true,*/
-trigger: 'click',
-type: 'month'
-});
+	//年月选择器
+	laydate.render({
+		elem: '#selectDateYM',
+		/*value: new Date().,
+        isInitValue: true,*/
+		trigger: 'click',
+		type: 'month'
+	});
 </script>
 </body>
 </html>

@@ -67,7 +67,7 @@ public class GongZiController {
     }
 
     @RequestMapping(value = "/insertGongZiData", method = RequestMethod.POST)
-    public JsonResult insertGongZiData(@RequestBody Map<String,String> requestMap) throws Exception{
+    public JsonResult insertGongZiData(@RequestBody Map<String,Object> requestMap) throws Exception{
 
         Double gongZiData = TypeUtil.toDouble(requestMap.get("insertGongZiData"));
         Long dateYMD = TypeUtil.toLong(requestMap.get("insertDateYM"));

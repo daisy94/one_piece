@@ -86,6 +86,7 @@
 <script src="<%=basePath%>resources/layui_exts/excel.js"></script>
 <script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
 <script src="<%=basePath%>resources/echarts/echarts.js"></script>
+<script src="<%=basePath%>resources/utils/utils.js"></script>
 
 <script type="text/javascript">
 	var layer = layui.layer;
@@ -260,6 +261,10 @@
 			layer.msg("要选择一个日期哦");
 			return;
 		}
+		if(!isNumber(insertGongZiData)){
+			layer.msg("金额怎么能不是数字呢");
+			return;
+		}
 		let params = {
 			"insertGongZiType":insertGongZiType,
 			"insertGongZiRemark":insertGongZiRemark,
@@ -393,32 +398,6 @@
 			}
 		});
 	}
-
-	function formatDate(date){
-
-		let str = new String();
-		let arr = new Array();
-		arr = date.split('-');
-		for(let i=0;i<arr.length;i++){
-			str += arr[i];
-		}
-
-		return str
-	};
-
-	function formatDateMonth(date){
-
-		let month = new String();
-		if(date < 10){
-
-			month = "0" + date;
-			return month;
-		}else{
-
-			month = date;
-			return month;
-		}
-	};
 
 	//年月选择器
 	laydate.render({

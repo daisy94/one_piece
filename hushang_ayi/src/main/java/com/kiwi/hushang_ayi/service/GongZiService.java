@@ -47,7 +47,8 @@ public class GongZiService {
 
 	public JsonResult insertGongZiData(Map<String, Object> map){
 
-		return gongZiMapper.insertGongZiData(map);
+		gongZiMapper.insertGongZiData(map);
+		return new JsonResult();
 	}
 
 	public Map<String, Object> getGZCountByYM(Map<String, Object> map){

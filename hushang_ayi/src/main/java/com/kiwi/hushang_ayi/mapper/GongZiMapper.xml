@@ -38,19 +38,19 @@
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
 			<if test="gongzi_id != null and gongzi_id != ''">
-				gongzi_id,
+				#{gongzi_id},
 			</if>
 			<if test="gongzi_name != null and gongzi_name != ''">
-				gongzi_name,
+				#{gongzi_name},
 			</if>
 			<if test="gongzi_money != null and gongzi_money != ''">
-				gongzi_money,
+				#{gongzi_money},
 			</if>
 			<if test="gongzi_remark != null and gongzi_remark != ''">
-				gongzi_remark,
+				#{gongzi_remark},
 			</if>
 			<if test="gongzi_time != null and gongzi_time != ''">
-				gongzi_time,
+				#{gongzi_time},
 			</if>
 		</trim>
 	</insert>
