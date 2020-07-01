@@ -32,6 +32,17 @@ public class ShouRuController {
         return LayUIUtil.data(count, shouRuByMonth);
     }
 
+    @RequestMapping(value = "/getShouRuByYear", method = RequestMethod.POST)
+    public LayUIUtil getShouRuByYear(String date, Integer page, Integer size) throws Exception{
+
+        int dateYear = TypeUtil.toInt(date);
+
+        List<Map<String, Object>> shouRuByYear = shouRuService.getShouRuByYear(dateYear);
+        int count = shouRuByYear.size();
+
+        return LayUIUtil.data(count, shouRuByYear);
+    }
+
     @RequestMapping(value = "/getShouRuByMonthEcharts", method = RequestMethod.POST)
     public Map<String, Object> getShouRuByMonthEcharts(String dateYM) throws Exception{
 
@@ -44,6 +55,25 @@ public class ShouRuController {
 
             echartsMoney.add(TypeUtil.toString(shouRuByMonthMap.get("shouru_money")));
             echartsTime.add(TypeUtil.toString(shouRuByMonthMap.get("shouru_time")));
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("echartsMoney",echartsMoney);
+        result.put("echartsTime",echartsTime);
+        return result;
+    }
+
+    @RequestMapping(value = "/getShouRuByYearEcharts", method = RequestMethod.POST)
+    public Map<String, Object> getShouRuByYearEcharts(String dateY) throws Exception{
+
+        int date = TypeUtil.toInt(dateY);
+
+        List<Map<String, Object>> shouRuByYear = shouRuService.getShouRuByYear(date);
+        List<String> echartsMoney = new ArrayList<>();
+        List<String> echartsTime = new ArrayList<>();
+        for (Map<String, Object> shouRuByYearMap : shouRuByYear){
+
+            echartsMoney.add(TypeUtil.toString(shouRuByYearMap.get("shouru_money")));
+            echartsTime.add(TypeUtil.toString(shouRuByYearMap.get("shouru_time")));
         }
         Map<String, Object> result = new HashMap<>();
         result.put("echartsMoney",echartsMoney);

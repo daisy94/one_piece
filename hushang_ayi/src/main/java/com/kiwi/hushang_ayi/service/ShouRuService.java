@@ -27,8 +27,21 @@ public class ShouRuService {
             String day = shouruTime.substring(6, 8);
             map.put("shouru_time", year + "-" + month + "-" + day);
         }
-
         return shouRuByMonth;
+    }
+
+    public List<Map<String, Object>> getShouRuByYear(Integer dateYear){
+
+        List<Map<String, Object>> shouRuByYear = shouRuMapper.getShouRuByYear(dateYear);
+
+        for (Map<String, Object> map : shouRuByYear) {
+
+            String shouruTime = TypeUtil.toString(map.get("shouru_time"));
+            String year = shouruTime.substring(0, 4);
+            String month = shouruTime.substring(4, 6);
+            map.put("shouru_time", year + "-" + month);
+        }
+        return shouRuByYear;
     }
 
     public List<Map<String, Object>> getShouRuByMonthDay(Integer dateYMD){

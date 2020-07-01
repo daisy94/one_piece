@@ -96,17 +96,6 @@ public class ZhiChuController {
 		return result;
 	}
 
-	@RequestMapping(value = "/getZhiChuByMonthDay", method = RequestMethod.POST)
-	public LayUIUtil getZhiChuByMonthDay(String dateYMD, Integer page, Integer size) throws Exception{
-		
-		int date = TypeUtil.toInt(dateYMD);
-		
-		List<Map<String,Object>> zhiChuByMonthDay = zhiChuService.getZhiChuByMonthDay(date);
-		int count = zhiChuByMonthDay.size();
-		
-		return LayUIUtil.data(count, zhiChuByMonthDay);
-	}
-	
 	@RequestMapping(value = "/insertZhiChuData", method = RequestMethod.POST)
 	public Map<String, Object> insertZhiChuData(@RequestBody Map<String,String> requestMap) throws Exception{
 

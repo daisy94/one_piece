@@ -9,16 +9,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>支出</title>
+  <title>支出统计</title>
   <link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
   <style>
   	.layui-btn{
   		border-radius: 5px;
   	}
-    .layui-col-md3{
-		padding-left: 5px;
-		padding-right: 5px;
-	}
 	.layui-col-md6{
 		padding-left: 5px;
 		padding-right: 5px;
@@ -44,25 +40,27 @@
 					<div class="layui-card">
 						<div class="layui-card-body">
 							<div class="layui-row">
-								<div class="layui-col-md3">
-									<label class="layui-form-label">支出类型：</label>
-									<div class="layui-input-inline">
-										<input type="text" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-col-md3">
-									<label class="layui-form-label">支出金额：</label>
-									<div class="layui-input-inline">
-										<input type="text" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-col-md6">
-									<label class="layui-form-label">支出时间：</label>
+								<div class="layui-col-md">
 									<div class="layui-inline">
-										<input type="text" class="layui-input" id="insertDATEYMD" placeholder="几号的支出呢" autocomplete="off">
+										<label class="layui-form-label">支出类型：</label>
+										<div class="layui-input-inline">
+											<input type="text" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
+										</div>
 									</div>
 									<div class="layui-inline">
-										<button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
+										<label class="layui-form-label">支出金额：</label>
+										<div class="layui-input-inline">
+											<input type="text" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label">支出时间：</label>
+										<div class="layui-inline">
+											<input type="text" class="layui-input" id="insertDateYMD" placeholder="几号的支出呢" autocomplete="off">
+										</div>
+										<div class="layui-inline">
+											<button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -142,9 +140,12 @@
 	<script src="<%=basePath%>resources/utils/utils.js"></script>
 
 	<script type="text/javascript">
-	var layer = layui.layer;
-	var table = layui.table;
-	var laydate = layui.laydate;
+	let layer = layui.layer;
+	let table = layui.table;
+	let laydate = layui.laydate;
+	let maxYear = new Date().getFullYear()+"-12-31";
+	let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
+	let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
 
 	$(function() {
 
@@ -351,7 +352,7 @@
 
 		let insertZhiChuType =  $("#insertzhichuType").val();
 		let insertZhiChuData =  $("#insertzhichuData").val();
-		let insertDATEYMD =  formatDate($("#insertDATEYMD").val());
+		let insertDATEYMD =  formatDate($("#insertDateYMD").val());
 		if(insertZhiChuType == null || insertZhiChuType == ''){
 
 			layer.msg("要填一个支出类型哦");
@@ -403,7 +404,6 @@
 				console.log(e.responseText);
 			}
 		});
-
 	};
 
 	function getZCCountByY(){
@@ -503,25 +503,27 @@
 		});
 	};
 
-	//常规用法
+	//年月日选择器
 	laydate.render({
-		elem: '#insertDATEYMD',
-		trigger: 'click', //采用click弹出
-		position: 'fixed'
+		elem: '#insertDateYMD',
+		trigger: 'click',
+		max: maxYearMonthDay
 	});
 
 	//年月选择器
 	laydate.render({
 		elem: '#selectDateYM',
 		trigger: 'click',
-		type: 'month'
+		type: 'month',
+		max: maxYearMonth
 	});
 
 	//年选择器
 	laydate.render({
 		elem: '#selectDateY',
 		trigger: 'click',
-		type: 'year'
+		type: 'year',
+		max: maxYear
 	});
 	</script>
 </body>

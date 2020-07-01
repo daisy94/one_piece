@@ -21,12 +21,12 @@
     <div style="margin-top: 25%;margin-left: 40%;margin-right: 40%;width: 260px">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="username" placeholder="输入用户名吧~" autocomplete="off" class="layui-input">
+                <input type="text" id="username" placeholder="输入用户名吧" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="password" id="password" placeholder="输入密码吧~" autocomplete="off" class="layui-input">
+                <input type="password" id="password" placeholder="输入密码吧" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -37,7 +37,7 @@
     <script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
 
     <script>
-        var layer = layui.layer;
+        let layer = layui.layer;
 
         function login(){
 
@@ -66,7 +66,7 @@
                         layer.msg(data.msg);
                         return null;
                     }else{
-                        window.top.location.href= "<%=basePath%>homePage/homePage.jsp";
+                        window.top.location.href = "<%=basePath%>homePage/homePage.jsp";
                     }
                 }
             });

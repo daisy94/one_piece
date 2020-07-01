@@ -11,16 +11,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>投资金额</title>
   <link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
-  
-  <style>
-  
-  	.layui-form-item{
-  		margin-top: 9px;
-  	}
-  	.layui-btn{
-  		border-radius: 5px;
-  	}
-  </style>
 </head>
 <body>
 

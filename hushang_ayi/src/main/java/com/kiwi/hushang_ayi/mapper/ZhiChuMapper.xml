@@ -17,10 +17,6 @@
 		ORDER BY zhichu_time
 	</select>
 
-	<select id="getZhiChuByMonthDay" parameterType="integer" resultType="Map">
-		SELECT * FROM zhichu WHERE zhichu_time = #{date}
-	</select>
-
 	<select id="getZhiChuByMonthEcharts" parameterType="integer" resultType="Map">
 		SELECT SUM(zhichu_money) AS zhichu_money, zhichu_time FROM zhichu WHERE LEFT(zhichu_time,6) = #{date} GROUP BY zhichu_time;
 	</select>

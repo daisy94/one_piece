@@ -44,22 +44,6 @@ public class ZhiChuService {
 		return zhiChuByYear;
 	}
 
-	public List<Map<String, Object>> getZhiChuByMonthDay(Integer dateYMD){
-		
-		List<Map<String,Object>> zhiChuByMonthDay = zhiChuMapper.getZhiChuByMonthDay(dateYMD);
-		
-		for (Map<String, Object> map : zhiChuByMonthDay) {
-			
-			String zhichuTime = TypeUtil.toString(map.get("zhichu_time"));
-			String year = zhichuTime.substring(0, 4);
-			String month = zhichuTime.substring(4, 6);
-			String day = zhichuTime.substring(6, 8);
-			map.put("zhichu_time", year + "-" + month + "-" + day);
-		}
-		
-		return zhiChuByMonthDay;
-	}
-
 	public List<Map<String, Object>> getZhiChuByMonthEcharts(Integer date){
 
 		List<Map<String, Object>> zhiChuByMonthEcharts = zhiChuMapper.getZhiChuByMonthEcharts(date);

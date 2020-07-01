@@ -10,6 +10,8 @@ public interface ShouRuMapper {
 
     List<Map<String, Object>> getShouRuByMonth(Integer date);
 
+    List<Map<String, Object>> getShouRuByYear(Integer date);
+
     List<Map<String, Object>> getShouRuByMonthDay(Integer date);
 
     void insertShouRuData(Map<String, Object> map);
