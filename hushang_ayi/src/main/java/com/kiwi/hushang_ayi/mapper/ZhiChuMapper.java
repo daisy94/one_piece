@@ -9,12 +9,18 @@ import java.util.Map;
 public interface ZhiChuMapper {
 	
 	List<Map<String, Object>> getZhiChuByMonth(Integer date);
-	
+
+	List<Map<String, Object>> getZhiChuByYear(Integer date);
+
 	List<Map<String, Object>> getZhiChuByMonthDay(Integer date);
 
 	List<Map<String, Object>> getZhiChuByMonthEcharts(Integer date);
-	
+
+	List<Map<String, Object>> getZhiChuByYearEcharts(Integer date);
+
 	void insertZhiChuData(Map<String, Object> map);
+
+	Map<String, Object> getZCCountByYear(Map<String, Object> map);
 
 	Map<String, Object> getZCCountByYM(Map<String, Object> map);
 }

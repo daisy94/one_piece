@@ -12,124 +12,147 @@
   <title>支出</title>
   <link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
   <style>
-  	.layui-form-item{
-  		margin-top: 9px;
-  	}
   	.layui-btn{
   		border-radius: 5px;
   	}
+    .layui-col-md3{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.layui-col-md6{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.layui-col-md{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	#zhichuEchartsByYMD{
+		height:345px;
+	}
+	#zhichuEchartsByYMDs{
+		height:345px;
+	}
   </style>
 </head>
 <body>
-
-	  <div style="margin: 1%;height: 843px">
-	    <!-- 内容主体区域 -->
-	
-		<div class="layui-form">
-		<div class="layui-form-item">
-
-			<label class="layui-form-label">支出类型：</label>
-			<div class="layui-input-inline">
-		    	<input type="text" name="insertzhichuType" id="insertzhichuType" lay-verify="required" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
-			</div>
-
-			<label class="layui-form-label">支出金额：</label>
-			<div class="layui-input-inline">
-		    	<input type="text" name="insertzhichuData" id="insertzhichuData" lay-verify="required" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
-			</div>
-
-			<label class="layui-form-label">支出时间：</label>
-			<div class="layui-inline">
-				<input type="text" class="layui-input" id="insertDATEYMD" placeholder="几号的支出呢" autocomplete="off">
-			</div>
-			<div class="layui-inline">
-				<button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
-			</div>
-		  </div>
-	</div>
-
-		<div class="layui-form">
-		<div class="layui-form-item">
-
-			<div class="layui-inline">
-			  <label class="layui-form-label">选择时间：</label>
-			  <div class="layui-inline">
-				<input type="text" class="layui-input" id="selectDateYMD" placeholder="想查几号鸭" autocomplete="off">
-			  </div>
-			  <div class="layui-inline">
-				<button type="button" class="layui-btn" onclick="getZCDataByYMD()">走你</button>
-			  </div>
-			</div>
-
-			<div class="layui-inline">
-				<label class="layui-form-label">选择时间：</label>
-				<div class="layui-inline">
-					<input type="text" class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
-				</div>
-				<div class="layui-inline">
-					<button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
-				</div>
-				<div class="layui-inline">
-					<button type="button" class="layui-btn" onclick="getZCCountByYM()">来康康花了多少钱</button>
-				</div>
-				<div class="layui-inline">
-					<button type="button" class="layui-btn" onclick="excelZhiChuData()">导出支出数据</button>
+	<div class="layui-fluid">
+	<!-- 内容主体区域 -->
+		<div class="layui-row layui-col-space15" style="margin-top: 5px;">
+			<div class="layui-row">
+				<div class="layui-col-md">
+					<div class="layui-card">
+						<div class="layui-card-body">
+							<div class="layui-row">
+								<div class="layui-col-md3">
+									<label class="layui-form-label">支出类型：</label>
+									<div class="layui-input-inline">
+										<input type="text" name="insertzhichuType" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-col-md3">
+									<label class="layui-form-label">支出金额：</label>
+									<div class="layui-input-inline">
+										<input type="text" name="insertzhichuData" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-col-md6">
+									<label class="layui-form-label">支出时间：</label>
+									<div class="layui-inline">
+										<input type="text" class="layui-input" id="insertDATEYMD" placeholder="几号的支出呢" autocomplete="off">
+									</div>
+									<div class="layui-inline">
+										<button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-	<div>
-		<table class="layui-hide" id="test5"></table>
-	</div>
+			<div class="layui-row">
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-body">
+							<div class="layui-row">
+								<label class="layui-form-label">选择时间：</label>
+								<div class="layui-inline">
+									<input type="text" class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出数据</button>
+								</div>
+							</div>
+							<div class="layui-row">
+								<div>
+									<table id="zhiChuTableMonth"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-body">
+							<div class="layui-row">
+								<label class="layui-form-label">选择时间：</label>
+								<div class="layui-inline">
+									<input type="text" class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn" onclick="getZCDataByY()">走你</button>
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn" onclick="getZCCountByY()">合计支出</button>
+								</div>
+							</div>
+							<div class="layui-row">
+								<div>
+									<table id="zhiChuTableYear"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	</div>
+			<div class="layui-row">
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-body" id="zhichuEchartsByYMD"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-body" id="zhichuEchartsByYM"></div>
+					</div>
+				</div>
+			</div>
 		</div>
+	</div>
 
-	    <div id="zhichuEcharts" style="width:100%;height:45%;margin-top: 1%">
-	    </div>
+	<script src="<%=basePath%>resources/layui/layui.all.js"></script>
+	<script src="<%=basePath%>resources/layui_exts/excel.js"></script>
+	<script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
+	<script src="<%=basePath%>resources/echarts/echarts.js"></script>
+	<script src="<%=basePath%>resources/utils/utils.js"></script>
 
-	  </div>
-	
-<script src="<%=basePath%>resources/layui/layui.all.js"></script>
-<script src="<%=basePath%>resources/layui_exts/excel.js"></script>
-<script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
-<script src="<%=basePath%>resources/echarts/echarts.js"></script>
-<script src="<%=basePath%>resources/utils/utils.js"></script>
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	var layer = layui.layer;
 	var table = layui.table;
 	var laydate = layui.laydate;
 
 	$(function() {
 
-		let date = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
-		getZCDataByYM_save(date);
+		let dateYM = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
+		getZCDataByYM_save(dateYM);
+		let dateY = new Date().getFullYear();
+		getZCDataByY_start(dateY);
 	});
-
-	function getZCDataByYMD(){
-
-		let date =  $("#selectDateYMD").val();
-		if(date == null || date == ''){
-
-			layer.msg("要选择一个日期哦");
-			return;
-		}
-		let dateYMD = formatDate(date);
-		table.render({
-			elem: '#test5',
-			url: '<%=basePath%>getZhiChuByMonthDay',
-			where: {
-				dateYMD
-			},
-			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-			method: 'post',
-			cols: [[
-				{field:'zhichu_name', title: '支出类型', align: 'center'},
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
-			]]
-		});
-	};
 
 	function getZCDataByYM(){
 
@@ -143,7 +166,27 @@
 		let dateYM = formatDate(date);
 
 		table.render({
-			elem: '#test5',
+			elem: '#zhiChuTableMonth',
+			url: '<%=basePath%>getZhiChuByMonth',
+			where: {
+				dateYM
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			height: 275,
+			method: 'post',
+			cols: [[
+				{field:'zhichu_name', title: '支出类型', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+		zhiChuDataYMDEcharts(dateYM);
+	};
+
+	function getZCDataByYM_save(dateYM){
+
+		table.render({
+			elem: '#zhiChuTableMonth',
 			url: '<%=basePath%>getZhiChuByMonth',
 			where: {
 				dateYM
@@ -157,9 +200,58 @@
 				{field:'zhichu_time', title: '支出日期', align: 'center'},
 			]]
 		});
+		zhiChuDataYMDEcharts(dateYM);
+	};
 
+	function getZCDataByY(){
+
+		let date =  $("#selectDateY").val();
+
+		if(date == null || date == ''){
+
+			layer.msg("要选择一个年份哦");
+			return;
+		}
+
+		table.render({
+			elem: '#zhiChuTableYear',
+			url: '<%=basePath%>getZhiChuByYear',
+			where: {
+				date
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			height: 275,
+			method: 'post',
+			cols: [[
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+		zhiChuDataYMEcharts(date);
+	};
+
+	function getZCDataByY_start(date){
+
+		table.render({
+			elem: '#zhiChuTableYear',
+			url: '<%=basePath%>getZhiChuByYear',
+			where: {
+				date
+			},
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			height: 275,
+			method: 'post',
+			cols: [[
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center'},
+			]]
+		});
+		zhiChuDataYMEcharts(date);
+	};
+
+	function zhiChuDataYMDEcharts(dateYM) {
 		// 基于准备好的dom，初始化echarts实例
-		let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+		let myChart = echarts.init(document.getElementById('zhichuEchartsByYMD'));
 
 		let echartsMoney = new Array();
 		let echartsTime = new Array();
@@ -185,7 +277,7 @@
 				}
 			},
 			title: {
-				text: '支出走势柱状图',
+				text: '日支出走势图',
 			},
 			color: ['#33ABA0'],
 			xAxis: {
@@ -205,35 +297,18 @@
 		myChart.setOption(option);
 	};
 
-	function getZCDataByYM_save(dateYM){
-
-		table.render({
-			elem: '#test5',
-			url: '<%=basePath%>getZhiChuByMonth',
-			where: {
-				dateYM
-			},
-			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-			height: 350,
-			method: 'post',
-			cols: [[
-				{field:'zhichu_name', title: '支出类型', align: 'center'},
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
-			]]
-		});
-
+	function zhiChuDataYMEcharts(dateY) {
 		// 基于准备好的dom，初始化echarts实例
-		let myChart = echarts.init(document.getElementById('zhichuEcharts'));
+		let myChart = echarts.init(document.getElementById('zhichuEchartsByYM'));
 
 		let echartsMoney = new Array();
 		let echartsTime = new Array();
 		$.ajax({
 			async: false,
 			type: "POST",
-			url: "<%=basePath%>getZhiChuByMonthEcharts",
+			url: "<%=basePath%>getZhiChuByYearEcharts",
 			data:{
-				"dateYM":dateYM
+				"dateY":dateY
 			},
 			success: function(data){
 				echartsMoney = data.echartsMoney;
@@ -250,7 +325,7 @@
 				}
 			},
 			title: {
-				text: '支出走势柱状图',
+				text: '月支出走势图',
 			},
 			color: ['#33ABA0'],
 			xAxis: {
@@ -327,17 +402,16 @@
 
 	};
 
-	function getZCCountByYM(){
+	function getZCCountByY(){
 
-		let date = $("#selectDateYM").val();
+		let date = $("#selectDateY").val();
 		if (date == null || date == '') {
 
-			layer.msg("要选择一个日期哦");
+			layer.msg("要选择一个年份哦");
 			return;
 		}
-		let dateYM = formatDate(date);
 		let params = {
-			"dateYM":dateYM
+			"date":date
 		};
 		$.ajax({
 			//请求方式
@@ -345,7 +419,7 @@
 			//请求的媒体类型
 			contentType: "application/json;charset=UTF-8",
 			//请求地址
-			url : "<%=basePath%>getZCCountByYM",
+			url : "<%=basePath%>getZCCountByYear",
 			//数据，json字符串
 			data : JSON.stringify(params),
 			//请求成功
@@ -354,7 +428,7 @@
 					layer.msg("还没有花钱，开心~");
 					return;
 				}
-				layer.alert(date+" "+"一共花了"+" "+result.zhiChuCount+"~~~", {
+				layer.alert(date+"年"+"一共支出了"+" "+result.zhiChuCount+"~", {
 					skin: 'layui-layer-molv',//样式类名
 					closeBtn: 0
 				});
@@ -367,7 +441,7 @@
 		});
 	};
 
-	function excelZhiChuData(){
+	function excelZhiChuDataByYM(){
 
 		let date =  $("#selectDateYM").val();
 
@@ -432,20 +506,19 @@
 		position: 'fixed'
 	});
 
-	//常规用法
-	laydate.render({
-		elem: '#selectDateYMD',
-		trigger: 'click'
-	});
-
 	//年月选择器
 	laydate.render({
 		elem: '#selectDateYM',
-		/*value: new Date().,
-        isInitValue: true,*/
 		trigger: 'click',
 		type: 'month'
 	});
-</script>
+
+	//年选择器
+	laydate.render({
+		elem: '#selectDateY',
+		trigger: 'click',
+		type: 'year'
+	});
+	</script>
 </body>
 </html>

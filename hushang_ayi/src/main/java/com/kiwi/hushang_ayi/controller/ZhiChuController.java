@@ -32,6 +32,17 @@ public class ZhiChuController {
 		return LayUIUtil.data(count, zhiChuByMonth);
 	}
 
+	@RequestMapping(value = "/getZhiChuByYear", method = RequestMethod.POST)
+	public LayUIUtil getZhiChuByYear(String date, Integer page, Integer size) throws Exception{
+
+		int dateYear = TypeUtil.toInt(date);
+
+		List<Map<String, Object>> zhiChuByYear = zhiChuService.getZhiChuByYear(dateYear);
+		int count = zhiChuByYear.size();
+
+		return LayUIUtil.data(count, zhiChuByYear);
+	}
+
 	@RequestMapping(value = "/getZhiChuByMonthExcel", method = RequestMethod.POST)
 	public JsonResult getZhiChuByMonthExcel(@RequestBody Map<String,String> requestMap) throws Exception{
 
@@ -39,7 +50,7 @@ public class ZhiChuController {
 
 		List<Map<String, Object>> zhiChuByMonth = zhiChuService.getZhiChuByMonth(date);
         Map<String, Object> map = new HashMap<>();
-        map.put("dateYMD", date);
+        map.put("date", date);
         Map<String, Object> zcCountByYM = zhiChuService.getZCCountByYM(map);
         map.put("zhichu_name","合计");
         map.put("zhichu_money",zcCountByYM.get("zhiChuCount"));
@@ -65,7 +76,26 @@ public class ZhiChuController {
 		result.put("echartsTime",echartsTime);
 		return result;
 	}
-	
+
+	@RequestMapping(value = "/getZhiChuByYearEcharts", method = RequestMethod.POST)
+	public Map<String, Object> getZhiChuByYearEcharts(String dateY) throws Exception{
+
+		int date = TypeUtil.toInt(dateY);
+
+		List<Map<String, Object>> zhiChuByYearEcharts = zhiChuService.getZhiChuByYearEcharts(date);
+		List<String> echartsMoney = new ArrayList<>();
+		List<String> echartsTime = new ArrayList<>();
+		for (Map<String, Object> shouRuByMonthMap : zhiChuByYearEcharts){
+
+			echartsMoney.add(TypeUtil.toString(shouRuByMonthMap.get("zhichu_money")));
+			echartsTime.add(TypeUtil.toString(shouRuByMonthMap.get("zhichu_time")));
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("echartsMoney",echartsMoney);
+		result.put("echartsTime",echartsTime);
+		return result;
+	}
+
 	@RequestMapping(value = "/getZhiChuByMonthDay", method = RequestMethod.POST)
 	public LayUIUtil getZhiChuByMonthDay(String dateYMD, Integer page, Integer size) throws Exception{
 		
@@ -91,13 +121,13 @@ public class ZhiChuController {
 		return result;
 	}
 
-	@RequestMapping(value = "/getZCCountByYM", method = RequestMethod.POST)
-	public Map<String, Object> getZCCountByYM(@RequestBody Map<String,String> requestMap) throws Exception{
+	@RequestMapping(value = "/getZCCountByYear", method = RequestMethod.POST)
+	public Map<String, Object> getZCCountByYear(@RequestBody Map<String,String> requestMap) throws Exception{
 
-		Long dateYMD = TypeUtil.toLong(requestMap.get("dateYM"));
+		Long date = TypeUtil.toLong(requestMap.get("date"));
 		Map<String, Object> map = new HashMap<>();
-		map.put("dateYMD", dateYMD);
-		Map<String, Object> zcCountByYM = zhiChuService.getZCCountByYM(map);
-		return zcCountByYM;
+		map.put("date", date);
+		Map<String, Object> zcCountByYear = zhiChuService.getZCCountByYear(map);
+		return zcCountByYear;
 	}
 }

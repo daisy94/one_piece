@@ -27,8 +27,21 @@ public class ZhiChuService {
 			String day = zhichuTime.substring(6, 8);
 			map.put("zhichu_time", year + "-" + month + "-" + day);
 		}
-		
 		return zhiChuByMonth;
+	}
+
+	public List<Map<String, Object>> getZhiChuByYear(Integer dateYear){
+
+		List<Map<String, Object>> zhiChuByYear = zhiChuMapper.getZhiChuByYear(dateYear);
+
+		for (Map<String, Object> map : zhiChuByYear) {
+
+			String zhichuTime = TypeUtil.toString(map.get("zhichu_time"));
+			String year = zhichuTime.substring(0, 4);
+			String month = zhichuTime.substring(4, 6);
+			map.put("zhichu_time", year + "-" + month);
+		}
+		return zhiChuByYear;
 	}
 
 	public List<Map<String, Object>> getZhiChuByMonthDay(Integer dateYMD){
@@ -59,8 +72,21 @@ public class ZhiChuService {
 			String day = zhichuTime.substring(6, 8);
 			map.put("zhichu_time", year + "-" + month + "-" + day);
 		}
-
 		return zhiChuByMonthEcharts;
+	}
+
+	public List<Map<String, Object>> getZhiChuByYearEcharts(Integer date){
+
+		List<Map<String, Object>> zhiChuByYear = zhiChuMapper.getZhiChuByYear(date);
+
+		for (Map<String, Object> map : zhiChuByYear) {
+
+			String zhichuTime = TypeUtil.toString(map.get("zhichu_time"));
+			String year = zhichuTime.substring(0, 4);
+			String month = zhichuTime.substring(4, 6);
+			map.put("zhichu_time", year + "-" + month);
+		}
+		return zhiChuByYear;
 	}
 
 	public Map<String, Object> insertZhiChuData(Map<String, Object> map){
@@ -69,6 +95,12 @@ public class ZhiChuService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "success");
 		return result;
+	}
+
+	public Map<String, Object> getZCCountByYear(Map<String, Object> map){
+
+		Map<String, Object> zcCountByYear = zhiChuMapper.getZCCountByYear(map);
+		return zcCountByYear;
 	}
 
 	public Map<String, Object> getZCCountByYM(Map<String, Object> map){
