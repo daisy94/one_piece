@@ -30,7 +30,7 @@
 	#zhichuEchartsByYMD{
 		height:345px;
 	}
-	#zhichuEchartsByYMDs{
+	#zhichuEchartsByYM{
 		height:345px;
 	}
   </style>
@@ -47,13 +47,13 @@
 								<div class="layui-col-md3">
 									<label class="layui-form-label">支出类型：</label>
 									<div class="layui-input-inline">
-										<input type="text" name="insertzhichuType" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
+										<input type="text" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-col-md3">
 									<label class="layui-form-label">支出金额：</label>
 									<div class="layui-input-inline">
-										<input type="text" name="insertzhichuData" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
+										<input type="text" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-col-md6">
@@ -192,7 +192,7 @@
 				dateYM
 			},
 			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-			height: 350,
+			height: 275,
 			method: 'post',
 			cols: [[
 				{field:'zhichu_name', title: '支出类型', align: 'center'},
@@ -201,6 +201,8 @@
 			]]
 		});
 		zhiChuDataYMDEcharts(dateYM);
+		let dateY = dateYM.substring(0,4);
+		zhiChuDataYMEcharts(dateY);
 	};
 
 	function getZCDataByY(){
@@ -388,6 +390,8 @@
 				if(result.status == "success"){
 					insertDATEYMD = insertDATEYMD.substring(0,6);
 					getZCDataByYM_save(insertDATEYMD);
+					insertDATEYMD = insertDATEYMD.substring(0,4);
+					getZCDataByY_start(insertDATEYMD);
 					$("#insertzhichuType").val("");
 					$("#insertzhichuData").val("");
 					layer.msg("保存成功啦");
