@@ -44,7 +44,7 @@
 									<div class="layui-inline">
 										<label class="layui-form-label">收入金额：</label>
 										<div class="layui-input-inline">
-											<input type="text" id="insertShouRuData" placeholder="想一想收入了多少钱" autocomplete="off" class="layui-input">
+											<input type="text" id="insertShouRuData" placeholder="收入了多少钱呀" autocomplete="off" class="layui-input">
 										</div>
 									</div>
 									<div class="layui-inline">
@@ -76,7 +76,7 @@
 									<button type="button" class="layui-btn" onclick="getSRDataByYM()">走你</button>
 								</div>
 								<div class="layui-inline">
-									<button type="button" class="layui-btn" onclick="excelShouRuDataByYM()">导出数据</button>
+									<button type="button" class="layui-btn" onclick="excelShouRuDataByYM()">导出月收入</button>
 								</div>
 							</div>
 							<div class="layui-row">
@@ -99,7 +99,7 @@
 									<button type="button" class="layui-btn" onclick="getSRDataByY()">走你</button>
 								</div>
 								<div class="layui-inline">
-									<button type="button" class="layui-btn" onclick="getSRCountByY()">合计支出</button>
+									<button type="button" class="layui-btn" onclick="getSRCountByY()">合计收入</button>
 								</div>
 							</div>
 							<div class="layui-row">
@@ -140,6 +140,7 @@
 		let maxYear = new Date().getFullYear()+"-12-31";
 		let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 		let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
+		let username = document.cookie.split("; ")[0].split("=")[1];
 
 		$(function() {
 
@@ -300,7 +301,7 @@
 				async: false,
 				type: "POST",
 				url: "<%=basePath%>getShouRuByYearEcharts",
-				data:{
+					data:{
 					"dateY":dateY
 				},
 				success: function(data){
@@ -340,32 +341,29 @@
 
 		function insertSRData(){
 
-			let insertZhiChuType =  $("#insertzhichuType").val();
-			let insertZhiChuData =  $("#insertzhichuData").val();
-			let insertDATEYMD =  formatDate($("#insertDateYMD").val());
-			if(insertZhiChuType == null || insertZhiChuType == ''){
-
-				layer.msg("要填一个支出类型哦");
+			if(username !== "daisy"){
+				layer.msg("小伙子，看看就好，别动数据");
 				return;
 			}
-			if(insertZhiChuData == null || insertZhiChuData == ''){
+			let insertShouRuData =  $("#insertShouRuData").val();
+			let insertDateYMD =  formatDate($("#insertDateYMD").val());
+			if(insertShouRuData == null || insertShouRuData === ""){
 
 				layer.msg("金额是不是忘填了啊");
 				return;
 			}
-			if(insertDATEYMD == null || insertDATEYMD == ''){
+			if(insertDateYMD == null || insertDateYMD === ""){
 
 				layer.msg("要选择一个日期哦");
 				return;
 			}
-			if(!isNumber(insertZhiChuData)){
+			if(!isNumber(insertShouRuData)){
 				layer.msg("金额怎么能不是数字呢");
 				return;
 			}
 			let params = {
-				"insertZhiChuType":insertZhiChuType,
-				"insertZhiChuData":insertZhiChuData,
-				"insertDATEYMD":insertDATEYMD
+				"insertShouRuData":insertShouRuData,
+				"insertDateYMD":insertDateYMD
 			};
 			$.ajax({
 				//请求方式
@@ -373,19 +371,21 @@
 				//请求的媒体类型
 				contentType: "application/json;charset=UTF-8",
 				//请求地址
-				url : "<%=basePath%>insertZhiChuData",
+				url : "<%=basePath%>insertShouRuData",
 				//数据，json字符串
 				data : JSON.stringify(params),
 				//请求成功
 				success : function(result) {
-					if(result.status == "success"){
-						insertDATEYMD = insertDATEYMD.substring(0,6);
-						getZCDataByYM_save(insertDATEYMD);
-						insertDATEYMD = insertDATEYMD.substring(0,4);
-						getZCDataByY_start(insertDATEYMD);
-						$("#insertzhichuType").val("");
-						$("#insertzhichuData").val("");
+					if(result.code === "0"){
+						insertDateYMD = insertDateYMD.substring(0,6);
+						getSRDataByYM_save(insertDateYMD);
+						insertDateYMD = insertDateYMD.substring(0,4);
+						getSRDataByY_start(insertDateYMD);
+						$("#insertShouRuData").val("");
+						$("#insertDateYMD").val("");
 						layer.msg("保存成功啦");
+					}else{
+						layer.msg("保存失败了");
 					}
 				},
 				//请求失败，包含具体的错误信息
@@ -400,7 +400,7 @@
 		function getSRCountByY(){
 
 			let date = $("#selectDateY").val();
-			if (date == null || date == '') {
+			if (date == null || date === "") {
 
 				layer.msg("要选择一个年份哦");
 				return;
@@ -414,16 +414,16 @@
 				//请求的媒体类型
 				contentType: "application/json;charset=UTF-8",
 				//请求地址
-				url : "<%=basePath%>getZCCountByYear",
+				url : "<%=basePath%>getSRCountByYear",
 				//数据，json字符串
 				data : JSON.stringify(params),
 				//请求成功
 				success : function(result) {
-					if(result.zhiChuCount == null || result.zhiChuCount == undefined){
+					if(result.shouRuCount == null){
 						layer.msg("还没有花钱，开心~");
 						return;
 					}
-					layer.alert(date+"年"+"一共支出了"+" "+result.zhiChuCount+"~", {
+					layer.alert(date+"年"+"一共收入了"+" "+result.shouRuCount+"~", {
 						skin: 'layui-layer-molv',//样式类名
 						closeBtn: 0
 					});
@@ -438,6 +438,10 @@
 
 		function excelShouRuDataByYM(){
 
+			if(username !== "daisy"){
+				layer.msg("小伙子，看看就好，别动数据");
+				return;
+			}
 			let date =  $("#selectDateYM").val();
 
 			if(date == null || date == ''){
@@ -466,7 +470,7 @@
 				//请求的媒体类型
 				contentType: "application/json;charset=UTF-8",
 				//请求地址
-				url : "<%=basePath%>getZhiChuByMonthExcel",
+				url : "<%=basePath%>getShouRuByMonthExcel",
 				//数据，json字符串
 				data : JSON.stringify(params),
 				//请求成功
@@ -474,21 +478,20 @@
 					let data = res.data;
 					// 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
 					data = excel.filterExportData(data, [
-						'zhichu_name',
-						'zhichu_money',
-						'zhichu_time',
+						'shouru_money',
+						'shouru_time'
 					]);
 					// 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
 					data.unshift({
-						zhichu_name: "支出明细",
-						zhichu_money: "支出金额",
-						zhichu_time: "支出时间"
+						shouru_money: "收入金额",
+						shouru_time: "收入时间"
 					});
-					excel.exportExcel(data, date + " 支出明细" + ".xlsx", "xlsx");
+					excel.exportExcel(data, date + " 收入明细" + ".xlsx", "xlsx");
 					layer.close(loading);
 					layer.msg("导出成功");
 				},
 				error() {
+					layer.close(loading);
 					layer.msg("导出失败");
 				}
 			});

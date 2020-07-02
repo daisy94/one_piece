@@ -44,13 +44,13 @@
 									<div class="layui-inline">
 										<label class="layui-form-label">支出类型：</label>
 										<div class="layui-input-inline">
-											<input type="text" id="insertzhichuType" placeholder="想一想支出明细是什么" autocomplete="off" class="layui-input">
+											<input type="text" id="insertzhichuType" placeholder="支出明细是什么呀" autocomplete="off" class="layui-input">
 										</div>
 									</div>
 									<div class="layui-inline">
 										<label class="layui-form-label">支出金额：</label>
 										<div class="layui-input-inline">
-											<input type="text" id="insertzhichuData" placeholder="想一想支出了多少钱" autocomplete="off" class="layui-input">
+											<input type="text" id="insertzhichuData" placeholder="支出了多少钱呀" autocomplete="off" class="layui-input">
 										</div>
 									</div>
 									<div class="layui-inline">
@@ -82,7 +82,7 @@
 									<button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
 								</div>
 								<div class="layui-inline">
-									<button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出数据</button>
+									<button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出月支出</button>
 								</div>
 							</div>
 							<div class="layui-row">
@@ -146,6 +146,7 @@
 	let maxYear = new Date().getFullYear()+"-12-31";
 	let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 	let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
+	let username = document.cookie.split("; ")[0].split("=")[1];
 
 	$(function() {
 
@@ -249,7 +250,6 @@
 				{field:'zhichu_time', title: '支出日期', align: 'center'},
 			]]
 		});
-		zhiChuDataYMEcharts(date);
 	};
 
 	function zhiChuDataYMDEcharts(dateYM) {
@@ -350,6 +350,10 @@
 
 	function insertZCData(){
 
+		if(username !== "daisy"){
+			layer.msg("小伙子，看看就好，别动数据");
+			return;
+		}
 		let insertZhiChuType =  $("#insertzhichuType").val();
 		let insertZhiChuData =  $("#insertzhichuData").val();
 		let insertDATEYMD =  formatDate($("#insertDateYMD").val());
@@ -447,6 +451,10 @@
 
 	function excelZhiChuDataByYM(){
 
+		if(username !== "daisy"){
+			layer.msg("小伙子，看看就好，别动数据");
+			return;
+		}
 		let date =  $("#selectDateYM").val();
 
 		if(date == null || date == ''){

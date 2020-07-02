@@ -14,7 +14,9 @@ public interface ShouRuMapper {
 
     List<Map<String, Object>> getShouRuByMonthDay(Integer date);
 
-    void insertShouRuData(Map<String, Object> map);
+    Map<String, Object> getSRCountByYear(Map<String, Object> map);
 
     Map<String, Object> getSRCountByYM(Map<String, Object> map);
+
+    void insertShouRuData(Map<String, Object> map);
 }

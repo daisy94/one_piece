@@ -2,10 +2,7 @@ package com.kiwi.hushang_ayi.controller;
 
 import com.kiwi.hushang_ayi.service.ShouRuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonResult;
 import utils.LayUIUtil;
 import utils.TypeUtil;
@@ -93,13 +90,13 @@ public class ShouRuController {
     }
 
     @RequestMapping(value = "/getShouRuByMonthExcel", method = RequestMethod.POST)
-    public JsonResult getShouRuByMonthExcel(@RequestBody Map<String,String> requestMap) throws Exception{
+    public JsonResult getShouRuByMonthExcel(@RequestBody Map<String,Object> requestMap) throws Exception{
 
         int date = TypeUtil.toInt(requestMap.get("dateYM"));
 
         List<Map<String, Object>> shouRuByMonth = shouRuService.getShouRuByMonth(date);
         Map<String, Object> map = new HashMap<>();
-        map.put("dateYMD", date);
+        map.put("dateYM", date);
         Map<String, Object> srCountByYM = shouRuService.getSRCountByYM(map);
         map.put("shouru_money","合计");
         map.put("shouru_time",srCountByYM.get("shouRuCount"));
@@ -108,25 +105,24 @@ public class ShouRuController {
     }
 
     @RequestMapping(value = "/insertShouRuData", method = RequestMethod.POST)
-    public Map<String, Object> insertShouRuData(String insertShouRuData, String insertDATEYMD) throws Exception{
+    public JsonResult insertShouRuData(@RequestBody Map<String,Object> requestMap) throws Exception{
 
-        Double shouRuData = TypeUtil.toDouble(insertShouRuData);
-        Long dateYMD = TypeUtil.toLong(insertDATEYMD);
+        Double shouRuData = TypeUtil.toDouble(requestMap.get("insertShouRuData"));
+        Long dateYMD = TypeUtil.toLong(requestMap.get("insertDateYMD"));
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("shouRuData", shouRuData);
         map.put("dateYMD", dateYMD);
-        Map<String, Object> result = shouRuService.insertShouRuData(map);
-
-        return result;
+        JsonResult jsonResult = shouRuService.insertShouRuData(map);
+        return jsonResult;
     }
 
-    @RequestMapping(value = "/getSRCountByYM", method = RequestMethod.POST)
-    public Map<String, Object> getSRCountByYM(@RequestBody Map<String,String> requestMap) throws Exception{
+    @RequestMapping(value = "/getSRCountByYear", method = RequestMethod.POST)
+    public Map<String, Object> getSRCountByYear(@RequestBody Map<String,String> requestMap) throws Exception{
 
-        Long dateYMD = TypeUtil.toLong(requestMap.get("dateYM"));
+        int dateYear = TypeUtil.toInt(requestMap.get("date"));
         Map<String, Object> map = new HashMap<>();
-        map.put("dateYMD", dateYMD);
-        Map<String, Object> srCountByYM = shouRuService.getSRCountByYM(map);
-        return srCountByYM;
+        map.put("dateYear", dateYear);
+        Map<String, Object> srCountByYear = shouRuService.getSRCountByYear(map);
+        return srCountByYear;
     }
 }

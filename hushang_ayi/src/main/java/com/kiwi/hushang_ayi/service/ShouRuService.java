@@ -3,6 +3,7 @@ package com.kiwi.hushang_ayi.service;
 import com.kiwi.hushang_ayi.mapper.ShouRuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.JsonResult;
 import utils.TypeUtil;
 
 import java.util.HashMap;
@@ -60,12 +61,16 @@ public class ShouRuService {
         return shouRuByMonthDay;
     }
 
-    public Map<String, Object> insertShouRuData(Map<String, Object> map){
+    public JsonResult insertShouRuData(Map<String, Object> map){
 
         shouRuMapper.insertShouRuData(map);
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("status", "success");
-        return result;
+        return new JsonResult();
+    }
+
+    public Map<String, Object> getSRCountByYear(Map<String, Object> map){
+
+        Map<String, Object> srCountByYear = shouRuMapper.getSRCountByYear(map);
+        return srCountByYear;
     }
 
     public Map<String, Object> getSRCountByYM(Map<String, Object> map){

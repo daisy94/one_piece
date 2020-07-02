@@ -26,8 +26,12 @@
 		VALUES (#{shouRuData}, #{dateYMD})
 	</insert>
 
+	<select id="getSRCountByYear" parameterType="Map" resultType="Map">
+		SELECT SUM(shouru_money)AS shouRuCount FROM shouru WHERE LEFT(shouru_time, 4) = #{dateYear}
+	</select>
+
 	<select id="getSRCountByYM" parameterType="Map" resultType="Map">
-		SELECT SUM(shouru_money)AS shouRuCount FROM shouru WHERE LEFT(shouru_time, 6) = #{dateYMD}
+		SELECT SUM(shouru_money)AS shouRuCount FROM shouru WHERE LEFT(shouru_time, 6) = #{dateYM}
 	</select>
 
 </mapper>

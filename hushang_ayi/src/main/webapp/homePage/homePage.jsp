@@ -19,7 +19,7 @@
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
-                    <span class="layui-icon layui-icon-user"></span>&nbsp;&nbsp;<span>daisy</span>
+                    <span class="layui-icon layui-icon-user"></span>&nbsp;&nbsp;<span id="username"></span>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:void(0)" onclick="out()">退出</a></li>
             </ul>
@@ -56,7 +56,8 @@
     <script src="../resources/jquery/jquery-1.11.3.min.js"></script>
 
     <script type="text/javascript">
-        var element = layui.element;
+        let element = layui.element;
+        let username = document.cookie.split("; ")[0].split("=")[1];
 
         $(document).ready(function(){
 
@@ -64,6 +65,7 @@
                 e.preventDefault();
                 $("#iframeMain").attr("src",$(this).attr("href"));
             });
+            $("#username").html(username);
         });
 
         function out(){
