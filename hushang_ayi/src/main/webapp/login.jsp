@@ -15,22 +15,34 @@
             border-radius: 10px;
             width: 260px;
         }
+        .layui-row{
+            margin-top: 10px;
+        }
+        .layui-fluid{
+            margin-top: 25%;
+            margin-left: 40%;
+            margin-right: 40%;
+            width: 260px;
+        }
+        .layui-btn-fluid{
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body background="<%=basePath%>resources/image/background.jpg">
-    <div style="margin-top: 25%;margin-left: 40%;margin-right: 40%;width: 260px">
-        <div class="layui-form-item">
+    <div class="layui-fluid">
+        <div class="layui-row">
             <div class="layui-input-inline">
                 <input type="text" id="username" placeholder="输入用户名吧" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-row">
             <div class="layui-input-inline">
                 <input type="password" id="password" placeholder="输入密码吧" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
-                <button type="button" class="layui-btn layui-btn-fluid" onclick="login()" style="border-radius: 10px">登录康康</button>
+        <div class="layui-row">
+            <button type="button" class="layui-btn layui-btn-fluid" onclick="login()">登录康康</button>
         </div>
     </div>
     <script src="<%=basePath%>resources/layui/layui.all.js"></script>

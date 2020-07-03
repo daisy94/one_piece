@@ -15,26 +15,30 @@
 		.layui-btn{
 			border-radius: 5px;
 		}
+		.layui-fluid{
+			padding: 10px;
+		}
+		.layui-row{
+			padding: 0px;
+		}
 		.layui-col-md6{
-			padding-left: 5px;
-			padding-right: 5px;
+			padding: 5px;
 		}
 		.layui-col-md{
-			padding-left: 5px;
-			padding-right: 5px;
+			padding: 5px;
 		}
 		#shouRuEchartsByYMD{
-			height:345px;
+			height:356px;
 		}
 		#shouRuEchartsByYM{
-			height:345px;
+			height:356px;
 		}
 	</style>
 </head>
 <body>
 	<div class="layui-fluid">
 		<!-- 内容主体区域 -->
-		<div class="layui-row layui-col-space15" style="margin-top: 5px;">
+		<div class="layui-row layui-col-space15">
 			<div class="layui-row">
 				<div class="layui-col-md">
 					<div class="layui-card">
@@ -50,7 +54,7 @@
 									<div class="layui-inline">
 										<label class="layui-form-label">收入时间：</label>
 										<div class="layui-inline">
-											<input type="text" class="layui-input" id="insertDateYMD" placeholder="几号的收入呢" autocomplete="off">
+											<input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的收入呢" autocomplete="off">
 										</div>
 										<div class="layui-inline">
 											<button type="button" class="layui-btn" onclick="insertSRData()">保存</button>
@@ -70,7 +74,7 @@
 							<div class="layui-row">
 								<label class="layui-form-label">选择时间：</label>
 								<div class="layui-inline">
-									<input type="text" class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
+									<input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
 								</div>
 								<div class="layui-inline">
 									<button type="button" class="layui-btn" onclick="getSRDataByYM()">走你</button>
@@ -93,7 +97,7 @@
 							<div class="layui-row">
 								<label class="layui-form-label">选择时间：</label>
 								<div class="layui-inline">
-									<input type="text" class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+									<input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
 								</div>
 								<div class="layui-inline">
 									<button type="button" class="layui-btn" onclick="getSRDataByY()">走你</button>

@@ -9,13 +9,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>沪上阿姨丹阳店</title>
+  <title>主页</title>
   <link rel="stylesheet" href="../resources/layui/css/layui.css">
+    <style>
+        .layui-icon{
+            font-size: 20px;
+        }
+        #iframeMain{
+            width: 100%;
+            height: 100%;
+        }
+        .shouSuoDiv{
+            height: 30px;
+            background-color: dimgrey;
+        }
+    </style>
 </head>
 <body class="layui-layout-body close-footer" bgcolor="#F2F2F2">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo"><h3 class="logo"></h3></div>
+            <div class="layui-logo"><h2 class="logo"></h2></div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
@@ -27,26 +40,26 @@
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <div title="菜单缩放" class="kit-side-fold" style="height: 30px;"><a href="javascript:void(0)"></a></div>
+                <div title="菜单缩放" class="shouSuoDiv"><a href="javascript:void(0)"></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-android" style="font-size: 20px" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;每日支出</span></a>
+                        <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;每日支出</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-ios" style="font-size: 20px" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;每日收入</span></a>
+                        <a class="layui-icon layui-icon-ios" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;每日收入</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-windows" style="font-size: 20px" href="<%=basePath%>gongzi/gongzi.jsp"><span>&nbsp;&nbsp;工资薪金</span></a>
+                        <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span>&nbsp;&nbsp;工资薪金</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-rate" style="font-size: 20px" href="<%=basePath%>touzi/touzi.jsp"><span>&nbsp;&nbsp;投资金额</span></a>
+                        <a class="layui-icon layui-icon-rate" href="<%=basePath%>touzi/touzi.jsp"><span>&nbsp;&nbsp;投资金额</span></a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="layui-body" style="overflow: hidden;">
             <!-- 内容主体区域 -->
-            <iframe src="<%=basePath%>zhichu/zhichu.jsp" frameborder="0" id="iframeMain" style="width: 100%;height: 100%"></iframe>
+            <iframe src="<%=basePath%>zhichu/zhichu.jsp" frameborder="0" id="iframeMain"></iframe>
         </div>
         <div class="layui-footer">
             <!-- 底部固定区域 -->
@@ -67,11 +80,11 @@
                 $("#iframeMain").attr("src",$(this).attr("href"));
             });
             $("#username").html(username);
-            $(".logo").html("沪上阿姨丹阳店");
+            $(".logo").html("奶茶记账账");
         });
 
-        var isShow = true;  //定义一个标志位
-        $('.kit-side-fold').click(function(){
+        let isShow = true;  //定义一个标志位
+        $('.shouSuoDiv').click(function(){
             //选择出所有的span，并判断是不是hidden
             $('.layui-nav-item span').each(function(){
                 if($(this).is(':hidden')){
@@ -118,8 +131,6 @@
         function out(){
             window.top.location.href= "<%=basePath%>";
         };
-
-
     </script>
 </body>
 </html>
