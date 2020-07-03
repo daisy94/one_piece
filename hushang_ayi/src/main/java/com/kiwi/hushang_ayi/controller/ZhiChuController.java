@@ -15,12 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//支出统计
 @RestController
 public class ZhiChuController {
 	
 	@Autowired
-	private ZhiChuService zhiChuService;
-	
+	ZhiChuService zhiChuService;
+
+	//获得支出数据，按月统计
 	@RequestMapping(value = "/getZhiChuByMonth", method = RequestMethod.POST)
 	public LayUIUtil getZhiChuByMonth(String dateYM, Integer page, Integer size) throws Exception{
 			
@@ -28,10 +30,11 @@ public class ZhiChuController {
 		
 		List<Map<String, Object>> zhiChuByMonth = zhiChuService.getZhiChuByMonth(date);
 		int count = zhiChuByMonth.size();
-		
+
 		return LayUIUtil.data(count, zhiChuByMonth);
 	}
 
+	//获得支出数据，按年统计
 	@RequestMapping(value = "/getZhiChuByYear", method = RequestMethod.POST)
 	public LayUIUtil getZhiChuByYear(String date, Integer page, Integer size) throws Exception{
 
@@ -43,6 +46,7 @@ public class ZhiChuController {
 		return LayUIUtil.data(count, zhiChuByYear);
 	}
 
+	//导出支出数据Excel表格，按月统计
 	@RequestMapping(value = "/getZhiChuByMonthExcel", method = RequestMethod.POST)
 	public JsonResult getZhiChuByMonthExcel(@RequestBody Map<String,String> requestMap) throws Exception{
 
@@ -58,6 +62,7 @@ public class ZhiChuController {
 		return new JsonResult(zhiChuByMonth);
 	}
 
+	//获得支出数据Echarts图表所需数据，按月统计
 	@RequestMapping(value = "/getZhiChuByMonthEcharts", method = RequestMethod.POST)
 	public Map<String, Object> getShouRuByMonthEcharts(String dateYM) throws Exception{
 
@@ -77,6 +82,7 @@ public class ZhiChuController {
 		return result;
 	}
 
+	//获得支出数据Echarts图表所需数据，按年统计
 	@RequestMapping(value = "/getZhiChuByYearEcharts", method = RequestMethod.POST)
 	public Map<String, Object> getZhiChuByYearEcharts(String dateY) throws Exception{
 
@@ -96,6 +102,7 @@ public class ZhiChuController {
 		return result;
 	}
 
+	//新增支出数据
 	@RequestMapping(value = "/insertZhiChuData", method = RequestMethod.POST)
 	public Map<String, Object> insertZhiChuData(@RequestBody Map<String,String> requestMap) throws Exception{
 
@@ -106,10 +113,11 @@ public class ZhiChuController {
 		map.put("zhiChuData", zhiChuData);
 		map.put("zhiChuTime", dateYMD);
 		Map<String, Object> result = zhiChuService.insertZhiChuData(map);
-		
+
 		return result;
 	}
 
+	//计算支出总数，按年统计
 	@RequestMapping(value = "/getZCCountByYear", method = RequestMethod.POST)
 	public Map<String, Object> getZCCountByYear(@RequestBody Map<String,String> requestMap) throws Exception{
 

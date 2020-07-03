@@ -15,7 +15,7 @@
 <body class="layui-layout-body close-footer" bgcolor="#F2F2F2">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo"><h3>沪上阿姨丹阳店</h3></div>
+            <div class="layui-logo"><h3 class="logo"></h3></div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
@@ -27,6 +27,7 @@
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <div title="菜单缩放" class="kit-side-fold" style="height: 30px;"><a href="javascript:void(0)"></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-android" style="font-size: 20px" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;每日支出</span></a>
@@ -66,11 +67,59 @@
                 $("#iframeMain").attr("src",$(this).attr("href"));
             });
             $("#username").html(username);
+            $(".logo").html("沪上阿姨丹阳店");
+        });
+
+        var isShow = true;  //定义一个标志位
+        $('.kit-side-fold').click(function(){
+            //选择出所有的span，并判断是不是hidden
+            $('.layui-nav-item span').each(function(){
+                if($(this).is(':hidden')){
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                    $("#username").show();
+                    $(".layui-icon-user").show();
+                }
+            });
+            //判断isshow的状态
+            if(isShow){
+                $('.layui-side.layui-bg-black').width(45); //设置宽度
+                $('.layui-icon-android').css('left', '-8px');
+                $('.layui-icon-ios').css('left', '-8px');
+                $('.layui-icon-windows').css('left', '-8px');
+                $('.layui-icon-rate').css('left', '-8px');
+                //$('.kit-side-fold i').css('margin-right', '70%');  //修改图标的位置
+                //将footer和body的宽度修改
+                $('.layui-body').css('left', 45+'px');
+                $('.layui-footer').css('left', 45+'px');
+                //将二级导航栏隐藏
+                /*$('dd span').each(function(){
+                    $(this).hide();
+                });*/
+                //修改标志位
+                isShow =false;
+            }else{
+                $('.layui-side.layui-bg-black').width(200);
+                $('.layui-icon-android').css('left', '0px');
+                $('.layui-icon-ios').css('left', '0px');
+                $('.layui-icon-windows').css('left', '0px');
+                $('.layui-icon-rate').css('left', '0px');
+                //$('.kit-side-fold i').css('margin-right', '10%');
+                $('.layui-body').css('left', 200+'px');
+                $('.layui-footer').css('left', 200+'px');
+                /*$('dd span').each(function(){
+                    $(this).show();
+                });*/
+                isShow =true;
+            }
         });
 
         function out(){
             window.top.location.href= "<%=basePath%>";
         };
+
+
     </script>
 </body>
 </html>

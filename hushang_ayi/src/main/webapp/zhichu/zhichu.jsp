@@ -16,9 +16,9 @@
   		border-radius: 5px;
   	}
 	.layui-col-md6{
-		padding-left: 5px;
-		padding-right: 5px;
-	}
+		 padding-left: 5px;
+		 padding-right: 5px;
+	 }
 	.layui-col-md{
 		padding-left: 5px;
 		padding-right: 5px;
