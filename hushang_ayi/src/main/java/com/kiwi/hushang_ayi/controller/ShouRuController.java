@@ -78,17 +78,6 @@ public class ShouRuController {
         return result;
     }
 
-    @RequestMapping(value = "/getShouRuByMonthDay", method = RequestMethod.POST)
-    public LayUIUtil getShouRuByMonthDay(String dateYMD, Integer page, Integer size) throws Exception{
-
-        int date = TypeUtil.toInt(dateYMD);
-
-        List<Map<String,Object>> shouRuByMonthDay = shouRuService.getShouRuByMonthDay(date);
-        int count = shouRuByMonthDay.size();
-
-        return LayUIUtil.data(count, shouRuByMonthDay);
-    }
-
     @RequestMapping(value = "/getShouRuByMonthExcel", method = RequestMethod.POST)
     public JsonResult getShouRuByMonthExcel(@RequestBody Map<String,Object> requestMap) throws Exception{
 

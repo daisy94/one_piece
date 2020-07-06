@@ -5,16 +5,33 @@
 <mapper namespace="com.kiwi.hushang_ayi.mapper.GongZiMapper">
 
 	<select id="getGongZiByMonth" parameterType="integer" resultType="Map">
-		SELECT * FROM gongzi WHERE gongzi_time = #{date}
+		SELECT gongzi_name, gongzi_remark, gongzi_money, gongzi_time
+		FROM gongzi
+		WHERE gongzi_time = #{date}
+		ORDER BY gongzi_remark DESC
+	</select>
+
+	<select id="getGongZiByYear" parameterType="integer" resultType="Map">
+		SELECT SUM(gongzi_money) AS gongzi_money, gongzi_time
+		FROM gongzi
+		WHERE LEFT(gongzi_time, 4) = #{date}
+		GROUP BY gongzi_time
 		ORDER BY gongzi_time
 	</select>
-	
-	<!--<select id="getZhiChuByMonthDay" parameterType="integer" resultType="Map">
-		SELECT * FROM zhichu WHERE zhichu_time = #{date}
-	</select>-->
 
 	<select id="getGongZiByMonthEcharts" parameterType="integer" resultType="Map">
-		SELECT gongzi_money, gongzi_time FROM gongzi WHERE gongzi_time = #{date};
+		SELECT gongzi_remark, SUM(gongzi_money) AS gongzi_money
+		FROM gongzi
+		WHERE gongzi_time = #{date}
+		GROUP BY gongzi_remark
+	</select>
+
+	<select id="getGongZiEchartsByYear" parameterType="integer" resultType="Map">
+		SELECT SUM(gongzi_money) AS gongzi_money, gongzi_time
+		FROM gongzi
+		WHERE LEFT(gongzi_time, 4) = #{date}
+		GROUP BY gongzi_time
+		ORDER BY gongzi_time
 	</select>
 
 	<insert id="insertGongZiData" parameterType="Map">
@@ -56,6 +73,15 @@
 	</insert>
 
 	<select id="getGZCountByYM" parameterType="Map" resultType="Map">
-		SELECT SUM(gongzi_money) AS gongZiCount FROM gongzi WHERE gongzi_time = #{dateYMD}
+		SELECT SUM(gongzi_money) AS gongZiCount
+		FROM gongzi
+		WHERE gongzi_time = #{dateYM}
 	</select>
+
+	<select id="getGZCountByYear" parameterType="Map" resultType="Map">
+		SELECT SUM(gongzi_money) AS gongZiCount
+		FROM gongzi
+		WHERE LEFT(gongzi_time, 4) = #{dateYear}
+	</select>
+
 </mapper>

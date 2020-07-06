@@ -43,10 +43,10 @@
                 <div title="菜单缩放" class="shouSuoDiv"><a href="javascript:void(0)"></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;每日支出</span></a>
+                        <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;支出统计</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-ios" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;每日收入</span></a>
+                        <a class="layui-icon layui-icon-ios" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;收入统计</span></a>
                     </li>
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span>&nbsp;&nbsp;工资薪金</span></a>

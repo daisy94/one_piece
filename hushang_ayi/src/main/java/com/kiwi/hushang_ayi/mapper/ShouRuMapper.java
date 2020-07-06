@@ -12,8 +12,6 @@ public interface ShouRuMapper {
 
     List<Map<String, Object>> getShouRuByYear(Integer date);
 
-    List<Map<String, Object>> getShouRuByMonthDay(Integer date);
-
     Map<String, Object> getSRCountByYear(Map<String, Object> map);
 
     Map<String, Object> getSRCountByYM(Map<String, Object> map);

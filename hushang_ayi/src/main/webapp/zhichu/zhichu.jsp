@@ -189,6 +189,52 @@
 		zhiChuDataYMDEcharts(dateYM);
 	};
 
+	function zhiChuDataYMDEcharts(dateYM) {
+		// 基于准备好的dom，初始化echarts实例
+		let myChart = echarts.init(document.getElementById('zhichuEchartsByYMD'));
+
+		let echartsMoney = new Array();
+		let echartsTime = new Array();
+		$.ajax({
+			async: false,
+			type: "POST",
+			url: "<%=basePath%>getZhiChuByMonthEcharts",
+			data:{
+				"dateYM":dateYM
+			},
+			success: function(data){
+				echartsMoney = data.echartsMoney;
+				echartsTime = data.echartsTime;
+			}
+		});
+		// 指定图表的配置项和数据
+		let option = {
+			tooltip : {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'none'
+				}
+			},
+			title: {
+				text: '日支出走势图',
+			},
+			color: ['#33ABA0'],
+			xAxis: {
+				type: 'category',
+				data: echartsTime
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: echartsMoney,
+				type: 'bar'
+			}]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	};
+
 	function getZCDataByYM_save(dateYM){
 
 		table.render({
@@ -254,54 +300,6 @@
 				{field:'zhichu_time', title: '支出日期', align: 'center'},
 			]]
 		});
-	};
-
-	function zhiChuDataYMDEcharts(dateYM) {
-		// 基于准备好的dom，初始化echarts实例
-		let myChart = echarts.init(document.getElementById('zhichuEchartsByYMD'));
-
-		let echartsMoney = new Array();
-		let echartsTime = new Array();
-		$.ajax({
-			async: false,
-			type: "POST",
-			url: "<%=basePath%>getZhiChuByMonthEcharts",
-			data:{
-				"dateYM":dateYM
-			},
-			success: function(data){
-				echartsMoney = data.echartsMoney;
-				echartsTime = data.echartsTime;
-			}
-		});
-
-		// 指定图表的配置项和数据
-		let option = {
-			tooltip : {
-				trigger: 'axis',
-				axisPointer: {
-					type: 'none'
-				}
-			},
-			title: {
-				text: '日支出走势图',
-			},
-			color: ['#33ABA0'],
-			xAxis: {
-				type: 'category',
-				data: echartsTime
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [{
-				data: echartsMoney,
-				type: 'bar'
-			}]
-		};
-
-		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
 	};
 
 	function zhiChuDataYMEcharts(dateY) {
@@ -440,7 +438,7 @@
 					layer.msg("还没有花钱，开心~");
 					return;
 				}
-				layer.alert(date+"年"+"一共支出了"+" "+result.zhiChuCount+"~", {
+				layer.alert(date+"年一共支出了"+" "+result.zhiChuCount+"~", {
 					skin: 'layui-layer-molv',//样式类名
 					closeBtn: 0
 				});

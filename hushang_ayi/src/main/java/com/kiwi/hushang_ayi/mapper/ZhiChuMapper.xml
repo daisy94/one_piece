@@ -5,7 +5,9 @@
 <mapper namespace="com.kiwi.hushang_ayi.mapper.ZhiChuMapper">
 
 	<select id="getZhiChuByMonth" parameterType="integer" resultType="Map">
-		SELECT * FROM zhichu WHERE LEFT(zhichu_time, 6) = #{date}
+		SELECT *
+		FROM zhichu
+		WHERE LEFT(zhichu_time, 6) = #{date}
 		ORDER BY zhichu_time
 	</select>
 
@@ -18,7 +20,11 @@
 	</select>
 
 	<select id="getZhiChuByMonthEcharts" parameterType="integer" resultType="Map">
-		SELECT SUM(zhichu_money) AS zhichu_money, zhichu_time FROM zhichu WHERE LEFT(zhichu_time,6) = #{date} GROUP BY zhichu_time;
+		SELECT SUM(zhichu_money) AS zhichu_money, zhichu_time
+		FROM zhichu
+		WHERE LEFT(zhichu_time,6) = #{date}
+		GROUP BY zhichu_time
+		ORDER BY zhichu_time
 	</select>
 
 	<insert id="insertZhiChuData" parameterType="Map">
@@ -27,11 +33,15 @@
 	</insert>
 
 	<select id="getZCCountByYear" parameterType="Map" resultType="Map">
-		SELECT SUM(zhichu_money)AS zhiChuCount FROM zhichu WHERE LEFT(zhichu_time, 4) = #{date}
+		SELECT SUM(zhichu_money)AS zhiChuCount
+		FROM zhichu
+		WHERE LEFT(zhichu_time, 4) = #{date}
 	</select>
 
 	<select id="getZCCountByYM" parameterType="Map" resultType="Map">
-		SELECT SUM(zhichu_money)AS zhiChuCount FROM zhichu WHERE LEFT(zhichu_time, 6) = #{date}
+		SELECT SUM(zhichu_money)AS zhiChuCount
+		FROM zhichu
+		WHERE LEFT(zhichu_time, 6) = #{date}
 	</select>
 
 </mapper>

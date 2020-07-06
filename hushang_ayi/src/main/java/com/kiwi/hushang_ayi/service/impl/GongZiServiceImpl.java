@@ -32,18 +32,40 @@ public class GongZiServiceImpl implements GongZiService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getGongZiByMonthEcharts(Integer date){
+	public List<Map<String, Object>> getGongZiByYear(Integer dateYear) {
 
-		List<Map<String, Object>> gongZiByMonthEcharts = gongZiMapper.getGongZiByMonthEcharts(date);
+		List<Map<String, Object>> gongZiByYear = gongZiMapper.getGongZiByYear(dateYear);
 
-		for (Map<String, Object> map : gongZiByMonthEcharts) {
+		for (Map<String, Object> map : gongZiByYear) {
 
 			String gongZiTime = TypeUtil.toString(map.get("gongzi_time"));
 			String year = gongZiTime.substring(0, 4);
 			String month = gongZiTime.substring(4, 6);
 			map.put("gongzi_time", year + "-" + month);
 		}
+		return gongZiByYear;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGongZiByMonthEcharts(Integer date){
+
+		List<Map<String, Object>> gongZiByMonthEcharts = gongZiMapper.getGongZiByMonthEcharts(date);
 		return gongZiByMonthEcharts;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGongZiEchartsByYear(Integer date) {
+
+		List<Map<String, Object>> gongZiEchartsByYear = gongZiMapper.getGongZiEchartsByYear(date);
+
+		for (Map<String, Object> map : gongZiEchartsByYear) {
+
+			String gongZiTime = TypeUtil.toString(map.get("gongzi_time"));
+			String year = gongZiTime.substring(0, 4);
+			String month = gongZiTime.substring(4, 6);
+			map.put("gongzi_time", year + "-" + month);
+		}
+		return gongZiEchartsByYear;
 	}
 
 	@Override
@@ -58,5 +80,12 @@ public class GongZiServiceImpl implements GongZiService {
 
 		Map<String, Object> gzCountByYM = gongZiMapper.getGZCountByYM(map);
 		return gzCountByYM;
+	}
+
+	@Override
+	public Map<String, Object> getGZCountByYear(Map<String, Object> map) {
+
+		Map<String, Object> gzCountByYear = gongZiMapper.getGZCountByYear(map);
+		return gzCountByYear;
 	}
 }

@@ -48,23 +48,6 @@ public class ShouRuServiceImpl implements ShouRuService {
     }
 
     @Override
-    public List<Map<String, Object>> getShouRuByMonthDay(Integer dateYMD){
-
-        List<Map<String,Object>> shouRuByMonthDay = shouRuMapper.getShouRuByMonthDay(dateYMD);
-
-        for (Map<String, Object> map :shouRuByMonthDay) {
-
-            String shouruTime = TypeUtil.toString(map.get("shouru_time"));
-            String year = shouruTime.substring(0, 4);
-            String month = shouruTime.substring(4, 6);
-            String day = shouruTime.substring(6, 8);
-            map.put("shouru_time", year + "-" + month + "-" + day);
-        }
-
-        return shouRuByMonthDay;
-    }
-
-    @Override
     public JsonResult insertShouRuData(Map<String, Object> map){
 
         shouRuMapper.insertShouRuData(map);
