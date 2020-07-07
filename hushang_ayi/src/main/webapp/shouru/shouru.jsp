@@ -19,7 +19,7 @@
 			padding: 10px;
 		}
 		.layui-row{
-			padding: 0px;
+			padding: 0;
 		}
 		.layui-col-md6{
 			padding: 5px;
@@ -160,7 +160,9 @@
 
 			if(date == null || date == ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+					anim: 6
+				});
 				return;
 			}
 			let dateYM = formatDate(date);
@@ -207,9 +209,11 @@
 
 			let date =  $("#selectDateY").val();
 
-			if(date == null || date == ''){
+			if(date == null || date === ''){
 
-				layer.msg("要选择一个年份哦");
+				layer.msg("要选择一个年份哦", {
+					anim: 6
+				});
 				return;
 			}
 
@@ -252,8 +256,8 @@
 			// 基于准备好的dom，初始化echarts实例
 			let myChart = echarts.init(document.getElementById('shouRuEchartsByYMD'));
 
-			let echartsMoney = new Array();
-			let echartsTime = new Array();
+			let echartsMoney = [];
+			let echartsTime = [];
 			$.ajax({
 				async: false,
 				type: "POST",
@@ -299,8 +303,8 @@
 			// 基于准备好的dom，初始化echarts实例
 			let myChart = echarts.init(document.getElementById('shouRuEchartsByYM'));
 
-			let echartsMoney = new Array();
-			let echartsTime = new Array();
+			let echartsMoney = [];
+			let echartsTime = [];
 			$.ajax({
 				async: false,
 				type: "POST",
@@ -346,23 +350,31 @@
 		function insertSRData(){
 
 			if(username !== "daisy"){
-				layer.msg("小伙子，看看就好，别动数据");
+				layer.msg("小伙子，看看就好，别动数据", {
+					anim: 6
+				});
 				return;
 			}
 			let insertShouRuData =  $("#insertShouRuData").val();
 			let insertDateYMD =  formatDate($("#insertDateYMD").val());
 			if(insertShouRuData == null || insertShouRuData === ""){
 
-				layer.msg("金额是不是忘填了啊");
+				layer.msg("金额是不是忘填了啊", {
+					anim: 6
+				});
 				return;
 			}
 			if(insertDateYMD == null || insertDateYMD === ""){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+					anim: 6
+				});
 				return;
 			}
 			if(!isNumber(insertShouRuData)){
-				layer.msg("金额怎么能不是数字呢");
+				layer.msg("金额怎么能不是数字呢", {
+					anim: 6
+				});
 				return;
 			}
 			let params = {
@@ -398,7 +410,6 @@
 					console.log(e.responseText);
 				}
 			});
-
 		};
 
 		function getSRCountByY(){
@@ -406,7 +417,9 @@
 			let date = $("#selectDateY").val();
 			if (date == null || date === "") {
 
-				layer.msg("要选择一个年份哦");
+				layer.msg("要选择一个年份哦", {
+					anim: 6
+				});
 				return;
 			}
 			let params = {
@@ -443,18 +456,20 @@
 		function excelShouRuDataByYM(){
 
 			if(username !== "daisy"){
-				layer.msg("小伙子，看看就好，别动数据");
+				layer.msg("小伙子，看看就好，别动数据", {
+					anim: 6
+				});
 				return;
 			}
 			let date =  $("#selectDateYM").val();
 
-			if(date == null || date == ''){
+			if(date == null || date === ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+					anim: 6
+				});
 				return;
 			}
-
-			let loading = layer.load();
 			let dateYM = formatDate(date);
 
 			layui.config({
@@ -468,6 +483,7 @@
 			let params = {
 				"dateYM":dateYM
 			};
+			let loading = layer.load();
 			$.ajax({
 				//请求方式
 				type : "POST",
@@ -491,12 +507,12 @@
 						shouru_time: "收入时间"
 					});
 					excel.exportExcel(data, date + " 收入明细" + ".xlsx", "xlsx");
-					layer.close(loading);
 					layer.msg("导出成功");
+					layer.close(loading);
 				},
 				error() {
-					layer.close(loading);
 					layer.msg("导出失败");
+					layer.close(loading);
 				}
 			});
 		};

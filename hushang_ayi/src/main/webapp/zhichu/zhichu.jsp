@@ -7,33 +7,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>支出统计</title>
-  <link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
-  <style>
-  	.layui-btn{
-  		border-radius: 5px;
-  	}
-	.layui-fluid{
-		 padding: 10px;
-	 }
-	.layui-row{
-		padding: 0px;
-	}
-	.layui-col-md6{
-		padding: 5px;
-	}
-	.layui-col-md{
-		padding: 5px;
-	}
-	#zhichuEchartsByYMD{
-		height:356px;
-	}
-	#zhichuEchartsByYM{
-		height:356px;
-	}
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>支出统计</title>
+	<link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
+	<style>
+		.layui-btn{
+			border-radius: 5px;
+		}
+		.layui-fluid{
+			 padding: 10px;
+		 }
+		.layui-row{
+			padding: 0;
+		}
+		.layui-col-md6{
+			padding: 5px;
+		}
+		.layui-col-md{
+			padding: 5px;
+		}
+		#zhichuEchartsByYMD{
+			height:356px;
+		}
+		#zhichuEchartsByYM{
+			height:356px;
+		}
+	</style>
 </head>
 <body>
 	<div class="layui-fluid">
@@ -164,9 +164,11 @@
 
 		let date =  $("#selectDateYM").val();
 
-		if(date == null || date == ''){
+		if(date == null || date === ''){
 
-			layer.msg("要选择一个日期哦");
+			layer.msg("要选择一个日期哦", {
+				anim: 6
+			});
 			return;
 		}
 		let dateYM = formatDate(date);
@@ -193,8 +195,8 @@
 		// 基于准备好的dom，初始化echarts实例
 		let myChart = echarts.init(document.getElementById('zhichuEchartsByYMD'));
 
-		let echartsMoney = new Array();
-		let echartsTime = new Array();
+		let echartsMoney = [];
+		let echartsTime = [];
 		$.ajax({
 			async: false,
 			type: "POST",
@@ -261,9 +263,11 @@
 
 		let date =  $("#selectDateY").val();
 
-		if(date == null || date == ''){
+		if(date == null || date === ''){
 
-			layer.msg("要选择一个年份哦");
+			layer.msg("要选择一个年份哦", {
+				anim: 6
+			});
 			return;
 		}
 
@@ -306,8 +310,8 @@
 		// 基于准备好的dom，初始化echarts实例
 		let myChart = echarts.init(document.getElementById('zhichuEchartsByYM'));
 
-		let echartsMoney = new Array();
-		let echartsTime = new Array();
+		let echartsMoney = [];
+		let echartsTime = [];
 		$.ajax({
 			async: false,
 			type: "POST",
@@ -353,29 +357,39 @@
 	function insertZCData(){
 
 		if(username !== "daisy"){
-			layer.msg("小伙子，看看就好，别动数据");
+			layer.msg("小伙子，看看就好，别动数据", {
+				anim: 6
+			});
 			return;
 		}
 		let insertZhiChuType =  $("#insertzhichuType").val();
 		let insertZhiChuData =  $("#insertzhichuData").val();
 		let insertDATEYMD =  formatDate($("#insertDateYMD").val());
-		if(insertZhiChuType == null || insertZhiChuType == ''){
+		if(insertZhiChuType == null || insertZhiChuType === ''){
 
-			layer.msg("要填一个支出类型哦");
+			layer.msg("要填一个支出类型哦", {
+				anim: 6
+			});
 			return;
 		}
-		if(insertZhiChuData == null || insertZhiChuData == ''){
+		if(insertZhiChuData == null || insertZhiChuData === ''){
 
-			layer.msg("金额是不是忘填了啊");
+			layer.msg("金额是不是忘填了啊", {
+				anim: 6
+			});
 			return;
 		}
-		if(insertDATEYMD == null || insertDATEYMD == ''){
+		if(insertDATEYMD == null || insertDATEYMD === ''){
 
-			layer.msg("要选择一个日期哦");
+			layer.msg("要选择一个日期哦", {
+				anim: 6
+			});
 			return;
 		}
 		if(!isNumber(insertZhiChuData)){
-			layer.msg("金额怎么能不是数字呢");
+			layer.msg("金额怎么能不是数字呢", {
+				anim: 6
+			});
 			return;
 		}
 		let params = {
@@ -394,7 +408,7 @@
 			data : JSON.stringify(params),
 			//请求成功
 			success : function(result) {
-				if(result.status == "success"){
+				if(result.status === "success"){
 					insertDATEYMD = insertDATEYMD.substring(0,6);
 					getZCDataByYM_save(insertDATEYMD);
 					insertDATEYMD = insertDATEYMD.substring(0,4);
@@ -415,9 +429,11 @@
 	function getZCCountByY(){
 
 		let date = $("#selectDateY").val();
-		if (date == null || date == '') {
+		if (date == null || date === '') {
 
-			layer.msg("要选择一个年份哦");
+			layer.msg("要选择一个年份哦", {
+				anim: 6
+			});
 			return;
 		}
 		let params = {
@@ -434,7 +450,7 @@
 			data : JSON.stringify(params),
 			//请求成功
 			success : function(result) {
-				if(result.zhiChuCount == null || result.zhiChuCount == undefined){
+				if(result.zhiChuCount == null){
 					layer.msg("还没有花钱，开心~");
 					return;
 				}
@@ -454,18 +470,20 @@
 	function excelZhiChuDataByYM(){
 
 		if(username !== "daisy"){
-			layer.msg("小伙子，看看就好，别动数据");
+			layer.msg("小伙子，看看就好，别动数据", {
+				anim: 6
+			});
 			return;
 		}
 		let date =  $("#selectDateYM").val();
 
-		if(date == null || date == ''){
+		if(date == null || date === ''){
 
-			layer.msg("要选择一个日期哦");
+			layer.msg("要选择一个日期哦", {
+				anim: 6
+			});
 			return;
 		}
-
-		let loading = layer.load();
 		let dateYM = formatDate(date);
 
 		layui.config({
@@ -479,6 +497,7 @@
 		let params = {
 			"dateYM":dateYM
 		};
+		let loading = layer.load();
 		$.ajax({
 			//请求方式
 			type : "POST",
@@ -504,11 +523,12 @@
 					zhichu_time: "支出时间"
 				});
 				excel.exportExcel(data, date + " 支出明细" + ".xlsx", "xlsx");
-				layer.close(loading);
 				layer.msg("导出成功");
+				layer.close(loading);
 			},
 			error() {
 				layer.msg("导出失败");
+				layer.close(loading);
 			}
 		});
 	};

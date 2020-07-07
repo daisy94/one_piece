@@ -170,9 +170,11 @@
 
 			let date =  $("#selectDateYM").val();
 
-			if(date == null || date == ''){
+			if(date == null || date === ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+                    anim: 6
+                });
 				return;
 			}
 			let dateYM = formatDate(date);
@@ -278,7 +280,9 @@
 
 			if(date == null || date === ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+                    anim: 6
+                });
 				return;
 			}
 			let dateYear = formatDate(date);
@@ -368,7 +372,9 @@
 		function insertGZData(){
 
 			if(username !== "daisy"){
-				layer.msg("小伙子，看看就好，别动数据");
+				layer.msg("小伙子，看看就好，别动数据", {
+                    anim: 6
+                });
 				return;
 			}
 			let insertGongZiType =  $("#insertGongZiType").val();
@@ -377,26 +383,36 @@
 			let insertDateYM =  formatDate($("#insertDateYM").val());
 			if(insertGongZiType == null || insertGongZiType === ''){
 
-				layer.msg("要填一个工资明细哦");
+				layer.msg("要填一个工资明细哦", {
+                    anim: 6
+                });
 				return;
 			}
 			if(insertGongZiRemark == null || insertGongZiRemark === ''){
 
-				layer.msg("要填一个明细备注哦");
+				layer.msg("要填一个明细备注哦", {
+                    anim: 6
+                });
 				return;
 			}
 			if(insertGongZiData == null || insertGongZiData === ''){
 
-				layer.msg("金额是不是忘填了啊");
+				layer.msg("金额是不是忘填了啊", {
+                    anim: 6
+                });
 				return;
 			}
 			if(insertDateYM == null || insertDateYM === ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+                    anim: 6
+                });
 				return;
 			}
 			if(!isNumber(insertGongZiData)){
-				layer.msg("金额怎么能不是数字呢");
+				layer.msg("金额怎么能不是数字呢", {
+                    anim: 6
+                });
 				return;
 			}
 			let params = {
@@ -441,7 +457,9 @@
 			let dateYear = $("#selectDateY").val();
 			if (dateYear == null || dateYear === '') {
 
-				layer.msg("要选择一个年份哦");
+				layer.msg("要选择一个年份哦", {
+                    anim: 6
+                });
 				return;
 			}
 			let params = {
@@ -478,17 +496,20 @@
 		function excelGongZiDataByYM(){
 
 			if(username !== "daisy"){
-				layer.msg("小伙子，看看就好，别动数据");
+				layer.msg("小伙子，看看就好，别动数据", {
+                    anim: 6
+                });
 				return;
 			}
 			let date =  $("#selectDateYM").val();
 
 			if(date == null || date === ''){
 
-				layer.msg("要选择一个日期哦");
+				layer.msg("要选择一个日期哦", {
+                    anim: 6
+                });
 				return;
 			}
-			let loading = layer.load();
 			let dateYM = formatDate(date);
 
 			layui.config({
@@ -502,6 +523,7 @@
 			let params = {
 				"dateYM":dateYM
 			};
+            let loading = layer.load();
 			$.ajax({
 				//请求方式
 				type : "POST",
@@ -529,11 +551,12 @@
 						gongzi_time: "发放时间"
 					});
 					excel.exportExcel(data, date + " 薪资明细" + ".xlsx", "xlsx");
-					layer.close(loading);
 					layer.msg("导出成功");
+                    layer.close(loading);
 				},
 				error() {
 					layer.msg("导出失败");
+                    layer.close(loading);
 				}
 			});
 		}

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../resources/layui/css/layui.css">
     <style>
         .layui-icon{
-            font-size: 20px;
+             font-size: 20px;
         }
         #iframeMain{
             width: 100%;
@@ -22,6 +22,15 @@
         .shouSuoDiv{
             height: 30px;
             background-color: dimgrey;
+        }
+        #username{
+            padding-left: 5px;
+        }
+        .menu{
+            padding-left: 8px;
+        }
+        .shouSuo{
+            padding-left: 85px;
         }
     </style>
 </head>
@@ -32,27 +41,29 @@
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
-                    <span class="layui-icon layui-icon-user"></span>&nbsp;&nbsp;<span id="username"></span>
+                    <a href="javascript:void(0)" class="refresh"><span class="layui-icon layui-icon-username"></span><span id="username"></span></a>
                 </li>
-                <li class="layui-nav-item"><a href="javascript:void(0)" onclick="out()">退出</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="out()">退出</a>
+                </li>
             </ul>
         </div>
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <div title="菜单缩放" class="shouSuoDiv"><a href="javascript:void(0)"></a></div>
+                <div title="菜单缩放" class="shouSuoDiv"><a class="shouSuo" href="javascript:void(0)"><span class="layui-icon layui-icon-shrink-right"></span></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span>&nbsp;&nbsp;支出统计</span></a>
+                        <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span class="menu">支出统计</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-ios" href="<%=basePath%>shouru/shouru.jsp"><span>&nbsp;&nbsp;收入统计</span></a>
+                        <a class="layui-icon layui-icon-ios" href="<%=basePath%>shouru/shouru.jsp"><span class="menu">收入统计</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span>&nbsp;&nbsp;工资薪金</span></a>
+                        <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span class="menu">工资薪金</span></a>
                     </li>
-                    <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-rate" href="<%=basePath%>touzi/touzi.jsp"><span>&nbsp;&nbsp;投资金额</span></a>
+                    <li class="layui-nav-item" id="touzi">
+                        <a class="layui-icon layui-icon-rate-solid" href="<%=basePath%>touzi/touzi.jsp"><span class="menu">投资金额</span></a>
                     </li>
                 </ul>
             </div>
@@ -81,10 +92,13 @@
             });
             $("#username").html(username);
             $(".logo").html("奶茶记账账");
+            if(username !== "daisy"){
+                $("#touzi").hide();
+            }
         });
 
         let isShow = true;  //定义一个标志位
-        $('.shouSuoDiv').click(function(){
+        $('.shouSuo').click(function(){
             //选择出所有的span，并判断是不是hidden
             $('.layui-nav-item span').each(function(){
                 if($(this).is(':hidden')){
@@ -101,7 +115,8 @@
                 $('.layui-icon-android').css('left', '-8px');
                 $('.layui-icon-ios').css('left', '-8px');
                 $('.layui-icon-windows').css('left', '-8px');
-                $('.layui-icon-rate').css('left', '-8px');
+                $('.layui-icon-rate-solid').css('left', '-8px');
+                $('.shouSuo').css('padding-left', '12px');
                 //$('.kit-side-fold i').css('margin-right', '70%');  //修改图标的位置
                 //将footer和body的宽度修改
                 $('.layui-body').css('left', 45+'px');
@@ -117,7 +132,8 @@
                 $('.layui-icon-android').css('left', '0px');
                 $('.layui-icon-ios').css('left', '0px');
                 $('.layui-icon-windows').css('left', '0px');
-                $('.layui-icon-rate').css('left', '0px');
+                $('.layui-icon-rate-solid').css('left', '0px');
+                $('.shouSuo').css('padding-left', '85px');
                 //$('.kit-side-fold i').css('margin-right', '10%');
                 $('.layui-body').css('left', 200+'px');
                 $('.layui-footer').css('left', 200+'px');
@@ -126,6 +142,10 @@
                 });*/
                 isShow =true;
             }
+        });
+
+        $('.refresh').click(function(){
+            location.reload();
         });
 
         function out(){
