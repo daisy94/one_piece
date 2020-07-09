@@ -1,5 +1,7 @@
 package com.kiwi.hushang_ayi.service;
 
+import utils.JsonResult;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +15,7 @@ public interface ZhiChuService {
 
 	List<Map<String, Object>> getZhiChuByYearEcharts(Integer date);
 
-	Map<String, Object> insertZhiChuData(Map<String, Object> map);
+	JsonResult insertZhiChuData(Map<String, Object> map);
 
 	Map<String, Object> getZCCountByYear(Map<String, Object> map);
 

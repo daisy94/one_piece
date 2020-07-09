@@ -152,11 +152,12 @@
 	<script type="text/javascript">
 		let layer = layui.layer;
 		let table = layui.table;
-		let laydate = layui.laydate;
+		let layDate = layui.laydate;
 		let maxYear = new Date().getFullYear()+"-12-31";
 		let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 		let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
 		let username = document.cookie.split("; ")[0].split("=")[1];
+		let userPower = document.cookie.split("; ")[1].split("=")[1];
 
 		$(function() {
 
@@ -371,7 +372,7 @@
 
 		function insertGZData(){
 
-			if(username !== "daisy"){
+			if(userPower !== "0"){
 				layer.msg("小伙子，看看就好，别动数据", {
                     anim: 6
                 });
@@ -432,16 +433,16 @@
 				data : JSON.stringify(params),
 				//请求成功
 				success : function(result) {
-					if(result.code === "0"){
+					if(result.code === 0){
 						getGZDataByYM_save(insertDateYM);
 						insertDateYM = insertDateYM.substring(0,4);
 						getGZDataByYear_start(insertDateYM);
 						$("#insertGongZiType").val("");
 						$("#insertGongZiRemark").val("");
 						$("#insertGongZiData").val("");
-						layer.msg("保存成功啦");
-					}else{
-						layer.msg("保存失败啦");
+						layer.msg(result.msg);
+					}else if(result.code === 150){
+						layer.msg(result.msg);
 					}
 				},
 				//请求失败，包含具体的错误信息
@@ -495,7 +496,7 @@
 
 		function excelGongZiDataByYM(){
 
-			if(username !== "daisy"){
+			if(userPower !== "0"){
 				layer.msg("小伙子，看看就好，别动数据", {
                     anim: 6
                 });
@@ -562,7 +563,7 @@
 		}
 
 		//年月选择器
-		laydate.render({
+		layDate.render({
 			elem: '#insertDateYM',
 			trigger: 'click',
 			type: 'month',
@@ -570,7 +571,7 @@
 		});
 
 		//年月选择器
-		laydate.render({
+		layDate.render({
 			elem: '#selectDateYM',
 			trigger: 'click',
 			type: 'month',
@@ -578,7 +579,7 @@
 		});
 
 		//年选择器
-		laydate.render({
+		layDate.render({
 			elem: '#selectDateY',
 			trigger: 'click',
 			type: 'year',

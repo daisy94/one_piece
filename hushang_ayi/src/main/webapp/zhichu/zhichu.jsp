@@ -146,11 +146,12 @@
 	<script type="text/javascript">
 	let layer = layui.layer;
 	let table = layui.table;
-	let laydate = layui.laydate;
+	let layDate = layui.laydate;
 	let maxYear = new Date().getFullYear()+"-12-31";
 	let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 	let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
 	let username = document.cookie.split("; ")[0].split("=")[1];
+	let userPower = document.cookie.split("; ")[1].split("=")[1];
 
 	$(function() {
 
@@ -205,8 +206,8 @@
 				"dateYM":dateYM
 			},
 			success: function(data){
-				echartsMoney = data.echartsMoney;
-				echartsTime = data.echartsTime;
+				echartsMoney = data.data.echartsMoney;
+				echartsTime = data.data.echartsTime;
 			}
 		});
 		// 指定图表的配置项和数据
@@ -320,8 +321,8 @@
 				"dateY":dateY
 			},
 			success: function(data){
-				echartsMoney = data.echartsMoney;
-				echartsTime = data.echartsTime;
+				echartsMoney = data.data.echartsMoney;
+				echartsTime = data.data.echartsTime;
 			}
 		});
 
@@ -356,7 +357,7 @@
 
 	function insertZCData(){
 
-		if(username !== "daisy"){
+		if(userPower !== "0"){
 			layer.msg("小伙子，看看就好，别动数据", {
 				anim: 6
 			});
@@ -408,14 +409,16 @@
 			data : JSON.stringify(params),
 			//请求成功
 			success : function(result) {
-				if(result.status === "success"){
+				if(result.code === 0){
 					insertDATEYMD = insertDATEYMD.substring(0,6);
 					getZCDataByYM_save(insertDATEYMD);
 					insertDATEYMD = insertDATEYMD.substring(0,4);
 					getZCDataByY_start(insertDATEYMD);
 					$("#insertzhichuType").val("");
 					$("#insertzhichuData").val("");
-					layer.msg("保存成功啦");
+					layer.msg(result.msg);
+				}else if(result.code === 150){
+					layer.msg(result.msg);
 				}
 			},
 			//请求失败，包含具体的错误信息
@@ -469,7 +472,7 @@
 
 	function excelZhiChuDataByYM(){
 
-		if(username !== "daisy"){
+		if(userPower !== "0"){
 			layer.msg("小伙子，看看就好，别动数据", {
 				anim: 6
 			});
@@ -534,14 +537,14 @@
 	};
 
 	//年月日选择器
-	laydate.render({
+	layDate.render({
 		elem: '#insertDateYMD',
 		trigger: 'click',
 		max: maxYearMonthDay
 	});
 
 	//年月选择器
-	laydate.render({
+	layDate.render({
 		elem: '#selectDateYM',
 		trigger: 'click',
 		type: 'month',
@@ -549,7 +552,7 @@
 	});
 
 	//年选择器
-	laydate.render({
+	layDate.render({
 		elem: '#selectDateY',
 		trigger: 'click',
 		type: 'year',

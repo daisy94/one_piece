@@ -6,6 +6,8 @@ import com.kiwi.hushang_ayi.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -13,9 +15,9 @@ public class LoginServiceImpl implements LoginService {
     LoginMapper loginMapper;
 
     @Override
-    public Integer getUser(JSONObject resultMap){
+    public Map<String, Object> getUser(JSONObject resultMap){
 
-        int user = loginMapper.getUser(resultMap);
+        Map<String, Object> user = loginMapper.getUser(resultMap);
         return user;
     }
 }

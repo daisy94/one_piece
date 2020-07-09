@@ -83,6 +83,7 @@
     <script type="text/javascript">
         let element = layui.element;
         let username = document.cookie.split("; ")[0].split("=")[1];
+        let userPower = document.cookie.split("; ")[1].split("=")[1];
 
         $(document).ready(function(){
 
@@ -92,7 +93,7 @@
             });
             $("#username").html(username);
             $(".logo").html("奶茶记账账");
-            if(username !== "daisy"){
+            if(userPower !== "0"){
                 $("#touzi").hide();
             }
         });
@@ -117,7 +118,6 @@
                 $('.layui-icon-windows').css('left', '-8px');
                 $('.layui-icon-rate-solid').css('left', '-8px');
                 $('.shouSuo').css('padding-left', '12px');
-                //$('.kit-side-fold i').css('margin-right', '70%');  //修改图标的位置
                 //将footer和body的宽度修改
                 $('.layui-body').css('left', 45+'px');
                 $('.layui-footer').css('left', 45+'px');
@@ -134,7 +134,6 @@
                 $('.layui-icon-windows').css('left', '0px');
                 $('.layui-icon-rate-solid').css('left', '0px');
                 $('.shouSuo').css('padding-left', '85px');
-                //$('.kit-side-fold i').css('margin-right', '10%');
                 $('.layui-body').css('left', 200+'px');
                 $('.layui-footer').css('left', 200+'px');
                 /*$('dd span').each(function(){

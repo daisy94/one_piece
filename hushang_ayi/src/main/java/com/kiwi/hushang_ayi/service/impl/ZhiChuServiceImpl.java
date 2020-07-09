@@ -4,9 +4,10 @@ import com.kiwi.hushang_ayi.mapper.ZhiChuMapper;
 import com.kiwi.hushang_ayi.service.ZhiChuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.InfoCode;
+import utils.JsonResult;
 import utils.TypeUtil;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,12 +80,14 @@ public class ZhiChuServiceImpl implements ZhiChuService {
 	}
 
 	@Override
-	public Map<String, Object> insertZhiChuData(Map<String, Object> map){
-		
-		zhiChuMapper.insertZhiChuData(map);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("status", "success");
-		return result;
+	public JsonResult insertZhiChuData(Map<String, Object> map){
+
+		try {
+			zhiChuMapper.insertZhiChuData(map);
+		}catch (Exception e){
+			return new JsonResult(InfoCode.SAVE_FAIL.code, InfoCode.SAVE_FAIL.msg);
+		}
+		return new JsonResult(InfoCode.SAVE_SUCCESS.code, InfoCode.SAVE_SUCCESS.msg);
 	}
 
 	@Override

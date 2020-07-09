@@ -30,7 +30,6 @@ public class ZhiChuController {
 		
 		List<Map<String, Object>> zhiChuByMonth = zhiChuService.getZhiChuByMonth(date);
 		int count = zhiChuByMonth.size();
-
 		return LayUIUtil.data(count, zhiChuByMonth);
 	}
 
@@ -42,7 +41,6 @@ public class ZhiChuController {
 
 		List<Map<String, Object>> zhiChuByYear = zhiChuService.getZhiChuByYear(dateYear);
 		int count = zhiChuByYear.size();
-
 		return LayUIUtil.data(count, zhiChuByYear);
 	}
 
@@ -64,7 +62,7 @@ public class ZhiChuController {
 
 	//获得支出数据Echarts图表所需数据，按月统计
 	@RequestMapping(value = "/getZhiChuByMonthEcharts", method = RequestMethod.POST)
-	public Map<String, Object> getShouRuByMonthEcharts(String dateYM) throws Exception{
+	public JsonResult getShouRuByMonthEcharts(String dateYM) throws Exception{
 
 		int date = TypeUtil.toInt(dateYM);
 
@@ -79,12 +77,12 @@ public class ZhiChuController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("echartsMoney",echartsMoney);
 		result.put("echartsTime",echartsTime);
-		return result;
+		return new JsonResult(result);
 	}
 
 	//获得支出数据Echarts图表所需数据，按年统计
 	@RequestMapping(value = "/getZhiChuByYearEcharts", method = RequestMethod.POST)
-	public Map<String, Object> getZhiChuByYearEcharts(String dateY) throws Exception{
+	public JsonResult getZhiChuByYearEcharts(String dateY) throws Exception{
 
 		int date = TypeUtil.toInt(dateY);
 
@@ -99,12 +97,12 @@ public class ZhiChuController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("echartsMoney",echartsMoney);
 		result.put("echartsTime",echartsTime);
-		return result;
+		return new JsonResult(result);
 	}
 
 	//新增支出数据
 	@RequestMapping(value = "/insertZhiChuData", method = RequestMethod.POST)
-	public Map<String, Object> insertZhiChuData(@RequestBody Map<String,String> requestMap) throws Exception{
+	public JsonResult insertZhiChuData(@RequestBody Map<String,String> requestMap) throws Exception{
 
 		Double zhiChuData = TypeUtil.toDouble(requestMap.get("insertZhiChuData"));
 		Long dateYMD = TypeUtil.toLong(requestMap.get("insertDATEYMD"));
@@ -112,9 +110,7 @@ public class ZhiChuController {
 		map.put("zhiChuType", requestMap.get("insertZhiChuType"));
 		map.put("zhiChuData", zhiChuData);
 		map.put("zhiChuTime", dateYMD);
-		Map<String, Object> result = zhiChuService.insertZhiChuData(map);
-
-		return result;
+		return zhiChuService.insertZhiChuData(map);
 	}
 
 	//计算支出总数，按年统计

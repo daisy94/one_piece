@@ -95,7 +95,6 @@ public class GongZiController {
         map.put("gongzi_remark", requestMap.get("insertGongZiRemark"));
         map.put("gongzi_money", gongZiData);
         map.put("gongzi_time", dateYMD);
-
         return gongZiService.insertGongZiData(map);
     }
 

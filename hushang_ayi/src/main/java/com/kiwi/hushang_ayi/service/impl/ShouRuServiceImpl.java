@@ -4,6 +4,7 @@ import com.kiwi.hushang_ayi.mapper.ShouRuMapper;
 import com.kiwi.hushang_ayi.service.ShouRuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.InfoCode;
 import utils.JsonResult;
 import utils.TypeUtil;
 
@@ -50,8 +51,12 @@ public class ShouRuServiceImpl implements ShouRuService {
     @Override
     public JsonResult insertShouRuData(Map<String, Object> map){
 
-        shouRuMapper.insertShouRuData(map);
-        return new JsonResult();
+        try {
+            shouRuMapper.insertShouRuData(map);
+        }catch (Exception e){
+            return new JsonResult(InfoCode.SAVE_FAIL.code, InfoCode.SAVE_FAIL.msg);
+        }
+        return new JsonResult(InfoCode.SAVE_SUCCESS.code, InfoCode.SAVE_SUCCESS.msg);
     }
 
     @Override

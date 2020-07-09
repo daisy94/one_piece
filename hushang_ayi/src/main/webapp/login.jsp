@@ -48,18 +48,18 @@
     <script src="<%=basePath%>resources/layui/layui.all.js"></script>
     <script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         let layer = layui.layer;
 
         function login(){
 
             let username = $("#username").val();
             let password = $("#password").val();
-            if(null == username || "" == username){
+            if(null == username || "" === username){
                 layer.msg("用户名没写吧！");
                 return null;
             }
-            if(null == password || "" == password){
+            if(null == password || "" === password){
                 layer.msg("密码没写吧！");
                 return null;
             }
@@ -74,15 +74,14 @@
                 url: "<%=basePath%>login",
                 data:JSON.stringify(params),
                 success: function(data){
-                    if(data.code == 500){
+                    if(data.code === 100){
                         layer.msg(data.msg);
-                        return null;
-                    }else{
+                    }else if(data.code === 0){
                         window.top.location.href = "<%=basePath%>homePage/homePage.jsp";
                     }
                 }
             });
-        };
+        }
     </script>
 </body>
 </html>

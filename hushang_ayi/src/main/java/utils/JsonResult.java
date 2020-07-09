@@ -3,14 +3,38 @@ package utils;
 public class JsonResult<T> {
 
     private T data;
-    private String code;
+    private int code;
     private String msg;
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     /**
      * 若没有数据返回，默认状态码为 0，提示信息为“操作成功！”
      */
     public JsonResult() {
-        this.code = "0";
+        this.code = 0;
         this.msg = "操作成功！";
     }
 
@@ -19,7 +43,7 @@ public class JsonResult<T> {
      * @param code
      * @param msg
      */
-    public JsonResult(String code, String msg) {
+    public JsonResult(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -30,7 +54,7 @@ public class JsonResult<T> {
      */
     public JsonResult(T data) {
         this.data = data;
-        this.code = "0";
+        this.code = 0;
         this.msg = "操作成功！";
     }
 
@@ -41,31 +65,7 @@ public class JsonResult<T> {
      */
     public JsonResult(T data, String msg) {
         this.data = data;
-        this.code = "0";
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
+        this.code = 0;
         this.msg = msg;
     }
 }

@@ -101,8 +101,7 @@ public class ShouRuController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("shouRuData", shouRuData);
         map.put("dateYMD", dateYMD);
-        JsonResult jsonResult = shouRuService.insertShouRuData(map);
-        return jsonResult;
+        return shouRuService.insertShouRuData(map);
     }
 
     @RequestMapping(value = "/getSRCountByYear", method = RequestMethod.POST)

@@ -4,6 +4,7 @@ import com.kiwi.hushang_ayi.mapper.GongZiMapper;
 import com.kiwi.hushang_ayi.service.GongZiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.InfoCode;
 import utils.JsonResult;
 import utils.TypeUtil;
 
@@ -71,8 +72,12 @@ public class GongZiServiceImpl implements GongZiService {
 	@Override
 	public JsonResult insertGongZiData(Map<String, Object> map){
 
-		gongZiMapper.insertGongZiData(map);
-		return new JsonResult();
+		try {
+			gongZiMapper.insertGongZiData(map);
+		}catch (Exception e){
+			return new JsonResult(InfoCode.SAVE_FAIL.code, InfoCode.SAVE_FAIL.msg);
+		}
+		return new JsonResult(InfoCode.SAVE_SUCCESS.code, InfoCode.SAVE_SUCCESS.msg);
 	}
 
 	@Override
