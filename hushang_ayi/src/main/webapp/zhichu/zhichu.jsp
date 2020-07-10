@@ -199,7 +199,6 @@
 		let echartsMoney = [];
 		let echartsTime = [];
 		$.ajax({
-			async: false,
 			type: "POST",
 			url: "<%=basePath%>getZhiChuByMonthEcharts",
 			data:{
@@ -208,34 +207,35 @@
 			success: function(data){
 				echartsMoney = data.data.echartsMoney;
 				echartsTime = data.data.echartsTime;
+
+				// 指定图表的配置项和数据
+				let option = {
+					tooltip : {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'none'
+						}
+					},
+					title: {
+						text: '日支出走势图',
+					},
+					color: ['#33ABA0'],
+					xAxis: {
+						type: 'category',
+						data: echartsTime
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [{
+						data: echartsMoney,
+						type: 'bar'
+					}]
+				};
+				// 使用刚指定的配置项和数据显示图表。
+				myChart.setOption(option);
 			}
 		});
-		// 指定图表的配置项和数据
-		let option = {
-			tooltip : {
-				trigger: 'axis',
-				axisPointer: {
-					type: 'none'
-				}
-			},
-			title: {
-				text: '日支出走势图',
-			},
-			color: ['#33ABA0'],
-			xAxis: {
-				type: 'category',
-				data: echartsTime
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [{
-				data: echartsMoney,
-				type: 'bar'
-			}]
-		};
-		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
 	};
 
 	function getZCDataByYM_save(dateYM){
@@ -323,36 +323,34 @@
 			success: function(data){
 				echartsMoney = data.data.echartsMoney;
 				echartsTime = data.data.echartsTime;
+				// 指定图表的配置项和数据
+				let option = {
+					tooltip : {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'none'
+						}
+					},
+					title: {
+						text: '月支出走势图',
+					},
+					color: ['#33ABA0'],
+					xAxis: {
+						type: 'category',
+						data: echartsTime
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [{
+						data: echartsMoney,
+						type: 'bar'
+					}]
+				};
+				// 使用刚指定的配置项和数据显示图表。
+				myChart.setOption(option);
 			}
 		});
-
-		// 指定图表的配置项和数据
-		let option = {
-			tooltip : {
-				trigger: 'axis',
-				axisPointer: {
-					type: 'none'
-				}
-			},
-			title: {
-				text: '月支出走势图',
-			},
-			color: ['#33ABA0'],
-			xAxis: {
-				type: 'category',
-				data: echartsTime
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [{
-				data: echartsMoney,
-				type: 'bar'
-			}]
-		};
-
-		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
 	};
 
 	function insertZCData(){

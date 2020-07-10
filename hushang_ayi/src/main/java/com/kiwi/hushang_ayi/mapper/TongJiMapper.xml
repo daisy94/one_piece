@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.hushang_ayi.mapper.TongJiMapper">
+
+    <select id="getTongJiEchartsDataByYear" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT (shouru_money - IFNULL(zhichu_money, 0) - IFNULL(gongzi_money, 0)) AS lirun_money, shouru_time AS lirun_time
+        FROM
+            (
+                SELECT SUM(shouru_money) AS shouru_money, LEFT(shouru_time, 6) AS shouru_time
+                FROM shouru
+                WHERE LEFT(shouru_time, 4) = #{dateYear}
+                GROUP BY LEFT(shouru_time, 6)
+            ) shouru
+                LEFT JOIN
+            (
+                SELECT SUM(zhichu_money) AS zhichu_money, LEFT(zhichu_time, 6) AS zhichu_time
+                FROM zhichu
+                WHERE LEFT(zhichu_time, 4) = #{dateYear}
+                GROUP BY LEFT(zhichu_time, 6)
+            ) zhichu ON zhichu.zhichu_time = shouru.shouru_time
+                LEFT JOIN
+            (
+                SELECT SUM(gongzi_money) AS gongzi_money, LEFT(gongzi_time, 6) AS gongzi_time
+                FROM gongzi
+                WHERE LEFT(gongzi_time, 4) = #{dateYear}
+                GROUP BY LEFT(gongzi_time, 6)
+            ) gongzi ON gongzi.gongzi_time = zhichu.zhichu_time
+    </select>
+
+</mapper>

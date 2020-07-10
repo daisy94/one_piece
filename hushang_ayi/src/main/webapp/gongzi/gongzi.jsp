@@ -206,7 +206,6 @@
 			let echartsRemark = [];
 			let echartsData = [];
 			$.ajax({
-				async: false,
 				type: "POST",
 				url: "<%=basePath%>getGongZiEchartsByYM",
 				data:{
@@ -215,43 +214,44 @@
 				success: function(data){
 					echartsRemark = data.echartsRemark;
 					echartsData = data.echartsData;
+
+					// 指定图表的配置项和数据
+					let option = {
+						title: {
+							text: '月薪资饼图',
+							left: 'center'
+						},
+						tooltip: {
+							trigger: 'item',
+							formatter: '{a} <br/>{b} : {c} ({d}%)'
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'left',
+							data: echartsRemark
+						},
+						series: [
+							{
+								name: '薪资占比',
+								type: 'pie',
+								radius: '55%',
+								hoverOffset: 5,
+								center: ['50%', '60%'],
+								data: echartsData,
+								emphasis: {
+									itemStyle: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								}
+							}
+						]
+					};
+					// 使用刚指定的配置项和数据显示图表。
+					myChart.setOption(option);
 				}
 			});
-			// 指定图表的配置项和数据
-			let option = {
-				title: {
-					text: '月薪资饼图',
-					left: 'center'
-				},
-				tooltip: {
-					trigger: 'item',
-					formatter: '{a} <br/>{b} : {c} ({d}%)'
-				},
-				legend: {
-					orient: 'vertical',
-					left: 'left',
-					data: echartsRemark
-				},
-				series: [
-					{
-						name: '薪资占比',
-						type: 'pie',
-						radius: '55%',
-						hoverOffset: 5,
-						center: ['50%', '60%'],
-						data: echartsData,
-						emphasis: {
-							itemStyle: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							}
-						}
-					}
-				]
-			};
-			// 使用刚指定的配置项和数据显示图表。
-			myChart.setOption(option);
 		};
 
 		function getGZDataByYM_save(dateYM){
@@ -312,7 +312,6 @@
 			let echartsMoney = [];
 			let echartsTime = [];
 			$.ajax({
-				async: false,
 				type: "POST",
 				url: "<%=basePath%>getGongZiEchartsByYear",
 				data:{
@@ -321,34 +320,35 @@
 				success: function(data){
 					echartsMoney = data.echartsMoney;
 					echartsTime = data.echartsTime;
+
+					// 指定图表的配置项和数据
+					let option = {
+						tooltip : {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'none'
+							}
+						},
+						title: {
+							text: '年薪资柱状图',
+						},
+						color: ['#33ABA0'],
+						xAxis: {
+							type: 'category',
+							data: echartsTime
+						},
+						yAxis: {
+							type: 'value'
+						},
+						series: [{
+							data: echartsMoney,
+							type: 'bar'
+						}]
+					};
+					// 使用刚指定的配置项和数据显示图表。
+					myChart.setOption(option);
 				}
 			});
-			// 指定图表的配置项和数据
-			let option = {
-				tooltip : {
-					trigger: 'axis',
-					axisPointer: {
-						type: 'none'
-					}
-				},
-				title: {
-					text: '年薪资柱状图',
-				},
-				color: ['#33ABA0'],
-				xAxis: {
-					type: 'category',
-					data: echartsTime
-				},
-				yAxis: {
-					type: 'value'
-				},
-				series: [{
-					data: echartsMoney,
-					type: 'bar'
-				}]
-			};
-			// 使用刚指定的配置项和数据显示图表。
-			myChart.setOption(option);
 		};
 
 		function getGZDataByYear_start(dateYear){

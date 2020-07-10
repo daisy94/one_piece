@@ -70,7 +70,7 @@
         </div>
         <div class="layui-body" style="overflow: hidden;">
             <!-- 内容主体区域 -->
-            <iframe src="<%=basePath%>zhichu/zhichu.jsp" frameborder="0" id="iframeMain"></iframe>
+            <iframe src="<%=basePath%>tongji/tongji.jsp" frameborder="0" id="iframeMain"></iframe>
         </div>
         <div class="layui-footer">
             <!-- 底部固定区域 -->
@@ -149,7 +149,7 @@
 
         function out(){
             window.top.location.href= "<%=basePath%>";
-        };
+        }
     </script>
 </body>
 </html>
