@@ -5,6 +5,7 @@ public class JsonResult<T> {
     private T data;
     private int code;
     private String msg;
+    private  int count;
 
     public T getData() {
         return data;
@@ -28,6 +29,14 @@ public class JsonResult<T> {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     /**
@@ -67,5 +76,17 @@ public class JsonResult<T> {
         this.data = data;
         this.code = 0;
         this.msg = msg;
+    }
+
+    /**
+     * 有数据返回，状态码为 0，LayUI专用
+     * @param data
+     * @param count
+     */
+    public JsonResult(T data, int count) {
+        this.code = 0;
+        this.msg = "操作成功！";
+        this.data = data;
+        this.count = count;
     }
 }

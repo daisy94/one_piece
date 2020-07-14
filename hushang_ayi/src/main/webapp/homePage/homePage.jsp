@@ -62,8 +62,8 @@
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span class="menu">工资薪金</span></a>
                     </li>
-                    <li class="layui-nav-item" id="touzi">
-                        <a class="layui-icon layui-icon-rate-solid" href="<%=basePath%>touzi/touzi.jsp"><span class="menu">投资金额</span></a>
+                    <li class="layui-nav-item">
+                        <a class="layui-icon layui-icon-rate-solid daiGou" href="<%=basePath%>daigou/daigou.jsp"><span class="menu">代购收入</span></a>
                     </li>
                 </ul>
             </div>
@@ -94,7 +94,7 @@
             $("#username").html(username);
             $(".logo").html("奶茶记账账");
             if(userPower !== "0"){
-                $("#touzi").hide();
+                $(".daiGou").hide();
             }
         });
 

@@ -14,7 +14,7 @@ public class LayUIUtil extends HashMap<String, Object>{
 		
 		LayUIUtil laiUI = new LayUIUtil();
 		laiUI.put("code", 0);
-		laiUI.put("msg", "");
+		laiUI.put("msg", "操作成功");
 		laiUI.put("count", count);
 		laiUI.put("data", data);
         return laiUI;
