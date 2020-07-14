@@ -22,7 +22,7 @@ public class DaiGouServiceImpl implements DaiGouService {
     }
 
     @Override
-    public List<Map<String, Object>> getDaiGouDataByYearMonth(String params) {
+    public List<Map<String, Object>> getDaiGouDataByYearMonth(Integer params) {
 
         List<Map<String, Object>> daiGouDataByYearMonth = daiGouMapper.getDaiGouDataByYearMonth(params);
         return formatByYearMonthDay(daiGouDataByYearMonth);

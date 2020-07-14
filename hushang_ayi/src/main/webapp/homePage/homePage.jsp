@@ -63,7 +63,7 @@
                         <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span class="menu">工资薪金</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-rate-solid daiGou" href="<%=basePath%>daigou/daigou.jsp"><span class="menu">代购收入</span></a>
+                        <a class="layui-icon layui-icon-rate-solid daiGou" href="<%=basePath%>daigou/daigou.jsp"><span class="menu">恰饭统计</span></a>
                     </li>
                 </ul>
             </div>
@@ -107,7 +107,7 @@
                 }else{
                     $(this).hide();
                     $("#username").show();
-                    $(".layui-icon-user").show();
+                    $(".layui-icon-username").show();
                 }
             });
             //判断isshow的状态

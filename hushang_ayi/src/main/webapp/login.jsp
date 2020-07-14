@@ -56,17 +56,22 @@
             let username = $("#username").val();
             let password = $("#password").val();
             if(null == username || "" === username){
-                layer.msg("用户名没写吧！");
-                return null;
+                layer.msg("用户名没写吧！", {
+                    anim: 6
+                });
+                return;
             }
             if(null == password || "" === password){
-                layer.msg("密码没写吧！");
-                return null;
+                layer.msg("密码没写吧！", {
+                    anim: 6
+                });
+                return;
             }
             let params = {
                 "username":username,
                 "password":password
             };
+
             $.ajax({
                 async: false,
                 type: "POST",
@@ -75,7 +80,9 @@
                 data:JSON.stringify(params),
                 success: function(data){
                     if(data.code === 100){
-                        layer.msg(data.msg);
+                        layer.msg(data.msg, {
+                            anim: 6
+                        });
                     }else if(data.code === 0){
                         window.top.location.href = "<%=basePath%>homePage/homePage.jsp";
                     }

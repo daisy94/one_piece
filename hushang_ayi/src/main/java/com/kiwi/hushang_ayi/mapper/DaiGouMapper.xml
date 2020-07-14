@@ -42,20 +42,21 @@
 		</trim>
 	</insert>
 
-	<select id="getDaiGouDataByYearMonth" parameterType="java.lang.String" resultType="java.util.Map">
-		SELECT customer_name, goods_name, profit, date
+	<select id="getDaiGouDataByYearMonth" parameterType="java.lang.Integer" resultType="java.util.Map">
+		SELECT customer_name, goods_name, profit, `date`
 		FROM daigou
-		WHERE LEFT(date, 6) = #{dateYearMonth}
+		WHERE LEFT(`date`, 6) = #{dateYearMonth}
+		ORDER BY `date`
 	</select>
 
 	<select id="getDaiGouEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT SUM(profit) AS profit, date
+		SELECT SUM(profit) AS profit, `date`
 		FROM daigou
 		<if test="dateYearMonth != null and dateYearMonth != ''">
-			WHERE LEFT(date, 6) = #{dateYearMonth}
+			WHERE LEFT(`date`, 6) = #{dateYearMonth}
 		</if>
-		GROUP BY date
-		ORDER BY date
+		GROUP BY `date`
+		ORDER BY `date`
 	</select>
 
 </mapper>

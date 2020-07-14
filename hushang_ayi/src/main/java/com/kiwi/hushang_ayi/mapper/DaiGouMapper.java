@@ -10,7 +10,7 @@ public interface DaiGouMapper {
 
     void insertDaiGouData(Map<String, Object> params);
 
-    List<Map<String, Object>> getDaiGouDataByYearMonth(String params);
+    List<Map<String, Object>> getDaiGouDataByYearMonth(Integer params);
 
     List<Map<String, Object>> getDaiGouEChartsByYearMonth(Map<String, Object> params);
 }

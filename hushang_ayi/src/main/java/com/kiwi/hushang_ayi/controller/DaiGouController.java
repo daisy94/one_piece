@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import utils.InfoCode;
 import utils.JsonResult;
+import utils.TypeUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class DaiGouController {
     @RequestMapping(value = "/getDaiGouTableYearMonth", method = RequestMethod.POST)
     public JsonResult<List<Map<String, Object>>> getGongZiByMonth(String dateYearMonth) throws Exception{
 
-        List<Map<String, Object>> daiGouDataByYearMonth = daiGouService.getDaiGouDataByYearMonth(dateYearMonth);
+        List<Map<String, Object>> daiGouDataByYearMonth = daiGouService.getDaiGouDataByYearMonth(TypeUtil.toInt(dateYearMonth));
         int count = daiGouDataByYearMonth.size();
         return new JsonResult<>(daiGouDataByYearMonth, count);
     }
