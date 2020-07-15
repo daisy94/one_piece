@@ -4,6 +4,7 @@ import com.kiwi.hushang_ayi.mapper.DaiGouMapper;
 import com.kiwi.hushang_ayi.service.DaiGouService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.TypeUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,26 +26,53 @@ public class DaiGouServiceImpl implements DaiGouService {
     public List<Map<String, Object>> getDaiGouDataByYearMonth(Integer params) {
 
         List<Map<String, Object>> daiGouDataByYearMonth = daiGouMapper.getDaiGouDataByYearMonth(params);
-        return formatByYearMonthDay(daiGouDataByYearMonth);
+        return formatDate(daiGouDataByYearMonth);
+    }
+
+    @Override
+    public List<Map<String, Object>> getDaiGouDataByYear(Integer params) {
+
+        List<Map<String, Object>> daiGouDataByYear = daiGouMapper.getDaiGouDataByYear(params);
+        return formatDate(daiGouDataByYear);
     }
 
     @Override
     public Map<String, Object> getDaiGouEChartsByYearMonth(Map<String, Object> params) {
 
         List<Map<String, Object>> daiGouEChartsByYearMonth = daiGouMapper.getDaiGouEChartsByYearMonth(params);
-        List<Map<String, Object>> maps = formatByYearMonthDay(daiGouEChartsByYearMonth);
+        List<Map<String, Object>> maps = formatDate(daiGouEChartsByYearMonth);
         return formatEChartsData(maps, "profit", "date");
     }
 
-    private List<Map<String, Object>> formatByYearMonthDay(List<Map<String, Object>> params) {
+    @Override
+    public Map<String, Object> getDaiGouEChartsByYear(Map<String, Object> params) {
+
+
+        List<Map<String, Object>> dateYear = daiGouMapper.getDaiGouDataByYear(TypeUtil.toInt(params.get("dateYear")));
+        List<Map<String, Object>> maps = formatDate(dateYear);
+        return formatEChartsData(maps, "profit", "date");
+    }
+
+    @Override
+    public Map<String, Object> getDaiGouCountByYear(Map<String, Object> params) {
+        return daiGouMapper.getDaiGouCountByYear(params);
+    }
+
+    private List<Map<String, Object>> formatDate(List<Map<String, Object>> params) {
 
         for (Map<String, Object> Map : params) {
 
             String date = String.valueOf(Map.get("date"));
-            String year = date.substring(0, 4);
-            String month = date.substring(4, 6);
-            String day = date.substring(6, 8);
-            Map.put("date", year + "-" + month + "-" + day);
+            if (date.length() == 8) {
+                String year = date.substring(0, 4);
+                String month = date.substring(4, 6);
+                String day = date.substring(6, 8);
+                Map.put("date", year + "-" + month + "-" + day);
+            }else if (date.length() == 6) {
+                String year = date.substring(0, 4);
+                String month = date.substring(4, 6);
+                Map.put("date", year + "-" + month);
+            }
         }
         return params;
     }

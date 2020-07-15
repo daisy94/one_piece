@@ -49,6 +49,14 @@
 		ORDER BY `date`
 	</select>
 
+	<select id="getDaiGouDataByYear" parameterType="java.lang.Integer" resultType="java.util.Map">
+		SELECT SUM(profit) AS profit, LEFT(`date`, 6) AS date
+		FROM daigou
+		WHERE LEFT(`date`, 4) = #{dateYear}
+		GROUP BY LEFT(`date`, 6)
+		ORDER BY `date`
+	</select>
+
 	<select id="getDaiGouEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, `date`
 		FROM daigou
@@ -57,6 +65,14 @@
 		</if>
 		GROUP BY `date`
 		ORDER BY `date`
+	</select>
+
+	<select id="getDaiGouCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(profit) AS profit
+		FROM daigou
+		<if test="dateYear != null and dateYear != ''">
+			WHERE LEFT(`date`, 4) = #{dateYear}
+		</if>
 	</select>
 
 </mapper>

@@ -30,7 +30,7 @@
 		#daiGouEChartsByYearMonth{
 			height:356px;
 		}
-		#zhichuEchartsByYM{
+		#daiGouEChartsByYear{
 			height:356px;
 		}
 	</style>
@@ -106,18 +106,18 @@
 							<div class="layui-row">
 								<label class="layui-form-label">选择时间：</label>
 								<div class="layui-inline">
-									<input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+									<input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
 								</div>
 								<div class="layui-inline">
-									<button type="button" class="layui-btn" onclick="getZCDataByY()">走你</button>
+									<button type="button" class="layui-btn getDataByYear">走你</button>
 								</div>
 								<div class="layui-inline">
-									<button type="button" class="layui-btn" onclick="getZCCountByY()">合计支出</button>
+									<button type="button" class="layui-btn" onclick="getCountByYear()">合计收入</button>
 								</div>
 							</div>
 							<div class="layui-row">
 								<div>
-									<table id="zhiChuTableYear"></table>
+									<table id="daiGouTableYear"></table>
 								</div>
 							</div>
 						</div>
@@ -133,7 +133,7 @@
 				</div>
 				<div class="layui-col-md6">
 					<div class="layui-card">
-						<div class="layui-card-body" id="zhichuEchartsByYM"></div>
+						<div class="layui-card-body" id="daiGouEChartsByYear"></div>
 					</div>
 				</div>
 			</div>
@@ -160,8 +160,8 @@
 
 		let dateYearMonth = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
 		getDataByYearMonth(dateYearMonth);
-		let dateY = new Date().getFullYear();
-		//getZCDataByY_start(dateY);
+		let dateYear = new Date().getFullYear();
+		getDataByYear(dateYear);
 	});
 
 	$(".getDataByYearMonth").click(function (){
@@ -176,6 +176,19 @@
 		}
 		let dateYearMonth = formatDate(date);
 		getDataByYearMonth(dateYearMonth);
+	});
+
+	$(".getDataByYear").click(function (){
+
+		let dateYear =  $("#dateYear").val();
+		if(dateYear == null || dateYear === ''){
+
+			layer.msg("要选择一个年份哦", {
+				anim: 6
+			});
+			return;
+		}
+		getDataByYear(dateYear);
 	});
 
 	function insertByYearMonthDay(){
@@ -317,7 +330,23 @@
 					},
 					series: [{
 						data: EChartsX,
-						type: 'bar'
+						type: 'bar',
+						markLine: {
+							symbol: "none", //去掉警戒线最后面的箭头
+							label: {
+								position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+								formatter: "200块",
+								color: "#696969",
+								fontSize: 12
+							},
+							data: [{
+								silent: false, //鼠标悬停事件  true没有，false有
+								lineStyle: { //警戒线的样式，虚实，颜色
+									color: "#696969"
+								},
+								yAxis: 200 //警戒线的标注值，可以有多个yAxis，多条警示线，或者采用{type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+							}]
+						}
 					}]
 				};
 				myChart.setOption(option);
@@ -325,52 +354,45 @@
 		});
 	}
 
-	function getZCDataByY(){
-
-		let date =  $("#selectDateY").val();
-
-		if(date == null || date === ''){
-
-			layer.msg("要选择一个年份哦", {
-				anim: 6
-			});
-			return;
-		}
+	function getDataByYear(dateYear){
 
 		table.render({
-			elem: '#zhiChuTableYear',
-			url: '<%=basePath%>getZhiChuByYear',
+			elem: '#daiGouTableYear',
+			url: '<%=basePath%>getDaiGouTableYear',
 			where: {
-				date
+				dateYear
 			},
-			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			cellMinWidth: 80,
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
+				{field:'profit', title: '净利润', sort: true, align: 'center'},
+				{field:'date', title: '统计日期', align: 'center'},
 			]]
 		});
-		zhiChuDataYMEcharts(date);
+		getDaiGouEChartsByYear(dateYear);
 	}
 
-	function zhiChuDataYMEcharts(dateY) {
-		// 基于准备好的dom，初始化echarts实例
-		let myChart = echarts.init(document.getElementById('zhichuEchartsByYM'));
+	function getDaiGouEChartsByYear(dateYear) {
 
-		let echartsMoney = [];
-		let echartsTime = [];
+		let myChart = echarts.init(document.getElementById("daiGouEChartsByYear"));
+
+		let EChartsX = [];
+		let EChartsY = [];
+		let params = {
+			"dateYear": dateYear
+		};
+
 		$.ajax({
 			async: false,
 			type: "POST",
-			url: "<%=basePath%>getZhiChuByYearEcharts",
-			data:{
-				"dateY":dateY
-			},
+			contentType: "application/json;charset=UTF-8",
+			url: "<%=basePath%>getDaiGouEChartsByYear",
+			data: JSON.stringify(params),
 			success: function(data){
-				echartsMoney = data.data.echartsMoney;
-				echartsTime = data.data.echartsTime;
-				// 指定图表的配置项和数据
+				EChartsX = data.data.EChartsX;
+				EChartsY = data.data.EChartsY;
+
 				let option = {
 					tooltip : {
 						trigger: 'axis',
@@ -379,31 +401,46 @@
 						}
 					},
 					title: {
-						text: '月支出走势图',
+						text: '恰饭月收入',
 					},
 					color: ['#33ABA0'],
 					xAxis: {
 						type: 'category',
-						data: echartsTime
+						data: EChartsY
 					},
 					yAxis: {
 						type: 'value'
 					},
 					series: [{
-						data: echartsMoney,
-						type: 'bar'
+						data: EChartsX,
+						type: 'bar',
+						markLine: {
+							symbol: "none", //去掉警戒线最后面的箭头
+							label: {
+								position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+								formatter: "5000块",
+								color: "#696969",
+								fontSize: 12
+							},
+							data: [{
+								silent: false, //鼠标悬停事件  true没有，false有
+								lineStyle: { //警戒线的样式，虚实，颜色
+									color: "#696969"
+								},
+								yAxis: 5000 //警戒线的标注值，可以有多个yAxis，多条警示线，或者采用{type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+							}]
+						}
 					}]
 				};
-				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);
 			}
 		});
 	}
 
-	function getZCCountByY(){
+	function getCountByYear(){
 
-		let date = $("#selectDateY").val();
-		if (date == null || date === '') {
+		let dateYear = $("#dateYear").val();
+		if (dateYear == null || dateYear === '') {
 
 			layer.msg("要选择一个年份哦", {
 				anim: 6
@@ -411,29 +448,27 @@
 			return;
 		}
 		let params = {
-			"date":date
+			"dateYear":dateYear
 		};
+
 		$.ajax({
-			//请求方式
 			type : "POST",
-			//请求的媒体类型
 			contentType: "application/json;charset=UTF-8",
-			//请求地址
-			url : "<%=basePath%>getZCCountByYear",
-			//数据，json字符串
+			url : "<%=basePath%>getDaiGouCountByYear",
 			data : JSON.stringify(params),
-			//请求成功
-			success : function(result) {
-				if(result.zhiChuCount == null){
-					layer.msg("还没有花钱，开心~");
-					return;
+			success : function(data) {
+				if(data.data == null){
+					layer.alert("还没有收入，哭泣！", {
+						skin: 'layui-layer-molv',
+						closeBtn: 0
+					});
+				}else {
+					layer.alert(dateYear + "年一共赚了" + " " + data.data.profit + "块~", {
+						skin: 'layui-layer-molv',
+						closeBtn: 0
+					});
 				}
-				layer.alert(date+"年一共支出了"+" "+result.zhiChuCount+"~", {
-					skin: 'layui-layer-molv',//样式类名
-					closeBtn: 0
-				});
 			},
-			//请求失败，包含具体的错误信息
 			error : function(e){
 				console.log(e.status);
 				console.log(e.responseText);
@@ -458,7 +493,7 @@
 
 	//年选择器
 	layDate.render({
-		elem: '#selectDateY',
+		elem: '#dateYear',
 		trigger: 'click',
 		type: 'year',
 		max: maxYear

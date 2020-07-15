@@ -5,7 +5,7 @@
 <mapper namespace="com.kiwi.hushang_ayi.mapper.LoginMapper">
 
 	<select id="getUser" parameterType="com.alibaba.fastjson.JSONObject" resultType="java.util.Map">
-		SELECT user_name, user_password, user_power
+		SELECT user_name, user_power
 		FROM user
 		WHERE user_name = #{username}
 		AND user_password = #{password}

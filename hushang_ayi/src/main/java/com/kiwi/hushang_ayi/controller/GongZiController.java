@@ -99,17 +99,17 @@ public class GongZiController {
     }
 
     @RequestMapping(value = "/getGZCountByYear", method = RequestMethod.POST)
-    public JsonResult getGZCountByYear(@RequestBody Map<String,String> requestMap) throws Exception{
+    public JsonResult<Map<String, Object>> getGZCountByYear(@RequestBody Map<String,String> requestMap) throws Exception{
 
         Long dateYear = TypeUtil.toLong(requestMap.get("dateYear"));
         Map<String, Object> map = new HashMap<>();
         map.put("dateYear", dateYear);
         Map<String, Object> gzCountByYear = gongZiService.getGZCountByYear(map);
-        return new JsonResult(gzCountByYear);
+        return new JsonResult<>(gzCountByYear);
     }
 
     @RequestMapping(value = "/getGongZiExcelByMonth", method = RequestMethod.POST)
-    public JsonResult getGongZiExcelByMonth(@RequestBody Map<String,String> requestMap) throws Exception{
+    public JsonResult<List<Map<String, Object>>> getGongZiExcelByMonth(@RequestBody Map<String,String> requestMap) throws Exception{
 
         int date = TypeUtil.toInt(requestMap.get("dateYM"));
 
@@ -120,6 +120,6 @@ public class GongZiController {
         map.put("gongzi_name","合计");
         map.put("gongzi_money",gzCountByYM.get("gongZiCount"));
         gongZiByMonth.add(map);
-        return new JsonResult(gongZiByMonth);
+        return new JsonResult<>(gongZiByMonth);
     }
 }

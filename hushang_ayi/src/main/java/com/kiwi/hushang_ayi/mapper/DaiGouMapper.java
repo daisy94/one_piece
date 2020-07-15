@@ -12,5 +12,9 @@ public interface DaiGouMapper {
 
     List<Map<String, Object>> getDaiGouDataByYearMonth(Integer params);
 
+    List<Map<String, Object>> getDaiGouDataByYear(Integer params);
+
     List<Map<String, Object>> getDaiGouEChartsByYearMonth(Map<String, Object> params);
+
+    Map<String, Object> getDaiGouCountByYear (Map<String, Object> params);
 }

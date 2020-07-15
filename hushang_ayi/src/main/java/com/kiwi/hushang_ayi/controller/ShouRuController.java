@@ -79,7 +79,7 @@ public class ShouRuController {
     }
 
     @RequestMapping(value = "/getShouRuByMonthExcel", method = RequestMethod.POST)
-    public JsonResult getShouRuByMonthExcel(@RequestBody Map<String,Object> requestMap) throws Exception{
+    public JsonResult<List<Map<String, Object>>> getShouRuByMonthExcel(@RequestBody Map<String,Object> requestMap) throws Exception{
 
         int date = TypeUtil.toInt(requestMap.get("dateYM"));
 
@@ -90,7 +90,7 @@ public class ShouRuController {
         map.put("shouru_money","合计");
         map.put("shouru_time",srCountByYM.get("shouRuCount"));
         shouRuByMonth.add(map);
-        return new JsonResult(shouRuByMonth);
+        return new JsonResult<>(shouRuByMonth);
     }
 
     @RequestMapping(value = "/insertShouRuData", method = RequestMethod.POST)
