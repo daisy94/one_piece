@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import utils.JsonResult;
-import utils.LayUIUtil;
+import utils.KiwiUtils;
 import utils.TypeUtil;
 
 import java.util.ArrayList;
@@ -22,25 +22,19 @@ public class GongZiController {
     GongZiService gongZiService;
 
     @RequestMapping(value = "/getGongZiByMonth", method = RequestMethod.POST)
-    public LayUIUtil getGongZiByMonth(String dateYM, Integer page, Integer size) throws Exception{
+    public JsonResult<List<Map<String, Object>>> getGongZiByMonth(String dateYM) throws Exception{
 
-        int date = TypeUtil.toInt(dateYM);
-
-        List<Map<String, Object>> gongZiByMonth = gongZiService.getGongZiByMonth(date);
+        List<Map<String, Object>> gongZiByMonth = gongZiService.getGongZiByMonth(TypeUtil.toInt(dateYM));
         int count = gongZiByMonth.size();
-
-        return LayUIUtil.data(count, gongZiByMonth);
+        return new JsonResult<>(gongZiByMonth, count);
     }
 
     @RequestMapping(value = "/getGongZiByYear", method = RequestMethod.POST)
-    public LayUIUtil getGongZiByYear(String dateYear, Integer page, Integer size) throws Exception{
+    public JsonResult<List<Map<String, Object>>> getGongZiByYear(String dateYear) throws Exception{
 
-        int date = TypeUtil.toInt(dateYear);
-
-        List<Map<String, Object>> gongZiByYear = gongZiService.getGongZiByYear(date);
+        List<Map<String, Object>> gongZiByYear = gongZiService.getGongZiByYear(TypeUtil.toInt(dateYear));
         int count = gongZiByYear.size();
-
-        return LayUIUtil.data(count, gongZiByYear);
+        return new JsonResult<>(gongZiByYear, count);
     }
 
     @RequestMapping(value = "/getGongZiEchartsByYM", method = RequestMethod.POST)
@@ -67,22 +61,11 @@ public class GongZiController {
     }
 
     @RequestMapping(value = "/getGongZiEchartsByYear", method = RequestMethod.POST)
-    public Map<String, Object> getGongZiEchartsByYear(String dateYear) throws Exception{
+    public JsonResult<Map<String, Object>> getGongZiEchartsByYear(String dateYear) throws Exception{
 
-        int date = TypeUtil.toInt(dateYear);
-
-        List<Map<String, Object>> gongZiEchartsByYear = gongZiService.getGongZiEchartsByYear(date);
-        List<String> echartsMoney = new ArrayList<>();
-        List<String> echartsTime = new ArrayList<>();
-        for (Map<String, Object> shouRuByMonthMap : gongZiEchartsByYear){
-
-            echartsMoney.add(TypeUtil.toString(shouRuByMonthMap.get("gongzi_money")));
-            echartsTime.add(TypeUtil.toString(shouRuByMonthMap.get("gongzi_time")));
-        }
-        Map<String, Object> result = new HashMap<>();
-        result.put("echartsMoney",echartsMoney);
-        result.put("echartsTime",echartsTime);
-        return result;
+        List<Map<String, Object>> gongZiEchartsByYear = gongZiService.getGongZiEchartsByYear(TypeUtil.toInt(dateYear));
+        Map<String, Object> map = KiwiUtils.formatEChartsData(gongZiEchartsByYear, "gongzi_money", "gongzi_time");
+        return new JsonResult<>(map);
     }
 
     @RequestMapping(value = "/insertGongZiData", method = RequestMethod.POST)

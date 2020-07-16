@@ -1,6 +1,9 @@
 package utils;
 
-//异常信息枚举类
+/**
+ * @Description: 异常信息枚举类
+ * @Author: kiwi
+ */
 public enum InfoCode {
 
     LOGIN_FAIL(100, "用户名或密码错误啦！"),

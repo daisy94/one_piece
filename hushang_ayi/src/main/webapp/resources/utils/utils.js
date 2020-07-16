@@ -1,6 +1,6 @@
 function formatDate(date){
 
-    let str = [];
+    let str = String();
     let arr = date.split('-');
     for(let i=0;i<arr.length;i++){
         str += arr[i];
@@ -10,7 +10,7 @@ function formatDate(date){
 
 function formatDateMonth(date){
 
-    let month = [];
+    let month = String();
     if(date < 10){
 
         month = "0" + date;

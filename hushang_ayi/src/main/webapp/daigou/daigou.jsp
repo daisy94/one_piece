@@ -253,8 +253,8 @@
 				if(result.code === 0){
 					let dateYearMonth = dateYearMonthDay.substring(0,6);
 					getDataByYearMonth(dateYearMonth);
-					/*insertDATEYMD = insertDATEYMD.substring(0,4);
-					getZCDataByY_start(insertDATEYMD);*/
+					let dateYear = dateYearMonth.substring(0,4);
+					getDataByYear(dateYear);
 					$("#customerName").val("");
 					$("#goodsName").val("");
 					$("#profit").val("");
@@ -323,13 +323,13 @@
 					color: ['#33ABA0'],
 					xAxis: {
 						type: 'category',
-						data: EChartsY
+						data: EChartsX
 					},
 					yAxis: {
 						type: 'value'
 					},
 					series: [{
-						data: EChartsX,
+						data: EChartsY,
 						type: 'bar',
 						markLine: {
 							symbol: "none", //去掉警戒线最后面的箭头
@@ -406,13 +406,13 @@
 					color: ['#33ABA0'],
 					xAxis: {
 						type: 'category',
-						data: EChartsY
+						data: EChartsX
 					},
 					yAxis: {
 						type: 'value'
 					},
 					series: [{
-						data: EChartsX,
+						data: EChartsY,
 						type: 'bar',
 						markLine: {
 							symbol: "none", //去掉警戒线最后面的箭头
@@ -433,6 +433,10 @@
 					}]
 				};
 				myChart.setOption(option);
+			},
+			error : function(e){
+				console.log(e.status);
+				console.log(e.responseText);
 			}
 		});
 	}

@@ -309,8 +309,8 @@
 			// 基于准备好的dom，初始化echarts实例
 			let myChart = echarts.init(document.getElementById('gongZiEchartsByYear'));
 
-			let echartsMoney = [];
-			let echartsTime = [];
+			let EChartsX = [];
+			let EChartsY = [];
 			$.ajax({
 				type: "POST",
 				url: "<%=basePath%>getGongZiEchartsByYear",
@@ -318,8 +318,8 @@
 					"dateYear":dateYear
 				},
 				success: function(data){
-					echartsMoney = data.echartsMoney;
-					echartsTime = data.echartsTime;
+					EChartsX = data.data.EChartsX;
+					EChartsY = data.data.EChartsY;
 
 					// 指定图表的配置项和数据
 					let option = {
@@ -335,13 +335,13 @@
 						color: ['#33ABA0'],
 						xAxis: {
 							type: 'category',
-							data: echartsTime
+							data: EChartsX
 						},
 						yAxis: {
 							type: 'value'
 						},
 						series: [{
-							data: echartsMoney,
+							data: EChartsY,
 							type: 'bar'
 						}]
 					};
