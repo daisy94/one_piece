@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录</title>
+<title>ONE PIECE</title>
 <link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
     <style type="text/css">
         .layui-input{

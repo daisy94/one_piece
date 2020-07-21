@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import utils.KiwiUtils;
 import utils.TypeUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,9 @@ public class OnePieceServiceImpl implements OnePieceService {
     //新增恰饭收入数据
     @Override
     public void insertOnePieceData(Map<String, Object> params) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String updateTime = sdf.format(new Date());
+        params.put("updateTime", updateTime);
         onePieceMapper.insertOnePieceData(params);
     }
 
