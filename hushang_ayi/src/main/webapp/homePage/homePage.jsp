@@ -63,7 +63,7 @@
                         <a class="layui-icon layui-icon-windows" href="<%=basePath%>gongzi/gongzi.jsp"><span class="menu">工资薪金</span></a>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-rate-solid daiGou" href="<%=basePath%>daigou/daigou.jsp"><span class="menu">恰饭统计</span></a>
+                        <a class="layui-icon layui-icon-rate-solid onePiece" href="<%=basePath%>onePiece/onePiece.jsp"><span class="menu">ONE PIECE</span></a>
                     </li>
                 </ul>
             </div>
@@ -94,7 +94,7 @@
             $("#username").html(username);
             $(".logo").html("奶茶记账账");
             if(userPower !== "0"){
-                $(".daiGou").hide();
+                $(".onePiece").hide();
             }
         });
 

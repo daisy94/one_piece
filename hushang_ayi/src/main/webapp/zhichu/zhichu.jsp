@@ -27,6 +27,9 @@
 		.layui-col-md{
 			padding: 5px;
 		}
+		.layui-input{
+			border-radius: 6px;
+		}
 		#zhichuEchartsByYMD{
 			height:356px;
 		}
@@ -184,9 +187,9 @@
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'zhichu_name', title: '支出类型', align: 'center'},
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
+				{field:'zhichu_name', title: '支出类型', align: 'center', unresize: true},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center', unresize: true},
 			]]
 		});
 		zhiChuDataYMDEcharts(dateYM);
@@ -254,9 +257,9 @@
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'zhichu_name', title: '支出类型', align: 'center'},
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
+				{field:'zhichu_name', title: '支出类型', align: 'center', unresize: true},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center', unresize: true},
 			]]
 		});
 		zhiChuDataYMDEcharts(dateYM);
@@ -286,8 +289,8 @@
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center', unresize: true},
 			]]
 		});
 		zhiChuDataYMEcharts(date);
@@ -305,8 +308,8 @@
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-				{field:'zhichu_time', title: '支出日期', align: 'center'},
+				{field:'zhichu_money', title: '支出金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+				{field:'zhichu_time', title: '支出日期', align: 'center', unresize: true},
 			]]
 		});
 	};

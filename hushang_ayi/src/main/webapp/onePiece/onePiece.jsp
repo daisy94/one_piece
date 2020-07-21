@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>恰饭统计</title>
+	<title>ONE PIECE</title>
 	<link rel="stylesheet" href="<%=basePath%>resources/layui/css/layui.css">
 	<style>
 		.layui-btn{
@@ -27,10 +27,13 @@
 		.layui-col-md{
 			padding: 5px;
 		}
-		#daiGouEChartsByYearMonth{
+		.layui-input{
+			border-radius: 6px;
+		}
+		#onePieceEChartsByYearMonth{
 			height:356px;
 		}
-		#daiGouEChartsByYear{
+		#onePieceEChartsByYear{
 			height:356px;
 		}
 	</style>
@@ -94,7 +97,7 @@
 							</div>
 							<div class="layui-row">
 								<div>
-									<table id="daiGouTableYearMonth"></table>
+									<table id="onePieceTableYearMonth"></table>
 								</div>
 							</div>
 						</div>
@@ -117,7 +120,7 @@
 							</div>
 							<div class="layui-row">
 								<div>
-									<table id="daiGouTableYear"></table>
+									<table id="onePieceTableYear"></table>
 								</div>
 							</div>
 						</div>
@@ -128,12 +131,12 @@
 			<div class="layui-row">
 				<div class="layui-col-md6">
 					<div class="layui-card">
-						<div class="layui-card-body" id="daiGouEChartsByYearMonth"></div>
+						<div class="layui-card-body" id="onePieceEChartsByYearMonth"></div>
 					</div>
 				</div>
 				<div class="layui-col-md6">
 					<div class="layui-card">
-						<div class="layui-card-body" id="daiGouEChartsByYear"></div>
+						<div class="layui-card-body" id="onePieceEChartsByYear"></div>
 					</div>
 				</div>
 			</div>
@@ -247,9 +250,9 @@
 		$.ajax({
 			type : "POST",
 			contentType: "application/json;charset=UTF-8",
-			url : "<%=basePath%>insertDaiGouData",
+			url : "<%=basePath%>insertOnePieceData",
 			data : JSON.stringify(params),
-			success : function(result) {
+			success: function(result) {
 				if(result.code === 0){
 					let dateYearMonth = dateYearMonthDay.substring(0,6);
 					getDataByYearMonth(dateYearMonth);
@@ -263,7 +266,7 @@
 					layer.msg(result.msg);
 				}
 			},
-			error : function(e){
+			error: function(e){
 				console.log(e.status);
 				console.log(e.responseText);
 			}
@@ -273,27 +276,28 @@
 	function getDataByYearMonth(dateYearMonth){
 
 		table.render({
-			elem: '#daiGouTableYearMonth',
-			url: '<%=basePath%>getDaiGouTableYearMonth',
+			elem: '#onePieceTableYearMonth',
+			url: '<%=basePath%>getOnePieceTableYearMonth',
+			contentType: 'application/json',
 			where: {
-				dateYearMonth
+				"dateYearMonth": dateYearMonth
 			},
 			cellMinWidth: 80,
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'customer_name', title: '买家微信名', align: 'center'},
-				{field:'goods_name', title: '商品名称', align: 'center'},
-				{field:'profit', title: '净利润', sort: true, align: 'center'},
-				{field:'date', title: '购买日期', align: 'center'}
+				{field:'customer_name', title: '买家微信名', align: 'center', unresize: true},
+				{field:'goods_name', title: '商品名称', align: 'center', unresize: true},
+				{field:'profit', title: '净利润', sort: true, align: 'center', unresize: true},
+				{field:'date', title: '购买日期', align: 'center', unresize: true}
 			]]
 		});
-		getDaiGouEChartsByYearMonth(dateYearMonth);
+		getOnePieceEChartsByYearMonth(dateYearMonth);
 	}
 
-	function getDaiGouEChartsByYearMonth(dateYearMonth) {
+	function getOnePieceEChartsByYearMonth(dateYearMonth) {
 
-		let myChart = echarts.init(document.getElementById("daiGouEChartsByYearMonth"));
+		let myChart = echarts.init(document.getElementById("onePieceEChartsByYearMonth"));
 
 		let EChartsX = [];
 		let EChartsY = [];
@@ -304,7 +308,7 @@
 		$.ajax({
 			type: "POST",
 			contentType: "application/json;charset=UTF-8",
-			url: "<%=basePath%>getDaiGouEChartsByYearMonth",
+			url: "<%=basePath%>getOnePieceEChartsByYearMonth",
 			data:JSON.stringify(params),
 			success: function(data){
 				EChartsX = data.data.EChartsX;
@@ -350,6 +354,10 @@
 					}]
 				};
 				myChart.setOption(option);
+			},
+			error: function(e){
+				console.log(e.status);
+				console.log(e.responseText);
 			}
 		});
 	}
@@ -357,25 +365,26 @@
 	function getDataByYear(dateYear){
 
 		table.render({
-			elem: '#daiGouTableYear',
-			url: '<%=basePath%>getDaiGouTableYear',
+			elem: '#onePieceTableYear',
+			url: '<%=basePath%>getOnePieceTableYear',
+			contentType: 'application/json',
 			where: {
-				dateYear
+				"dateYear": dateYear
 			},
 			cellMinWidth: 80,
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'profit', title: '净利润', sort: true, align: 'center'},
-				{field:'date', title: '统计日期', align: 'center'},
+				{field:'profit', title: '净利润', sort: true, align: 'center', unresize: true},
+				{field:'date', title: '统计日期', align: 'center', unresize: true},
 			]]
 		});
-		getDaiGouEChartsByYear(dateYear);
+		getOnePieceEChartsByYear(dateYear);
 	}
 
-	function getDaiGouEChartsByYear(dateYear) {
+	function getOnePieceEChartsByYear(dateYear) {
 
-		let myChart = echarts.init(document.getElementById("daiGouEChartsByYear"));
+		let myChart = echarts.init(document.getElementById("onePieceEChartsByYear"));
 
 		let EChartsX = [];
 		let EChartsY = [];
@@ -387,7 +396,7 @@
 			async: false,
 			type: "POST",
 			contentType: "application/json;charset=UTF-8",
-			url: "<%=basePath%>getDaiGouEChartsByYear",
+			url: "<%=basePath%>getOnePieceEChartsByYear",
 			data: JSON.stringify(params),
 			success: function(data){
 				EChartsX = data.data.EChartsX;
@@ -434,7 +443,7 @@
 				};
 				myChart.setOption(option);
 			},
-			error : function(e){
+			error: function(e){
 				console.log(e.status);
 				console.log(e.responseText);
 			}
@@ -458,9 +467,9 @@
 		$.ajax({
 			type : "POST",
 			contentType: "application/json;charset=UTF-8",
-			url : "<%=basePath%>getDaiGouCountByYear",
+			url : "<%=basePath%>getOnePieceCountByYear",
 			data : JSON.stringify(params),
-			success : function(data) {
+			success: function(data) {
 				if(data.data == null){
 					layer.alert("还没有收入，哭泣！", {
 						skin: 'layui-layer-molv',
@@ -473,7 +482,7 @@
 					});
 				}
 			},
-			error : function(e){
+			error: function(e){
 				console.log(e.status);
 				console.log(e.responseText);
 			}

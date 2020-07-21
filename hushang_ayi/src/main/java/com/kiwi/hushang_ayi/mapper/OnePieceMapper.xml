@@ -2,10 +2,10 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kiwi.hushang_ayi.mapper.DaiGouMapper">
+<mapper namespace="com.kiwi.hushang_ayi.mapper.OnePieceMapper">
 
-	<insert id="insertDaiGouData" parameterType="java.util.Map">
-		INSERT INTO daigou
+	<insert id="insertOnePieceData" parameterType="java.util.Map">
+		INSERT INTO one_piece
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
 				id,
@@ -42,24 +42,24 @@
 		</trim>
 	</insert>
 
-	<select id="getDaiGouDataByYearMonth" parameterType="java.lang.Integer" resultType="java.util.Map">
+	<select id="getOnePieceDataByYearMonth" parameterType="java.lang.Integer" resultType="java.util.Map">
 		SELECT customer_name, goods_name, profit, `date`
-		FROM daigou
+		FROM one_piece
 		WHERE LEFT(`date`, 6) = #{dateYearMonth}
 		ORDER BY `date`
 	</select>
 
-	<select id="getDaiGouDataByYear" parameterType="java.lang.Integer" resultType="java.util.Map">
+	<select id="getOnePieceDataByYear" parameterType="java.lang.Integer" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, LEFT(`date`, 6) AS date
-		FROM daigou
+		FROM one_piece
 		WHERE LEFT(`date`, 4) = #{dateYear}
 		GROUP BY LEFT(`date`, 6)
 		ORDER BY `date`
 	</select>
 
-	<select id="getDaiGouEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
+	<select id="getOnePieceEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, `date`
-		FROM daigou
+		FROM one_piece
 		<if test="dateYearMonth != null and dateYearMonth != ''">
 			WHERE LEFT(`date`, 6) = #{dateYearMonth}
 		</if>
@@ -67,9 +67,9 @@
 		ORDER BY `date`
 	</select>
 
-	<select id="getDaiGouCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
+	<select id="getOnePieceCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit
-		FROM daigou
+		FROM one_piece
 		<if test="dateYear != null and dateYear != ''">
 			WHERE LEFT(`date`, 4) = #{dateYear}
 		</if>

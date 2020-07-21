@@ -27,6 +27,9 @@
 		.layui-col-md{
 			padding: 5px;
 		}
+		.layui-input{
+			border-radius: 6px;
+		}
 		#zhiChuEchartsByYM{
 			height:345px;
 		}

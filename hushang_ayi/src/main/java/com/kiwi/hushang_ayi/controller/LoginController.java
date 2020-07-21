@@ -3,7 +3,6 @@ package com.kiwi.hushang_ayi.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.kiwi.hushang_ayi.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utils.InfoCode;
 import utils.JsonResult;
@@ -35,6 +34,7 @@ public class LoginController {
             response.addCookie(userInfoName);
             response.addCookie(userInfoPower);
             session.setAttribute("user", userName);
+            session.setMaxInactiveInterval(0);
             return new JsonResult();
         }
         return new JsonResult(InfoCode.LOGIN_FAIL.code, InfoCode.LOGIN_FAIL.msg);

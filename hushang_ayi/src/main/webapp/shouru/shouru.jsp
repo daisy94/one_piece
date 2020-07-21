@@ -27,6 +27,9 @@
 		.layui-col-md{
 			padding: 5px;
 		}
+		.layui-input{
+			border-radius: 6px;
+		}
 		#shouRuEchartsByYMD{
 			height:356px;
 		}
@@ -178,8 +181,8 @@
 				height: 275,
 				method: 'post',
 				cols: [[
-					{field: 'shouru_money', title: '收入金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-					{field: 'shouru_time', title: '收入日期', align: 'center'},
+					{field: 'shouru_money', title: '收入金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+					{field: 'shouru_time', title: '收入日期', align: 'center', unresize: true},
 				]]
 			});
 			shouRuDataYMDEcharts(dateYM);
@@ -197,8 +200,8 @@
 				height: 275,
 				method: 'post',
 				cols: [[
-					{field: 'shouru_money', title: '收入金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-					{field: 'shouru_time', title: '收入日期', align: 'center'},
+					{field: 'shouru_money', title: '收入金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+					{field: 'shouru_time', title: '收入日期', align: 'center', unresize: true},
 				]]
 			});
 			shouRuDataYMDEcharts(dateYM);
@@ -228,8 +231,8 @@
 				height: 275,
 				method: 'post',
 				cols: [[
-					{field:'shouru_money', title: '收入金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-					{field:'shouru_time', title: '收入日期', align: 'center'},
+					{field:'shouru_money', title: '收入金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+					{field:'shouru_time', title: '收入日期', align: 'center', unresize: true},
 				]]
 			});
 			shouDataYMEcharts(date);
@@ -247,8 +250,8 @@
 				height: 275,
 				method: 'post',
 				cols: [[
-					{field:'shouru_money', title: '收入金额', sort: true, align: 'center'}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-					{field:'shouru_time', title: '收入日期', align: 'center'},
+					{field:'shouru_money', title: '收入金额', sort: true, align: 'center', unresize: true}, //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+					{field:'shouru_time', title: '收入日期', align: 'center', unresize: true},
 				]]
 			});
 		};
@@ -295,6 +298,10 @@
 					};
 					// 使用刚指定的配置项和数据显示图表。
 					myChart.setOption(option);
+				},
+				error : function(e){
+					console.log(e.status);
+					console.log(e.responseText);
 				}
 			});
 		};
@@ -342,6 +349,10 @@
 					};
 					// 使用刚指定的配置项和数据显示图表。
 					myChart.setOption(option);
+				},
+				error : function(e){
+					console.log(e.status);
+					console.log(e.responseText);
 				}
 			});
 		};
@@ -509,7 +520,9 @@
 					layer.msg("导出成功");
 					layer.close(loading);
 				},
-				error() {
+				error: function(e){
+					console.log(e.status);
+					console.log(e.responseText);
 					layer.msg("导出失败");
 					layer.close(loading);
 				}

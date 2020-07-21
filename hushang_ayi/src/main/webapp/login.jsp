@@ -51,6 +51,15 @@
     <script type="text/javascript">
         let layer = layui.layer;
 
+        $(function(){
+            document.onkeydown = function(e){
+                let event = document.all ? window.event : e;
+                if(event.keyCode === 13) {
+                    login();
+                }
+            }
+        });
+
         function login(){
 
             let username = $("#username").val();
@@ -86,6 +95,10 @@
                     }else if(data.code === 0){
                         window.top.location.href = "<%=basePath%>homePage/homePage.jsp";
                     }
+                },
+                error: function(e){
+                    console.log(e.status);
+                    console.log(e.responseText);
                 }
             });
         }
