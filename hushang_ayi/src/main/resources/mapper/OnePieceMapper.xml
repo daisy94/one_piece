@@ -4,6 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kiwi.hushang_ayi.mapper.OnePieceMapper">
 
+	<!-- 新增恰饭收入数据 -->
 	<insert id="insertOnePieceData" parameterType="java.util.Map">
 		INSERT INTO one_piece
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -23,7 +24,7 @@
 				`date`,
 			</if>
 			<if test="updateTime != null and updateTime != ''">
-				update_Time,
+				update_time,
 			</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
@@ -48,13 +49,42 @@
 		</trim>
 	</insert>
 
+	<!-- 删除恰饭收入数据 -->
+	<delete id="deleteOnePieceTableData" parameterType="java.util.Map">
+		<if test="id != null and id != ''">
+			DELETE FROM one_piece WHERE id = #{id}
+		</if>
+	</delete>
+
+	<!-- 修改恰饭收入数据 -->
+	<update id="updateOnePieceTableData" parameterType="java.util.Map">
+		UPDATE one_piece
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="customer_name != null and customer_name != ''">
+				customer_name = #{customer_name},
+			</if>
+			<if test="goods_name != null and goods_name != ''">
+				goods_name = #{goods_name},
+			</if>
+			<if test="profit != null and profit != ''">
+				profit = #{profit},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time = #{updateTime},
+			</if>
+		</trim>
+		WHERE id = #{id}
+	</update>
+
+	<!-- 按月份查询恰饭表格所需数据 -->
 	<select id="getOnePieceDataByYearMonth" parameterType="java.lang.Integer" resultType="java.util.Map">
-		SELECT customer_name, goods_name, profit, `date`
+		SELECT id, customer_name, goods_name, profit, `date`
 		FROM one_piece
 		WHERE LEFT(`date`, 6) = #{dateYearMonth}
 		ORDER BY `date`
 	</select>
 
+	<!-- 按年份查询恰饭表格所需数据 -->
 	<select id="getOnePieceDataByYear" parameterType="java.lang.Integer" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, LEFT(`date`, 6) AS date
 		FROM one_piece
@@ -63,6 +93,7 @@
 		ORDER BY `date`
 	</select>
 
+	<!-- 按月份查询恰饭ECharts所需数据 -->
 	<select id="getOnePieceEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, `date`
 		FROM one_piece
@@ -73,6 +104,7 @@
 		ORDER BY `date`
 	</select>
 
+	<!-- 按年份查询恰饭收入总和 -->
 	<select id="getOnePieceCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit
 		FROM one_piece

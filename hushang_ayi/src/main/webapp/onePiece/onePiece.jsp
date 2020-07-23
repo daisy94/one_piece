@@ -97,7 +97,7 @@
 							</div>
 							<div class="layui-row">
 								<div>
-									<table id="onePieceTableYearMonth"></table>
+									<table id="onePieceTableYearMonth" lay-filter="onePieceTable"></table>
 								</div>
 							</div>
 						</div>
@@ -142,6 +142,11 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/html" id="operationButton">
+		<a class="layui-btn layui-btn-xs" lay-event="edit">改一哈</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">不要了</a>
+	</script>
 
 	<script src="<%=basePath%>resources/layui/layui.all.js"></script>
 	<script src="<%=basePath%>resources/layui_exts/excel.js"></script>
@@ -273,6 +278,56 @@
 		});
 	}
 
+	function deleteTableData(params, date) {
+
+		$.ajax({
+			type : "POST",
+			contentType: "application/json;charset=UTF-8",
+			url : "<%=basePath%>deleteOnePieceTableData",
+			data : params,
+			success: function(result) {
+				if(result.code === 0){
+					let dateYearMonth = formatDate(date).substring(0,6);
+					getDataByYearMonth(dateYearMonth);
+					let dateYear = dateYearMonth.substring(0,4);
+					getDataByYear(dateYear);
+					layer.msg(result.msg);
+				}else if(result.code === 150){
+					layer.msg(result.msg);
+				}
+			},
+			error: function(e){
+				console.log(e.status);
+				console.log(e.responseText);
+			}
+		});
+	}
+
+	function updateTableData(params, date) {
+
+		$.ajax({
+			type : "POST",
+			contentType: "application/json;charset=UTF-8",
+			url : "<%=basePath%>updateOnePieceTableData",
+			data : params,
+			success: function(result) {
+				if(result.code === 0){
+					let dateYearMonth = formatDate(date).substring(0,6);
+					getDataByYearMonth(dateYearMonth);
+					let dateYear = dateYearMonth.substring(0,4);
+					getDataByYear(dateYear);
+					layer.msg(result.msg);
+				}else if(result.code === 150){
+					layer.msg(result.msg);
+				}
+			},
+			error: function(e){
+				console.log(e.status);
+				console.log(e.responseText);
+			}
+		});
+	}
+
 	function getDataByYearMonth(dateYearMonth){
 
 		table.render({
@@ -286,10 +341,12 @@
 			height: 275,
 			method: 'post',
 			cols: [[
-				{field:'customer_name', title: '买家微信名', align: 'center', unresize: true},
-				{field:'goods_name', title: '商品名称', align: 'center', unresize: true},
-				{field:'profit', title: '净利润', sort: true, align: 'center', unresize: true},
-				{field:'date', title: '购买日期', align: 'center', unresize: true}
+				{field:'id', title: 'ID', hide: true},
+				{field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
+				{field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
+				{field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
+				{field:'date', title: '购买日期', align: 'center', unresize: true},
+				{align:'center', title: '你要干什么', toolbar: '#operationButton'}
 			]]
 		});
 		getOnePieceEChartsByYearMonth(dateYearMonth);
@@ -488,6 +545,32 @@
 			}
 		});
 	}
+
+	table.on('tool(onePieceTable)', function(obj){
+		let data = obj.data;
+		let date = data.date;
+		if(obj.event === 'delete'){
+			layer.confirm('确定不要了吗', function(index){
+				deleteTableData(JSON.stringify(data), date);
+				layer.close(index);
+			});
+		} else if(obj.event === 'edit'){
+			let customerName = data.customer_name;
+			let goodsName = data.goods_name;
+			let profit = data.profit;
+			if(customerName === "" || goodsName === "" || profit === ""){
+
+				layer.msg("每一个都是要填的！", {
+					anim: 6
+				});
+				return;
+			}
+			layer.confirm('确定改成这样吗', function(index){
+				updateTableData(JSON.stringify(data), date);
+				layer.close(index);
+			});
+		}
+	});
 
 	//年月日选择器
 	layDate.render({

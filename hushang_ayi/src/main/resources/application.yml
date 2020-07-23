@@ -13,3 +13,7 @@ spring:
 #指定log4j2配置文件
 logging:
   config: classpath:log4j2-spring.xml
+
+#指定MyBatis映射xml文件
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

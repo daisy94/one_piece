@@ -15,6 +15,18 @@ public interface OnePieceMapper {
     void insertOnePieceData(Map<String, Object> params);
 
     /**
+     * 删除恰饭收入数据
+     * @param params
+     */
+    void deleteOnePieceTableData(Map<String, Object> params);
+
+    /**
+     * 修改恰饭收入数据
+     * @param params
+     */
+    void updateOnePieceTableData(Map<String, Object> params);
+
+    /**
      * 按月份查询恰饭表格所需数据
      * @param params
      * @return

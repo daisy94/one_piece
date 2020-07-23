@@ -7,6 +7,10 @@ public interface OnePieceService {
 
     void insertOnePieceData(Map<String, Object> params);
 
+    void deleteOnePieceTableData(Map<String, Object> params);
+
+    void updateOnePieceTableData(Map<String, Object> params);
+
     List<Map<String, Object>> getOnePieceDataByYearMonth(Integer params);
 
     List<Map<String, Object>> getOnePieceDataByYear(Integer params);

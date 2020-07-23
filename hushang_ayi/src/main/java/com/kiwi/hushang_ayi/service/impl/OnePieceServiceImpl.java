@@ -27,6 +27,21 @@ public class OnePieceServiceImpl implements OnePieceService {
         onePieceMapper.insertOnePieceData(params);
     }
 
+    //删除恰饭收入数据
+    @Override
+    public void deleteOnePieceTableData(Map<String, Object> params) {
+        onePieceMapper.deleteOnePieceTableData(params);
+    }
+
+    //修改恰饭收入数据
+    @Override
+    public void updateOnePieceTableData(Map<String, Object> params) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String updateTime = sdf.format(new Date());
+        params.put("updateTime", updateTime);
+        onePieceMapper.updateOnePieceTableData(params);
+    }
+
     //按月份查询恰饭表格所需数据
     @Override
     public List<Map<String, Object>> getOnePieceDataByYearMonth(Integer params) {

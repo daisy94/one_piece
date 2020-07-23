@@ -158,7 +158,7 @@
 
 	$(function() {
 
-		let dateYM = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
+		let dateYM = new Date().getFullYear() + formatDateMonth(new Date().getMonth());
 		getZCDataByYM_save(dateYM);
 		let dateY = new Date().getFullYear();
 		getZCDataByY_start(dateY);

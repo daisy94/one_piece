@@ -31,6 +31,30 @@ public class OnePieceController {
         }
     }
 
+    //删除恰饭收入数据
+    @RequestMapping(value = "/deleteOnePieceTableData", method = RequestMethod.POST)
+    public JsonResult deleteOnePieceTableData(@RequestBody Map<String, Object> params)throws Exception{
+
+        try {
+            onePieceService.deleteOnePieceTableData(params);
+            return new JsonResult(InfoCode.DELETE_SUCCESS.code, InfoCode.DELETE_SUCCESS.msg);
+        }catch (Exception e){
+            return new JsonResult(InfoCode.DELETE_FAIL.code, InfoCode.DELETE_FAIL.msg);
+        }
+    }
+
+    //修改恰饭收入数据
+    @RequestMapping(value = "/updateOnePieceTableData", method = RequestMethod.POST)
+    public JsonResult updateOnePieceTableData(@RequestBody Map<String, Object> params)throws Exception{
+
+        try {
+            onePieceService.updateOnePieceTableData(params);
+            return new JsonResult(InfoCode.UPDATE_SUCCESS.code, InfoCode.UPDATE_SUCCESS.msg);
+        }catch (Exception e){
+            return new JsonResult(InfoCode.UPDATE_FAIL.code, InfoCode.UPDATE_FAIL.msg);
+        }
+    }
+
     //按月份查询恰饭表格所需数据
     @RequestMapping(value = "/getOnePieceTableYearMonth", method = RequestMethod.POST)
     public JsonResult<List<Map<String, Object>>> getGongZiByMonth(@RequestBody Map<String, Object> params) throws Exception{

@@ -312,7 +312,7 @@
 							}
 						},
 						title: {
-							text: '年净利润走势图',
+							text: '月净利润走势图',
 						},
 						color: ['#33ABA0'],
 						xAxis: {
