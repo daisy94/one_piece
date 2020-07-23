@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import utils.KiwiUtils;
 import utils.TypeUtil;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +82,19 @@ public class OnePieceServiceImpl implements OnePieceService {
     @Override
     public Map<String, Object> getOnePieceCountByYear(Map<String, Object> params) {
         return onePieceMapper.getOnePieceCountByYear(params);
+    }
+
+    //按月份查询恰饭收入目标业绩百分比
+    @Override
+    public Map<String, String> getAchievementPercentage(Map<String, Object> params) {
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        Map<String, Object> onePieceCountByMonth = onePieceMapper.getOnePieceCountByMonth(params);
+        double profitCount = Double.parseDouble(String.valueOf(onePieceCountByMonth.get("profit")));
+        double targetProfit = 5000;
+        String achievementPercentage = df.format((profitCount / targetProfit * 100)) + "%";
+        Map<String, String> result = new HashMap<>();
+        result.put("achievementPercentage", achievementPercentage);
+        return result;
     }
 }

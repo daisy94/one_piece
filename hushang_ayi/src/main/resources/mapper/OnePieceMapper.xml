@@ -113,4 +113,13 @@
 		</if>
 	</select>
 
+	<!-- 按月份查询恰饭收入总和 -->
+	<select id="getOnePieceCountByMonth" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(profit) AS profit
+		FROM one_piece
+		<if test="dateYearMonth != null and dateYearMonth != ''">
+			WHERE LEFT(`date`, 6) = #{dateYearMonth}
+		</if>
+	</select>
+
 </mapper>

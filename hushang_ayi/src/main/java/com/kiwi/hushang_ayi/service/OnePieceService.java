@@ -20,4 +20,6 @@ public interface OnePieceService {
     Map<String, Object> getOnePieceEChartsByYear(Map<String, Object> params);
 
     Map<String, Object> getOnePieceCountByYear (Map<String, Object> params);
+
+    Map<String, String> getAchievementPercentage (Map<String, Object> params);
 }

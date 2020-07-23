@@ -53,4 +53,11 @@ public interface OnePieceMapper {
      * @return
      */
     Map<String, Object> getOnePieceCountByYear (Map<String, Object> params);
+
+    /**
+     * 按月份查询恰饭收入总和
+     * @param params
+     * @return
+     */
+    Map<String, Object> getOnePieceCountByMonth (Map<String, Object> params);
 }
