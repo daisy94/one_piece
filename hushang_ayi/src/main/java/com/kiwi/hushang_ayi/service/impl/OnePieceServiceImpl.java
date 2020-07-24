@@ -86,14 +86,14 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按月份查询恰饭收入目标业绩百分比
     @Override
-    public Map<String, String> getAchievementPercentage(Map<String, Object> params) {
+    public Map<String, Object> getAchievementPercentage(Map<String, Object> params) {
 
         DecimalFormat df = new DecimalFormat("#.00");
         Map<String, Object> onePieceCountByMonth = onePieceMapper.getOnePieceCountByMonth(params);
+        Map<String, Object> result = new HashMap<>();
         double profitCount = Double.parseDouble(String.valueOf(onePieceCountByMonth.get("profit")));
         double targetProfit = 5000;
-        String achievementPercentage = df.format((profitCount / targetProfit * 100)) + "%";
-        Map<String, String> result = new HashMap<>();
+        String achievementPercentage = df.format((profitCount / targetProfit * 100));
         result.put("achievementPercentage", achievementPercentage);
         return result;
     }

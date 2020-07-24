@@ -15,12 +15,6 @@
 		.layui-btn{
 			border-radius: 5px;
 		}
-		.menstruation{
-			background-color: #b81004;
-		}
-		.edit{
-			background-color: #2695ea;
-		}
 		.layui-fluid{
 			padding-top: 15px;
 			padding-bottom: 15px;
@@ -29,165 +23,29 @@
 			padding: 0;
 		}
 		.layui-col-md6{
-			padding: 6px;
+			padding: 5px;
 		}
 		.layui-col-md{
-			padding: 6px;
+			padding: 5px;
 		}
 		.layui-input{
 			border-radius: 6px;
 		}
-		.extraFunction{
-			height: 660px;
-		}
 		#onePieceEChartsByYearMonth{
-			height: 242px;
+			height: 262px;
 		}
 		#onePieceEChartsByYear{
-			height: 242px;
+			height: 262px;
 		}
 	</style>
 </head>
-<body>
+<body bgcolor="#F2F2F2">
 	<div class="layui-fluid">
 	<!-- 内容主体区域 -->
 		<div class="layui-row layui-col-space15">
-			<div class="layui-row">
-				<div class="layui-col-md">
-					<div class="layui-card">
-						<div class="layui-card-body">
-							<div class="layui-row">
-								<div class="layui-col-md">
-									<div class="layui-inline">
-										<label class="layui-form-label">谁买的呀：</label>
-										<div class="layui-input-inline">
-											<input type="text" id="customerName" placeholder="谁买的呀" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">买了什么：</label>
-										<div class="layui-input-inline">
-											<input type="text" id="goodsName" placeholder="买了什么呀" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">利润金额：</label>
-										<div class="layui-input-inline">
-											<input type="text" id="profit" placeholder="挣了多少钱呀" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">买的时间：</label>
-										<div class="layui-inline">
-											<input type="text" readonly class="layui-input" id="dateYearMonthDay" placeholder="几号买的呀" autocomplete="off">
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn insert" onclick="insertByYearMonthDay()">保存</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<div class="layui-row">
-				<div class="layui-col-md11">
-					<div class="layui-row">
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-card-body">
-									<div class="layui-row">
-										<label class="layui-form-label">选择时间：</label>
-										<div class="layui-inline">
-											<input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByYearMonth select">走你</button>
-										</div>
-									</div>
-									<div class="layui-row">
-										<div>
-											<table id="onePieceTableYearMonth" lay-filter="onePieceTable"></table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-card-body">
-									<div class="layui-row">
-										<label class="layui-form-label">选择时间：</label>
-										<div class="layui-inline">
-											<input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByYear select">走你</button>
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn" onclick="getCountByYear()">合计收入</button>
-										</div>
-									</div>
-									<div class="layui-row">
-										<div>
-											<table id="onePieceTableYear"></table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="layui-row">
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-card-header"><h3><b>日收入走势</b></h3></div>
-								<div class="layui-card-body" id="onePieceEChartsByYearMonth"></div>
-							</div>
-						</div>
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-card-header"><h3><b>月收入走势</b></h3></div>
-								<div class="layui-card-body" id="onePieceEChartsByYear"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="layui-row">
-						<div class="layui-col-md">
-							<div class="layui-card">
-								<div class="layui-card-header"><h3><b>业绩！业绩！还是业绩！</b></h3></div>
-								<div class="layui-card-body">
-									<div class="layui-progress layui-progress-big" lay-filter="achievement" lay-showpercent="true">
-										<div class="layui-progress-bar" lay-percent=""></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="layui-col-md1">
-					<div class="layui-row">
-						<div class="layui-col-md">
-							<div class="layui-card">
-								<div class="layui-card-header"><h3><b>贴心小功能</b></h3></div>
-								<div class="layui-card-body extraFunction">
-									<button type="button" class="layui-btn layui-btn-fluid menstruation" onclick="getMenstruationCycle()">查月经周期</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-
-	<script type="text/html" id="operationButton">
-		<a class="layui-btn layui-btn-xs edit" lay-event="edit">改一哈</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">不要了</a>
-	</script>
 
 	<script src="<%=basePath%>resources/layui/layui.all.js"></script>
 	<script src="<%=basePath%>resources/layui_exts/excel.js"></script>
@@ -429,28 +287,26 @@
 						yAxis: {
 							type: 'value'
 						},
-						series: [
-							{
-								data: EChartsY,
-								type: 'bar',
-								markLine: {
-									symbol: "none", //去掉警戒线最后面的箭头
-									label: {
-										position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-										formatter: "200块",
-										color: "#696969",
-										fontSize: 12
+						series: [{
+							data: EChartsY,
+							type: 'bar',
+							markLine: {
+								symbol: "none", //去掉警戒线最后面的箭头
+								label: {
+									position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+									formatter: "200块",
+									color: "#696969",
+									fontSize: 12
+								},
+								data: [{
+									silent: false, //鼠标悬停事件  true没有，false有
+									lineStyle: { //警戒线的样式，虚实，颜色
+										color: "#696969"
 									},
-									data: [{
-										silent: false, //鼠标悬停事件  true没有，false有
-										lineStyle: { //警戒线的样式，虚实，颜色
-											color: "#696969"
-										},
-										yAxis: 200 //警戒线的标注值，可以有多个yAxis，多条警示线，或者采用{type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-									}]
-								}
+									yAxis: 200 //警戒线的标注值，可以有多个yAxis，多条警示线，或者采用{type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+								}]
 							}
-						]
+						}]
 					};
 					myChart.setOption(option);
 				},
@@ -508,7 +364,7 @@
 								type: 'none'
 							}
 						},
-						color: ['#4186bb'],
+						color: ['#33ABA0'],
 						xAxis: {
 							type: 'category',
 							data: EChartsX
@@ -613,8 +469,7 @@
 			layer.open({
 				type: 2,
 				title: false,
-				anim: 2,
-				area: ['1300px', '700px'],
+				area: ['1000px', '500px'],
 				content: ['<%=basePath%>onePiece/menstruationCycle.jsp', 'no']
 			});
 		}
@@ -623,7 +478,7 @@
 			let data = obj.data;
 			let date = data.date;
 			if(obj.event === 'delete'){
-				layer.confirm('确定不要了吗', {title: '纳尼！'}, function(index){
+				layer.confirm('确定不要了吗', function(index){
 					deleteTableData(JSON.stringify(data), date);
 					layer.close(index);
 				});
@@ -638,7 +493,7 @@
 					});
 					return;
 				}
-				layer.confirm('确定改成这样吗', {title: '纳尼！'}, function(index){
+				layer.confirm('确定改成这样吗', function(index){
 					updateTableData(JSON.stringify(data), date);
 					layer.close(index);
 				});

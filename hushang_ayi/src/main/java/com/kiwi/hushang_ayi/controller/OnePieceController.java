@@ -99,9 +99,9 @@ public class OnePieceController {
 
     //按月份查询恰饭收入目标业绩百分比
     @RequestMapping(value = "/getAchievementPercentage", method = RequestMethod.POST)
-    public JsonResult<Map<String, String>> getAchievementPercentage(@RequestBody Map<String, Object> params)throws Exception{
+    public JsonResult<Map<String, Object>> getAchievementPercentage(@RequestBody Map<String, Object> params)throws Exception{
 
-        Map<String, String> achievementPercentage = onePieceService.getAchievementPercentage(params);
+        Map<String, Object> achievementPercentage = onePieceService.getAchievementPercentage(params);
         return new JsonResult<>(achievementPercentage);
     }
 }
