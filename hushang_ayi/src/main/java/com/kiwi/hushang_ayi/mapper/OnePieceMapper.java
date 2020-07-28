@@ -31,7 +31,7 @@ public interface OnePieceMapper {
      * @param params
      * @return
      */
-    List<Map<String, Object>> getOnePieceDataByYearMonth(Integer params);
+    List<Map<String, Object>> getOnePieceDataByYearMonth(Map<String, Object> params);
 
     /**
      * 按年份查询恰饭表格所需数据
@@ -52,12 +52,25 @@ public interface OnePieceMapper {
      * @param params
      * @return
      */
-    Map<String, Object> getOnePieceCountByYear (Map<String, Object> params);
+    Map<String, Object> getOnePieceCountByYear(Map<String, Object> params);
 
     /**
      * 按月份查询恰饭收入总和
      * @param params
      * @return
      */
-    Map<String, Object> getOnePieceCountByMonth (Map<String, Object> params);
+    Map<String, Object> getOnePieceCountByMonth(Map<String, Object> params);
+
+    /**
+     * 新增姨妈周期数据
+     * @param params
+     */
+    void insertMenstruationCycleData(Map<String, Object> params);
+
+    /**
+     * 查询姨妈周期表格所需数据
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getMenstruationCycleTable(Map<String, Object> params);
 }

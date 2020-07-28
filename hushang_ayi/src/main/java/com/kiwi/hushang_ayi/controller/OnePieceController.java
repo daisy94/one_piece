@@ -59,7 +59,7 @@ public class OnePieceController {
     @RequestMapping(value = "/getOnePieceTableYearMonth", method = RequestMethod.POST)
     public JsonResult<List<Map<String, Object>>> getGongZiByMonth(@RequestBody Map<String, Object> params) throws Exception{
 
-        List<Map<String, Object>> onePieceDataByYearMonth = onePieceService.getOnePieceDataByYearMonth(TypeUtil.toInt(params.get("dateYearMonth")));
+        List<Map<String, Object>> onePieceDataByYearMonth = onePieceService.getOnePieceDataByYearMonth(params);
         int count = onePieceDataByYearMonth.size();
         return new JsonResult<>(onePieceDataByYearMonth, count);
     }
@@ -103,5 +103,26 @@ public class OnePieceController {
 
         Map<String, Object> achievementPercentage = onePieceService.getAchievementPercentage(params);
         return new JsonResult<>(achievementPercentage);
+    }
+
+    //新增姨妈周期数据
+    @RequestMapping(value = "/insertMenstruationCycleData", method = RequestMethod.POST)
+    public JsonResult insertMenstruationCycleData(@RequestBody Map<String, Object> params)throws Exception{
+
+        try {
+            onePieceService.insertMenstruationCycleData(params);
+            return new JsonResult(InfoCode.SAVE_SUCCESS.code, InfoCode.SAVE_SUCCESS.msg);
+        }catch (Exception e){
+            return new JsonResult(InfoCode.SAVE_FAIL.code, InfoCode.SAVE_FAIL.msg);
+        }
+    }
+
+    //查询姨妈周期表格所需数据
+    @RequestMapping(value = "/getMenstruationCycleTable", method = RequestMethod.POST)
+    public JsonResult<List<Map<String, Object>>> getMenstruationCycleTable(@RequestBody Map<String, Object> params) throws Exception{
+
+        List<Map<String, Object>> menstruationCycleTable = onePieceService.getMenstruationCycleTable(params);
+        int count = menstruationCycleTable.size();
+        return new JsonResult<>(menstruationCycleTable, count);
     }
 }

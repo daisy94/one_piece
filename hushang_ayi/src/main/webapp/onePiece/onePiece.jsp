@@ -104,7 +104,10 @@
 											<input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
 										</div>
 										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByYearMonth select">走你</button>
+											<button type="button" class="layui-btn getDataByYearMonth">走你</button>
+										</div>
+										<div class="layui-inline">
+											<button type="button" class="layui-btn getDataByLikeSelect">精准走你</button>
 										</div>
 									</div>
 									<div class="layui-row">
@@ -140,7 +143,7 @@
 						</div>
 					</div>
 
-					<div class="layui-row">
+					<div class="layui-row layui-hide-xs">
 						<div class="layui-col-md6">
 							<div class="layui-card">
 								<div class="layui-card-header"><h3><b>日收入走势</b></h3></div>
@@ -168,7 +171,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="layui-col-md1">
+				<div class="layui-col-md1 layui-hide-xs">
 					<div class="layui-row">
 						<div class="layui-col-md">
 							<div class="layui-card">
@@ -190,21 +193,18 @@
 	</script>
 
 	<script src="<%=basePath%>resources/layui/layui.all.js"></script>
-	<script src="<%=basePath%>resources/layui_exts/excel.js"></script>
-	<script src="<%=basePath%>resources/jquery/jquery-2.1.4.min.js"></script>
 	<script src="<%=basePath%>resources/echarts/echarts.js"></script>
 	<script src="<%=basePath%>resources/utils/utils.js"></script>
 
 	<script type="text/javascript">
 		let element = layui.element;
+		let $ = layui.jquery;
 		let layer = layui.layer;
 		let table = layui.table;
 		let layDate = layui.laydate;
 		let maxYear = new Date().getFullYear()+"-12-31";
 		let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 		let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
-		let username = document.cookie.split("; ")[0].split("=")[1];
-		let userPower = document.cookie.split("; ")[1].split("=")[1];
 
 		$(function() {
 
@@ -228,6 +228,32 @@
 			getDataByYearMonth(dateYearMonth);
 		});
 
+		$(".getDataByLikeSelect").click(function () {
+
+			let customerName =  $("#customerName").val();
+			let goodsName =  $("#goodsName").val();
+			let profit =  $("#profit").val();
+			let dateYearMonthDay =  formatDate($("#dateYearMonthDay").val());
+			let dateYearMonth =  formatDate($("#dateYearMonth").val());
+
+			if (customerName === "" && goodsName === "" && profit === "" && dateYearMonthDay === "" && dateYearMonth === ""){
+
+				layer.msg("小伙子，至少得填一个条件查询吧", {
+					anim: 6
+				});
+				return;
+			}
+
+			let params = {
+				"customerName": customerName,
+				"goodsName": goodsName,
+				"profit": profit,
+				"dateYearMonthDay": dateYearMonthDay,
+				"dateYearMonth": dateYearMonth
+			};
+			getDataByLikeSelect(params);
+		});
+
 		$(".getDataByYear").click(function (){
 
 			let dateYear =  $("#dateYear").val();
@@ -243,12 +269,6 @@
 
 		function insertByYearMonthDay(){
 
-			if(userPower !== "0"){
-				layer.msg("小伙子，看看就好，别动数据", {
-					anim: 6
-				});
-				return;
-			}
 			let customerName =  $("#customerName").val();
 			let goodsName =  $("#goodsName").val();
 			let profit =  $("#profit").val();
@@ -388,11 +408,32 @@
 					{field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'date', title: '购买日期', align: 'center', unresize: true},
-					{align:'center', title: '你要干什么', toolbar: '#operationButton'}
+					{align:'center', title: '你要干什么', unresize: true, toolbar: '#operationButton'}
 				]]
 			});
 			getOnePieceEChartsByYearMonth(dateYearMonth);
 			getAchievementPercentage(dateYearMonth);
+		}
+
+		function getDataByLikeSelect(params) {
+
+			table.render({
+				elem: '#onePieceTableYearMonth',
+				url: '<%=basePath%>getOnePieceTableYearMonth',
+				contentType: 'application/json',
+				where: params,
+				cellMinWidth: 80,
+				height: 235,
+				method: 'post',
+				cols: [[
+					{field:'id', title: 'ID', hide: true},
+					{field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
+					{field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
+					{field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
+					{field:'date', title: '购买日期', align: 'center', unresize: true},
+					{align:'center', title: '你要干什么', toolbar: '#operationButton'}
+				]]
+			});
 		}
 
 		function getOnePieceEChartsByYearMonth(dateYearMonth) {
@@ -614,7 +655,8 @@
 				type: 2,
 				title: false,
 				anim: 2,
-				area: ['1300px', '700px'],
+				area: ['1500px', '634px'],
+				resize: false,
 				content: ['<%=basePath%>onePiece/menstruationCycle.jsp', 'no']
 			});
 		}

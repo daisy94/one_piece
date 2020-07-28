@@ -46,7 +46,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按月份查询恰饭表格所需数据
     @Override
-    public List<Map<String, Object>> getOnePieceDataByYearMonth(Integer params) {
+    public List<Map<String, Object>> getOnePieceDataByYearMonth(Map<String, Object> params) {
 
         List<Map<String, Object>> onePieceDataByYearMonth = onePieceMapper.getOnePieceDataByYearMonth(params);
         return KiwiUtils.formatDate(onePieceDataByYearMonth, "date");
@@ -96,5 +96,23 @@ public class OnePieceServiceImpl implements OnePieceService {
         String achievementPercentage = df.format((profitCount / targetProfit * 100));
         result.put("achievementPercentage", achievementPercentage);
         return result;
+    }
+
+    //新增姨妈周期数据
+    @Override
+    public void insertMenstruationCycleData(Map<String, Object> params) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String updateTime = sdf.format(new Date());
+        params.put("updateTime", updateTime);
+        onePieceMapper.insertMenstruationCycleData(params);
+    }
+
+    //查询姨妈周期表格所需数据
+    @Override
+    public List<Map<String, Object>> getMenstruationCycleTable(Map<String, Object> params) {
+
+        List<Map<String, Object>> menstruationCycleTable = onePieceMapper.getMenstruationCycleTable(params);
+        return KiwiUtils.formatDate(menstruationCycleTable, "start_time", "end_time");
     }
 }

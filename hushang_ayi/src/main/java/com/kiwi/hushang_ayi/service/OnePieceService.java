@@ -28,7 +28,7 @@ public interface OnePieceService {
      * @param params
      * @return
      */
-    List<Map<String, Object>> getOnePieceDataByYearMonth(Integer params);
+    List<Map<String, Object>> getOnePieceDataByYearMonth(Map<String, Object> params);
 
     /**
      * 按年份查询恰饭表格所需数据
@@ -64,4 +64,17 @@ public interface OnePieceService {
      * @return
      */
     Map<String, Object> getAchievementPercentage (Map<String, Object> params);
+
+    /**
+     * 新增姨妈周期数据
+     * @param params
+     */
+    void insertMenstruationCycleData(Map<String, Object> params);
+
+    /**
+     * 查询姨妈周期表格所需数据
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getMenstruationCycleTable(Map<String, Object> params);
 }

@@ -52,7 +52,7 @@
 	<!-- 删除恰饭收入数据 -->
 	<delete id="deleteOnePieceTableData" parameterType="java.util.Map">
 		<if test="id != null and id != ''">
-			DELETE FROM one_piece WHERE id = #{id}
+			UPDATE one_piece SET is_del = 1 WHERE id = #{id}
 		</if>
 	</delete>
 
@@ -77,10 +77,25 @@
 	</update>
 
 	<!-- 按月份查询恰饭表格所需数据 -->
-	<select id="getOnePieceDataByYearMonth" parameterType="java.lang.Integer" resultType="java.util.Map">
+	<select id="getOnePieceDataByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT id, customer_name, goods_name, profit, `date`
 		FROM one_piece
-		WHERE LEFT(`date`, 6) = #{dateYearMonth}
+		WHERE is_del = 0
+		<if test="dateYearMonth != null and dateYearMonth != ''">
+			AND LEFT(`date`, 6) = #{dateYearMonth}
+		</if>
+		<if test="dateYearMonthDay != null and dateYearMonthDay != ''">
+			AND `date` = #{dateYearMonthDay}
+		</if>
+		<if test="customerName != null and customerName != ''">
+			AND customer_name LIKE CONCAT("%", #{customerName}, "%")
+		</if>
+		<if test="goodsName != null and goodsName != ''">
+			AND goods_name LIKE CONCAT("%", #{goodsName}, "%")
+		</if>
+		<if test="profit != null and profit != ''">
+			AND profit = #{profit}
+		</if>
 		ORDER BY `date`
 	</select>
 
@@ -88,7 +103,8 @@
 	<select id="getOnePieceDataByYear" parameterType="java.lang.Integer" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, LEFT(`date`, 6) AS date
 		FROM one_piece
-		WHERE LEFT(`date`, 4) = #{dateYear}
+		WHERE is_del = 0
+		AND LEFT(`date`, 4) = #{dateYear}
 		GROUP BY LEFT(`date`, 6)
 		ORDER BY `date`
 	</select>
@@ -97,8 +113,9 @@
 	<select id="getOnePieceEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit, `date`
 		FROM one_piece
+		WHERE is_del = 0
 		<if test="dateYearMonth != null and dateYearMonth != ''">
-			WHERE LEFT(`date`, 6) = #{dateYearMonth}
+			AND LEFT(`date`, 6) = #{dateYearMonth}
 		</if>
 		GROUP BY `date`
 		ORDER BY `date`
@@ -108,8 +125,9 @@
 	<select id="getOnePieceCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SUM(profit) AS profit
 		FROM one_piece
+		WHERE is_del = 0
 		<if test="dateYear != null and dateYear != ''">
-			WHERE LEFT(`date`, 4) = #{dateYear}
+			AND LEFT(`date`, 4) = #{dateYear}
 		</if>
 	</select>
 
@@ -117,9 +135,47 @@
 	<select id="getOnePieceCountByMonth" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT IFNULL(SUM(profit), 0) AS profit
 		FROM one_piece
+		WHERE is_del = 0
 		<if test="dateYearMonth != null and dateYearMonth != ''">
-			WHERE LEFT(`date`, 6) = #{dateYearMonth}
+			AND LEFT(`date`, 6) = #{dateYearMonth}
 		</if>
 	</select>
 
+	<!-- 新增姨妈周期数据 -->
+	<insert id="insertMenstruationCycleData" parameterType="java.util.Map">
+		INSERT INTO menstruation_cycle
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dateYearMonthDayStart != null and dateYearMonthDayStart != ''">
+				start_time,
+			</if>
+		    <if test="dateYearMonthDayEnd != null and dateYearMonthDayEnd != ''">
+				end_time,
+			</if>
+		    <if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test="dateYearMonthDayStart != null and dateYearMonthDayStart != ''">
+				#{dateYearMonthDayStart},
+			</if>
+			<if test="dateYearMonthDayEnd != null and dateYearMonthDayEnd != ''">
+				#{dateYearMonthDayEnd},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 查询姨妈周期表格所需数据 -->
+	<select id="getMenstruationCycleTable" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT id, start_time, end_time
+		FROM menstruation_cycle
+		WHERE is_del = 0
+		<if test="dateYear != null and dateYear != ''">
+			AND LEFT(start_time, 4) = #{dateYear}
+		</if>
+		ORDER BY start_time
+	</select>
 </mapper>
