@@ -183,7 +183,7 @@
 		//日期范围选择器
 		layDate.render({
 			elem: '#dateYearMonthDay',
-			range: true,
+			range: '~',
 			max: maxYearMonthDay
 		});
 

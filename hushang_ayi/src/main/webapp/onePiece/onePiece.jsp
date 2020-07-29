@@ -104,10 +104,7 @@
 											<input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
 										</div>
 										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByYearMonth">走你</button>
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByLikeSelect">精准走你</button>
+											<button type="button" class="layui-btn getDataByLikeSelect">精准查询</button>
 										</div>
 									</div>
 									<div class="layui-row">
@@ -125,9 +122,6 @@
 										<label class="layui-form-label">选择时间：</label>
 										<div class="layui-inline">
 											<input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
-										</div>
-										<div class="layui-inline">
-											<button type="button" class="layui-btn getDataByYear select">走你</button>
 										</div>
 										<div class="layui-inline">
 											<button type="button" class="layui-btn" onclick="getCountByYear()">合计收入</button>
@@ -214,20 +208,6 @@
 			getDataByYear(dateYear);
 		});
 
-		$(".getDataByYearMonth").click(function (){
-
-			let date =  $("#dateYearMonth").val();
-			if(date == null || date === ''){
-
-				layer.msg("要选择一个日期哦", {
-					anim: 6
-				});
-				return;
-			}
-			let dateYearMonth = formatDate(date);
-			getDataByYearMonth(dateYearMonth);
-		});
-
 		$(".getDataByLikeSelect").click(function () {
 
 			let customerName =  $("#customerName").val();
@@ -238,7 +218,7 @@
 
 			if (customerName === "" && goodsName === "" && profit === "" && dateYearMonthDay === "" && dateYearMonth === ""){
 
-				layer.msg("小伙子，至少得填一个条件查询吧", {
+				layer.msg("小伙子，上面4个至少得填一个条件查询吧", {
 					anim: 6
 				});
 				return;
@@ -252,19 +232,6 @@
 				"dateYearMonth": dateYearMonth
 			};
 			getDataByLikeSelect(params);
-		});
-
-		$(".getDataByYear").click(function (){
-
-			let dateYear =  $("#dateYear").val();
-			if(dateYear == null || dateYear === ''){
-
-				layer.msg("要选择一个年份哦", {
-					anim: 6
-				});
-				return;
-			}
-			getDataByYear(dateYear);
 		});
 
 		function insertByYearMonthDay(){
@@ -699,7 +666,11 @@
 			elem: '#dateYearMonth',
 			trigger: 'click',
 			type: 'month',
-			max: maxYearMonth
+			max: maxYearMonth,
+			done: function(value){
+				let dateYearMonth = formatDate(value);
+				getDataByYearMonth(dateYearMonth);
+			}
 		});
 
 		//年选择器
@@ -707,7 +678,10 @@
 			elem: '#dateYear',
 			trigger: 'click',
 			type: 'year',
-			max: maxYear
+			max: maxYear,
+			done: function(dateYear){
+				getDataByYear(dateYear);
+			}
 		});
 	</script>
 </body>

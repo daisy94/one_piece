@@ -41,7 +41,7 @@
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
-                    <a href="javascript:void(0)" class="refresh"><span class="layui-icon layui-icon-username"></span><span id="username"></span></a>
+                    <a href="javascript:void(0)" class="refresh"><i class="layui-icon layui-icon-username"></i><span id="username"></span></a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:void(0)" onclick="out()">退出</a>
@@ -51,7 +51,7 @@
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <div title="菜单缩放" class="shouSuoDiv"><a class="shouSuo" href="javascript:void(0)"><span class="layui-icon layui-icon-shrink-right"></span></a></div>
+                <div title="菜单缩放" class="shouSuoDiv"><a class="shouSuo" href="javascript:void(0)"><i class="layui-icon layui-icon-shrink-right"></i></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-android" href="<%=basePath%>zhichu/zhichu.jsp"><span class="menu">支出统计</span></a>
