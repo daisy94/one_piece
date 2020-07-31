@@ -78,7 +78,7 @@
 
 	<!-- 按月份查询恰饭表格所需数据 -->
 	<select id="getOnePieceDataByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT id, customer_name, goods_name, profit, `date`
+		SELECT id, customer_name, goods_name, profit, `date`, is_deliver
 		FROM one_piece
 		WHERE is_del = 0
 		<if test="dateYearMonth != null and dateYearMonth != ''">
@@ -178,4 +178,19 @@
 		</if>
 		ORDER BY start_time
 	</select>
+
+	<!-- 修改是否已发货状态 -->
+	<update id="updateOnePieceDeliverState" parameterType="java.util.Map">
+		UPDATE one_piece
+		<trim prefix="SET" suffixOverrides=",">
+				is_deliver = #{is_deliver},
+		    <if test="updateTime != null and updateTime != ''">
+				update_time = #{updateTime},
+			</if>
+		</trim>
+		WHERE
+		<if test="id != null and id != ''">
+			id = #{id}
+		</if>
+	</update>
 </mapper>

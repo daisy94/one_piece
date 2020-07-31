@@ -73,4 +73,10 @@ public interface OnePieceMapper {
      * @return
      */
     List<Map<String, Object>> getMenstruationCycleTable(Map<String, Object> params);
+
+    /**
+     * 修改是否已发货状态
+     * @param params
+     */
+    void updateOnePieceDeliverState(Map<String, Object> params);
 }

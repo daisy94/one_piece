@@ -182,8 +182,15 @@
 	</div>
 
 	<script type="text/html" id="operationButton">
-		<a class="layui-btn layui-btn-xs edit" lay-event="edit">改一哈</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">不要了</a>
+		<a class="layui-btn layui-btn-xs edit" lay-event="edit">修改</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+	</script>
+	<script type="text/html" id="is_deliver">
+		{{#  if(d.is_deliver === 1){ }}
+		<input type="checkbox" lay-skin="switch" value="{{ d.id }}" lay-filter="is_deliver" lay-text="已发|未发" checked>
+		{{#  } else { }}
+		<input type="checkbox" lay-skin="switch" value="{{ d.id }}" lay-filter="is_deliver" lay-text="已发|未发">
+		{{#  } }}
 	</script>
 
 	<script src="<%=basePath%>resources/layui/layui.all.js"></script>
@@ -191,11 +198,12 @@
 	<script src="<%=basePath%>resources/utils/utils.js"></script>
 
 	<script type="text/javascript">
-		let element = layui.element;
-		let $ = layui.jquery;
-		let layer = layui.layer;
-		let table = layui.table;
-		let layDate = layui.laydate;
+		let element = layui.element,
+				$ = layui.jquery,
+				layer = layui.layer,
+				table = layui.table,
+				layDate = layui.laydate,
+				form = layui.form;
 		let maxYear = new Date().getFullYear()+"-12-31";
 		let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
 		let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
@@ -217,7 +225,6 @@
 			let dateYearMonth =  formatDate($("#dateYearMonth").val());
 
 			if (customerName === "" && goodsName === "" && profit === "" && dateYearMonthDay === "" && dateYearMonth === ""){
-
 				layer.msg("小伙子，上面4个至少得填一个条件查询吧", {
 					anim: 6
 				});
@@ -240,30 +247,9 @@
 			let goodsName =  $("#goodsName").val();
 			let profit =  $("#profit").val();
 			let dateYearMonthDay =  formatDate($("#dateYearMonthDay").val());
-			if(customerName == null || customerName === ""){
 
-				layer.msg("谁买的是不是忘填了啊", {
-					anim: 6
-				});
-				return;
-			}
-			if(goodsName == null || goodsName === ""){
-
-				layer.msg("买了什么是不是忘填了啊", {
-					anim: 6
-				});
-				return;
-			}
-			if(profit == null || profit === ""){
-
-				layer.msg("利润是不是忘填了啊", {
-					anim: 6
-				});
-				return;
-			}
-			if(dateYearMonthDay == null || dateYearMonthDay === ""){
-
-				layer.msg("要选择一个日期哦", {
+			if(customerName === "" || goodsName === "" || profit === "" || dateYearMonthDay === ""){
+				layer.msg("少年，每一个空都要填", {
 					anim: 6
 				});
 				return;
@@ -371,6 +357,7 @@
 				method: 'post',
 				cols: [[
 					{field:'id', title: 'ID', hide: true},
+					{align:'center', title: '发货了吗', unresize: true, toolbar: '#is_deliver'},
 					{field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
@@ -394,6 +381,7 @@
 				method: 'post',
 				cols: [[
 					{field:'id', title: 'ID', hide: true},
+					{align:'center', title: '发货了吗', unresize: true, toolbar: '#is_deliver'},
 					{field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
 					{field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
@@ -557,8 +545,8 @@
 		function getCountByYear(){
 
 			let dateYear = $("#dateYear").val();
-			if (dateYear == null || dateYear === '') {
 
+			if (dateYear == null || dateYear === '') {
 				layer.msg("要选择一个年份哦", {
 					anim: 6
 				});
@@ -631,7 +619,7 @@
 		table.on('tool(onePieceTable)', function(obj){
 			let data = obj.data;
 			let date = data.date;
-			if(obj.event === 'delete'){
+			if (obj.event === 'delete'){
 				layer.confirm('确定不要了吗', {title: '纳尼！'}, function(index){
 					deleteTableData(JSON.stringify(data), date);
 					layer.close(index);
@@ -652,6 +640,38 @@
 					layer.close(index);
 				});
 			}
+		});
+
+		form.on('switch(is_deliver)', function(data){
+
+			let is_deliver;
+			if (data.elem.checked) {
+				is_deliver = 1;
+			}else {
+				is_deliver = 0;
+			}
+			let params = {
+				"id": data.value,
+				"is_deliver": is_deliver
+			};
+
+			$.ajax({
+				type : "POST",
+				contentType: "application/json;charset=UTF-8",
+				url : "<%=basePath%>updateOnePieceDeliverState",
+				data : JSON.stringify(params),
+				success: function(result) {
+					if(result.code === 0){
+						layer.msg(result.msg);
+					}else if(result.code === 150){
+						layer.msg(result.msg);
+					}
+				},
+				error: function(e){
+					console.log(e.status);
+					console.log(e.responseText);
+				}
+			});
 		});
 
 		//年月日选择器

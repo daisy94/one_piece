@@ -115,4 +115,13 @@ public class OnePieceServiceImpl implements OnePieceService {
         List<Map<String, Object>> menstruationCycleTable = onePieceMapper.getMenstruationCycleTable(params);
         return KiwiUtils.formatDate(menstruationCycleTable, "start_time", "end_time");
     }
+
+    //修改是否已发货状态
+    @Override
+    public void updateOnePieceDeliverState(Map<String, Object> params) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String updateTime = sdf.format(new Date());
+        params.put("updateTime", updateTime);
+        onePieceMapper.updateOnePieceDeliverState(params);
+    }
 }

@@ -116,7 +116,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>hushang_ayi</finalName>
+		<finalName>OnePiece</finalName>
 	</build>
 
 </project>

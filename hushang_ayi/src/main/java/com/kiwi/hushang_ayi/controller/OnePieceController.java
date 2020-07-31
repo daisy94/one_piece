@@ -125,4 +125,16 @@ public class OnePieceController {
         int count = menstruationCycleTable.size();
         return new JsonResult<>(menstruationCycleTable, count);
     }
+
+    //修改是否已发货状态
+    @RequestMapping(value = "/updateOnePieceDeliverState", method = RequestMethod.POST)
+    public JsonResult updateOnePieceDeliverState(@RequestBody Map<String, Object> params)throws Exception{
+
+        try {
+            onePieceService.updateOnePieceDeliverState(params);
+            return new JsonResult(InfoCode.UPDATE_SUCCESS.code, InfoCode.UPDATE_SUCCESS.msg);
+        }catch (Exception e){
+            return new JsonResult(InfoCode.UPDATE_FAIL.code, InfoCode.UPDATE_FAIL.msg);
+        }
+    }
 }

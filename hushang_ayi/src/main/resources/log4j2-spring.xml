@@ -5,10 +5,8 @@
 <Configuration status="WARN" monitorInterval="600">
 
     <Properties> <!-- 配置日志文件输出目录，此配置将日志输出到tomcat根目录下的指定文件夹 -->
-        <Property name="LOG_HOME">/usr/local/tomcat/tomcat8.5/Logs/milkTea
+        <Property name="LOG_HOME">/usr/local/tomcat_logs/one_piece
         </Property>
-        <!--<Property name="LOG_HOME">/Logs/milkTea
-        </Property>-->
     </Properties>
 
     <Appenders>
@@ -44,12 +42,12 @@
 
         <!-- TRACE级别日志 ; 设置日志格式并配置日志压缩格式，压缩文件独立放在一个文件夹内， 日期格式不能为冒号，否则无法生成，因为文件名不允许有冒号，此appender只输出trace级别的数据到trace.log -->
         <RollingFile name="trace_appender" immediateFlush="true"
-                     fileName="${LOG_HOME}/milkTea-trace.log" filePattern="${LOG_HOME}/trace/trace - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
+                     fileName="${LOG_HOME}/one_piece-trace.log" filePattern="${LOG_HOME}/trace/trace - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
             <PatternLayout>
                 <pattern>%5p [%t] %d{yyyy-MM-dd HH:mm:ss} (%F:%L) %m%n</pattern>
             </PatternLayout>
             <Policies>
-                <!-- 每个日志文件最大2MB -->
+                <!-- 每个日志文件最大10MB -->
                 <SizeBasedTriggeringPolicy size="10MB" />
 
             </Policies>
@@ -65,11 +63,11 @@
 
         <!-- DEBUG级别日志 设置日志格式并配置日志压缩格式，压缩文件独立放在一个文件夹内， 日期格式不能为冒号，否则无法生成，因为文件名不允许有冒号，此appender只输出debug级别的数据到debug.log; -->
         <RollingFile name="debug_appender" immediateFlush="true"
-                     fileName="${LOG_HOME}/milkTea-debug.log" filePattern="${LOG_HOME}/debug/debug - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
+                     fileName="${LOG_HOME}/one_piece-debug.log" filePattern="${LOG_HOME}/debug/debug - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
             <PatternLayout>
                 <pattern>%5p [%t] %d{yyyy-MM-dd HH:mm:ss} (%F:%L) %m%n</pattern>
             </PatternLayout>
-            <Policies><!-- 每个日志文件最大2MB ; -->
+            <Policies><!-- 每个日志文件最大10MB ; -->
                 <SizeBasedTriggeringPolicy size="10MB" />
 
                 <!-- 如果启用此配置，则日志会按文件名生成新压缩文件， 即如果filePattern配置的日期格式为 %d{yyyy-MM-dd HH}
@@ -88,7 +86,7 @@
 
         <!-- INFO级别日志 -->
         <RollingFile name="info_appender" immediateFlush="true"
-                     fileName="${LOG_HOME}/milkTea-info.log" filePattern="${LOG_HOME}/info/info - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
+                     fileName="${LOG_HOME}/one_piece-info.log" filePattern="${LOG_HOME}/info/info - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
             <PatternLayout>
                 <pattern>%5p [%t] %d{yyyy-MM-dd HH:mm:ss} (%F:%L) %m%n</pattern>
             </PatternLayout>
@@ -105,7 +103,7 @@
 
         <!-- WARN级别日志 -->
         <RollingFile name="warn_appender" immediateFlush="true"
-                     fileName="${LOG_HOME}/milkTea-warn.log" filePattern="${LOG_HOME}/warn/warn - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
+                     fileName="${LOG_HOME}/one_piece-warn.log" filePattern="${LOG_HOME}/warn/warn - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
             <PatternLayout>
                 <pattern>%5p [%t] %d{yyyy-MM-dd HH:mm:ss} (%F:%L) %m%n</pattern>
             </PatternLayout>
@@ -122,7 +120,7 @@
 
         <!-- ERROR级别日志 -->
         <RollingFile name="error_appender" immediateFlush="true"
-                     fileName="${LOG_HOME}/milkTea-error.log" filePattern="${LOG_HOME}/error/error - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
+                     fileName="${LOG_HOME}/one_piece-error.log" filePattern="${LOG_HOME}/error/error - %d{yyyy-MM-dd HH_mm_ss}.log.gz">
             <PatternLayout>
                 <pattern>%5p [%t] %d{yyyy-MM-dd HH:mm:ss} (%F:%L) %m%n</pattern>
             </PatternLayout>
