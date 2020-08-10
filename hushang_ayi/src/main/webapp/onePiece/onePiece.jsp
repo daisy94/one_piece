@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -39,6 +39,11 @@
 		}
 		.extraFunction{
 			height: 660px;
+		}
+		.littleButton{
+			float: right;
+			border-radius: 20px;
+			background-color: #d2d2d2;
 		}
 		#onePieceEChartsByYearMonth{
 			height: 242px;
@@ -105,6 +110,9 @@
 										</div>
 										<div class="layui-inline">
 											<button type="button" class="layui-btn getDataByLikeSelect">精准查询</button>
+										</div>
+										<div class="layui-inline littleButton">
+											<button type="button" class="layui-btn littleButton">未发货</button>
 										</div>
 									</div>
 									<div class="layui-row">
@@ -203,10 +211,10 @@
 				layer = layui.layer,
 				table = layui.table,
 				layDate = layui.laydate,
-				form = layui.form;
-		let maxYear = new Date().getFullYear()+"-12-31";
-		let maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1);
-		let maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
+				form = layui.form,
+				maxYear = new Date().getFullYear()+"-12-31",
+				maxYearMonth = new Date().getFullYear()+"-"+(new Date().getMonth() + 1),
+				maxYearMonthDay = new Date().getFullYear()+"-"+(new Date().getMonth() + 1)+"-"+new Date().getDate();
 
 		$(function() {
 
@@ -237,6 +245,16 @@
 				"profit": profit,
 				"dateYearMonthDay": dateYearMonthDay,
 				"dateYearMonth": dateYearMonth
+			};
+			getDataByLikeSelect(params);
+		});
+
+		$(".littleButton").click(function () {
+
+			let is_deliver = 0;
+
+			let params = {
+				"is_deliver": is_deliver
 			};
 			getDataByLikeSelect(params);
 		});
@@ -378,7 +396,7 @@
 				where: params,
 				cellMinWidth: 80,
 				height: 235,
-				method: 'post',
+				method: 'POST',
 				cols: [[
 					{field:'id', title: 'ID', hide: true},
 					{align:'center', title: '发货了吗', unresize: true, toolbar: '#is_deliver'},
@@ -689,7 +707,9 @@
 			max: maxYearMonth,
 			done: function(value){
 				let dateYearMonth = formatDate(value);
-				getDataByYearMonth(dateYearMonth);
+				if (dateYearMonth !== ""){
+					getDataByYearMonth(dateYearMonth);
+				}
 			}
 		});
 
@@ -700,7 +720,9 @@
 			type: 'year',
 			max: maxYear,
 			done: function(dateYear){
-				getDataByYear(dateYear);
+				if (dateYear !== ""){
+					getDataByYear(dateYear);
+				}
 			}
 		});
 	</script>

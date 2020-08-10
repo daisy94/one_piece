@@ -96,6 +96,9 @@
 		<if test="profit != null and profit != ''">
 			AND profit = #{profit}
 		</if>
+		<if test="is_deliver != null">
+			AND is_deliver = #{is_deliver}
+		</if>
 		ORDER BY `date`
 	</select>
 
