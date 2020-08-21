@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工资薪金</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-btn{
+            border-radius: 5px;
+        }
+        .layui-fluid{
+            padding: 10px;
+        }
+        .layui-row{
+            padding: 0px;
+        }
+        .layui-col-md6{
+            padding: 5px;
+        }
+        .layui-col-md{
+            padding: 5px;
+        }
+        .layui-input{
+            border-radius: 6px;
+        }
+        #gongZiEchartsByYM{
+            height:356px;
+        }
+        #gongZiEchartsByYear{
+            height:356px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-fluid">
+        <!-- 内容主体区域 -->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-row">
+                <div class="layui-col-md">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">工资明细：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id="insertGongZiType" placeholder="工资明细是什么呀" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">明细备注：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id="insertGongZiRemark" placeholder="没有的话就填其他" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">工资金额：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id="insertGongZiData" placeholder="工资支出了多少钱呀" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">发放时间：</label>
+                                        <div class="layui-inline">
+                                            <input type="text" readonly class="layui-input" id="insertDateYM" placeholder="几月的工资支出呢" autocomplete="off">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button type="button" class="layui-btn" onclick="insertGZData()">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getGZDataByYM()">走你</button>
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="excelGongZiDataByYM()">导出月薪资</button>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div>
+                                    <table id="gongZiTableMonth"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getGZDataByYear()">走你</button>
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getGZCountByYear()">合计支出</button>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div>
+                                    <table id="gongZiTableYear"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="gongZiEchartsByYM"></div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="gongZiEchartsByYear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="resources/layui/layui.all.js"></script>
+    <script src="resources/layui_exts/excel.js"></script>
+    <script src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script src="resources/echarts/echarts.js"></script>
+    <script src="resources/utils/utils.js"></script>
+    <script src="resources/webJS/gongzi.js"></script>
+</body>
+</html>

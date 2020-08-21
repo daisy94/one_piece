@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ONE PIECE</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style type="text/css">
+        .layui-input{
+            border-radius: 10px;
+            width: 260px;
+        }
+        .layui-row{
+            margin-top: 10px;
+        }
+        .layui-fluid{
+            margin-top: 25%;
+            margin-left: 40%;
+            margin-right: 40%;
+            width: 260px;
+        }
+        .layui-btn-fluid{
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body background="resources/image/background.jpg">
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-input-inline">
+                <input type="text" id="username" placeholder="输入用户名吧" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-input-inline">
+                <input type="password" id="password" placeholder="输入密码吧" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-row">
+            <button type="button" class="layui-btn layui-btn-fluid" onclick="login()">登录康康</button>
+        </div>
+    </div>
+    <script src="resources/layui/layui.all.js"></script>
+    <script src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script src="resources/utils/utils.js"></script>
+    <script src="resources/webJS/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-icon{
+            font-size: 20px;
+        }
+        #iframeMain{
+            width: 100%;
+            height: 100%;
+        }
+        .shouSuoDiv{
+            height: 30px;
+            background-color: dimgrey;
+        }
+        #username{
+            padding-left: 5px;
+        }
+        .menu{
+            padding-left: 8px;
+        }
+        .shouSuo{
+            padding-left: 85px;
+        }
+    </style>
+</head>
+<body class="layui-layout-body close-footer" bgcolor="#F2F2F2">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo"><h2 class="logo"></h2></div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" class="refresh"><i class="layui-icon layui-icon-username"></i><span id="username"></span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="out()">退出</a>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <div title="菜单缩放" class="shouSuoDiv"><a class="shouSuo" href="javascript:void(0)"><i class="layui-icon layui-icon-shrink-right"></i></a></div>
+                <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="layui-icon layui-icon-android" href="zhichu.html"><span class="menu">支出统计</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="layui-icon layui-icon-ios" href="shouru.html"><span class="menu">收入统计</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="layui-icon layui-icon-windows" href="gongzi.html"><span class="menu">工资薪金</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="layui-icon layui-icon-rate-solid onePiece" href="onePiece.html"><span class="menu">ONE PIECE</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="overflow: hidden;">
+            <!-- 内容主体区域 -->
+            <iframe src="tongji.html" frameborder="0" id="iframeMain"></iframe>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 我可是有备案号的男人：皖ICP备20013924号-1  - Write By Kiwi
+        </div>
+    </div>
+
+    <script src="resources/layui/layui.all.js"></script>
+    <script src="resources/jquery/jquery-1.11.3.min.js"></script>
+    <script src="resources/utils/utils.js"></script>
+    <script src="resources/webJS/homePage.js"></script>
+</body>
+</html>

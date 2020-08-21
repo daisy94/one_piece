@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统计计算</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-btn{
+            border-radius: 5px;
+        }
+        .layui-fluid{
+            padding: 10px;
+        }
+        .layui-row{
+            padding: 0;
+        }
+        .layui-col-md6{
+            padding: 5px;
+        }
+        .layui-col-md{
+            padding: 5px;
+        }
+        .layui-input{
+            border-radius: 6px;
+        }
+        #zhiChuEchartsByYM{
+            height:345px;
+        }
+        #shouRuEchartsByYM{
+            height:345px;
+        }
+        #gongZiEchartsByYM{
+            height:345px;
+        }
+        #tongJiEchartsByYM{
+            height:345px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-fluid">
+        <!-- 内容主体区域 -->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-row">
+                <div class="layui-col-md">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">统计时间：</label>
+                                        <div class="layui-inline">
+                                            <input type="text" readonly class="layui-input selectDateYM" placeholder="想查几月鸭" autocomplete="off">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button type="button" class="layui-btn" onclick="getEchartsData()">走你</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="zhiChuEchartsByYM"></div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="shouRuEchartsByYM"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="gongZiEchartsByYM"></div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="tongJiEchartsByYM"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="resources/layui/layui.all.js"></script>
+    <script src="resources/layui_exts/excel.js"></script>
+    <script src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script src="resources/echarts/echarts.js"></script>
+    <script src="resources/utils/utils.js"></script>
+    <script src="resources/webJS/tongji.js"></script>
+</body>
+</html>

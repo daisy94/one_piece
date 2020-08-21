@@ -1,6 +1,5 @@
 package com.kiwi.hushang_ayi;
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +18,8 @@ public class SessionInterceptor implements HandlerInterceptor{
         if (session != null && session.getAttribute("user") != null) {
             return true;
         }else{
+            String projectName = request.getContextPath();
+            response.sendRedirect(projectName + "/login.html");
             return false;
         }
     }

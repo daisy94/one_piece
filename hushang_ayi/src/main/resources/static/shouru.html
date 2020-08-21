@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收入统计</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-btn{
+            border-radius: 5px;
+        }
+        .layui-fluid{
+            padding: 10px;
+        }
+        .layui-row{
+            padding: 0;
+        }
+        .layui-col-md6{
+            padding: 5px;
+        }
+        .layui-col-md{
+            padding: 5px;
+        }
+        .layui-input{
+            border-radius: 6px;
+        }
+        #shouRuEchartsByYMD{
+            height:356px;
+        }
+        #shouRuEchartsByYM{
+            height:356px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-fluid">
+        <!-- 内容主体区域 -->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-row">
+                <div class="layui-col-md">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">收入金额：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id="insertShouRuData" placeholder="收入了多少钱呀" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">收入时间：</label>
+                                        <div class="layui-inline">
+                                            <input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的收入呢" autocomplete="off">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button type="button" class="layui-btn" onclick="insertSRData()">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getSRDataByYM()">走你</button>
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="excelShouRuDataByYM()">导出月收入</button>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div>
+                                    <table id="shouRuTableMonth"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getSRDataByY()">走你</button>
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getSRCountByY()">合计收入</button>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div>
+                                    <table id="shouRuTableYear"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="shouRuEchartsByYMD"></div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-body" id="shouRuEchartsByYM"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="resources/layui/layui.all.js"></script>
+    <script src="resources/layui_exts/excel.js"></script>
+    <script src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script src="resources/echarts/echarts.js"></script>
+    <script src="resources/utils/utils.js"></script>
+    <script src="resources/webJS/shouru.js"></script>
+</body>
+</html>
