@@ -12,7 +12,8 @@ public enum InfoCode {
     DELETE_SUCCESS(0, "删除成功"),
     DELETE_FAIL(150, "删除失败"),
     UPDATE_SUCCESS(0, "修改成功"),
-    UPDATE_FAIL(150, "修改失败");
+    UPDATE_FAIL(150, "修改失败"),
+    OPERATION_FAIL(150, "操作失败");
 
     public final int code;
     public final String msg;

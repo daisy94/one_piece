@@ -2,18 +2,17 @@ let element = layui.element,
     username = document.cookie.split("; ")[0].split("=")[1],
     userPower = document.cookie.split("; ")[1].split("=")[1],
     pathWeb = getRootPathWeb();
+$(".layui-icon-spread-left").hide();
 
-$(document).ready(function(){
+$("#username").html(username);
+$(".logo").html("ONE PIECE");
+if(userPower !== "0"){
+    $(".onePiece").hide();
+}
 
-    $("li>a").click(function (e) {
-        e.preventDefault();
-        $("#iframeMain").attr("src", $(this).attr("href"));
-    });
-    $("#username").html(username);
-    $(".logo").html("奶茶记账账");
-    if(userPower !== "0"){
-        $(".onePiece").hide();
-    }
+$("li>a").click(function (e) {
+    e.preventDefault();
+    $("#iframeMain").attr("src", $(this).attr("href"));
 });
 
 let isShow = true;  //定义一个标志位
@@ -24,39 +23,37 @@ $('.shouSuo').click(function(){
             $(this).show();
         }else{
             $(this).hide();
-            $("#username").show();
+            $(".header").show();
             $(".layui-icon-username").show();
         }
     });
-    //判断isshow的状态
+    //判断isShow的状态
     if(isShow){
-        $('.layui-side.layui-bg-black').width(45); //设置宽度
+        $('.layui-side').width(45); //设置宽度
+        $(".layui-icon-shrink-right").hide();
+        $(".layui-icon-spread-left").show();
+        $('.layui-logo').css('left', '-155px');
         $('.layui-icon-android').css('left', '-8px');
         $('.layui-icon-ios').css('left', '-8px');
         $('.layui-icon-windows').css('left', '-8px');
         $('.layui-icon-rate-solid').css('left', '-8px');
-        $('.shouSuo').css('padding-left', '12px');
         //将footer和body的宽度修改
+        $('.layui-layout-left').css('left', 45+'px');
         $('.layui-body').css('left', 45+'px');
         $('.layui-footer').css('left', 45+'px');
-        //将二级导航栏隐藏
-        /*$('dd span').each(function(){
-            $(this).hide();
-        });*/
-        //修改标志位
         isShow = false;
     }else{
-        $('.layui-side.layui-bg-black').width(200);
+        $('.layui-side').width(200);
+        $(".layui-icon-shrink-right").show();
+        $(".layui-icon-spread-left").hide();
+        $('.layui-logo').css('left', '0px');
         $('.layui-icon-android').css('left', '0px');
         $('.layui-icon-ios').css('left', '0px');
         $('.layui-icon-windows').css('left', '0px');
         $('.layui-icon-rate-solid').css('left', '0px');
-        $('.shouSuo').css('padding-left', '85px');
+        $('.layui-layout-left').css('left', 200+'px');
         $('.layui-body').css('left', 200+'px');
         $('.layui-footer').css('left', 200+'px');
-        /*$('dd span').each(function(){
-            $(this).show();
-        });*/
         isShow = true;
     }
 });

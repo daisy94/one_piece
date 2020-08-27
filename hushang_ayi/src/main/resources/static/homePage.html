@@ -5,46 +5,72 @@
     <title>主页</title>
     <link rel="stylesheet" href="resources/layui/css/layui.css">
     <style>
+        .layui-layout-body {
+            background-color: #F2F2F2;
+        }
+        .layui-layout-admin .layui-header {
+            background-color: #ffffff;
+        }
+        .layui-layout-admin .layui-logo {
+            background-color: #393D49;
+        }
+        .layui-side, .layui-body, .layui-logo, .layui-layout-left, .layui-footer{
+            transition: all 0.5s;
+        }
+        .layui-footer{
+            background-color: #E2E2E2;
+        }
+        .logo{
+            padding-right: 20px;
+        }
         .layui-icon{
             font-size: 20px;
+            color: black;
         }
         #iframeMain{
             width: 100%;
             height: 100%;
         }
-        .shouSuoDiv{
-            height: 30px;
-            background-color: dimgrey;
-        }
-        #username{
+        .header{
             padding-left: 5px;
+            color: black;
         }
         .menu{
             padding-left: 8px;
         }
-        .shouSuo{
-            padding-left: 85px;
+        .layui-body{
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="layui-layout-body close-footer" bgcolor="#F2F2F2">
+<body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo"><h2 class="logo"></h2></div>
+            <div class="layui-logo"><h2><span class="logo"></span></h2></div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0)" class="refresh"><i class="layui-icon layui-icon-username"></i><span id="username"></span></a>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item" lay-unselect>
+                    <a class="shouSuo" href="javascript:"><i class="layui-icon layui-icon-shrink-right"></i><i class="layui-icon layui-icon-spread-left"></i></a>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0)" onclick="out()">退出</a>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="menstruationCycle.html"><i class="layui-icon layui-icon-heart-fill"></i></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="menstruationCycle.html"><i class="layui-icon layui-icon-cellphone"></i></a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:" class="refresh"><i class="layui-icon layui-icon-username"></i><span id="username" class="header"></span></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:" onclick="out()"><i class="layui-icon layui-icon-logout"></i><span class="header">退出</span></a>
                 </li>
             </ul>
         </div>
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <div title="菜单缩放" class="shouSuoDiv"><a class="shouSuo" href="javascript:void(0)"><i class="layui-icon layui-icon-shrink-right"></i></a></div>
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-android" href="zhichu.html"><span class="menu">支出统计</span></a>
@@ -61,13 +87,13 @@
                 </ul>
             </div>
         </div>
-        <div class="layui-body" style="overflow: hidden;">
+        <div class="layui-body">
             <!-- 内容主体区域 -->
             <iframe src="tongji.html" frameborder="0" id="iframeMain"></iframe>
         </div>
         <div class="layui-footer">
             <!-- 底部固定区域 -->
-            © 我可是有备案号的男人：皖ICP备20013924号-1  - Write By Kiwi
+            © 我是有备案号的男人：皖ICP备20013924号-1  - Write By Kiwi
         </div>
     </div>
 

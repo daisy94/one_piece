@@ -9,10 +9,7 @@ import utils.TypeUtil;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class OnePieceServiceImpl implements OnePieceService {
@@ -22,7 +19,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //新增恰饭收入数据
     @Override
-    public void insertOnePieceData(Map<String, Object> params) {
+    public void insertOnePieceData (Map<String, Object> params) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String updateTime = sdf.format(new Date());
         params.put("updateTime", updateTime);
@@ -31,13 +28,13 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //删除恰饭收入数据
     @Override
-    public void deleteOnePieceTableData(Map<String, Object> params) {
+    public void deleteOnePieceTableData (Map<String, Object> params) {
         onePieceMapper.deleteOnePieceTableData(params);
     }
 
     //修改恰饭收入数据
     @Override
-    public void updateOnePieceTableData(Map<String, Object> params) {
+    public void updateOnePieceTableData (Map<String, Object> params) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String updateTime = sdf.format(new Date());
         params.put("updateTime", updateTime);
@@ -46,7 +43,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按月份查询恰饭表格所需数据
     @Override
-    public List<Map<String, Object>> getOnePieceDataByYearMonth(Map<String, Object> params) {
+    public List<Map<String, Object>> getOnePieceDataByYearMonth (Map<String, Object> params) {
 
         List<Map<String, Object>> onePieceDataByYearMonth = onePieceMapper.getOnePieceDataByYearMonth(params);
         return KiwiUtils.formatDate(onePieceDataByYearMonth, "date");
@@ -54,7 +51,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按年份查询恰饭表格所需数据
     @Override
-    public List<Map<String, Object>> getOnePieceDataByYear(Integer params) {
+    public List<Map<String, Object>> getOnePieceDataByYear (Integer params) {
 
         List<Map<String, Object>> onePieceDataByYear = onePieceMapper.getOnePieceDataByYear(params);
         return KiwiUtils.formatDate(onePieceDataByYear, "date");
@@ -62,7 +59,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按月份查询恰饭ECharts所需数据
     @Override
-    public Map<String, Object> getOnePieceEChartsByYearMonth(Map<String, Object> params) {
+    public Map<String, Object> getOnePieceEChartsByYearMonth (Map<String, Object> params) {
 
         List<Map<String, Object>> onePieceEChartsByYearMonth = onePieceMapper.getOnePieceEChartsByYearMonth(params);
         List<Map<String, Object>> maps = KiwiUtils.formatDate(onePieceEChartsByYearMonth, "date");
@@ -71,7 +68,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按年份查询恰饭ECharts所需数据
     @Override
-    public Map<String, Object> getOnePieceEChartsByYear(Map<String, Object> params) {
+    public Map<String, Object> getOnePieceEChartsByYear (Map<String, Object> params) {
 
         List<Map<String, Object>> dateYear = onePieceMapper.getOnePieceDataByYear(TypeUtil.toInt(params.get("dateYear")));
         List<Map<String, Object>> maps = KiwiUtils.formatDate(dateYear, "date");
@@ -80,13 +77,13 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //按年份查询恰饭收入总和
     @Override
-    public Map<String, Object> getOnePieceCountByYear(Map<String, Object> params) {
+    public Map<String, Object> getOnePieceCountByYear (Map<String, Object> params) {
         return onePieceMapper.getOnePieceCountByYear(params);
     }
 
     //按月份查询恰饭收入目标业绩百分比
     @Override
-    public Map<String, Object> getAchievementPercentage(Map<String, Object> params) {
+    public Map<String, Object> getAchievementPercentage (Map<String, Object> params) {
 
         DecimalFormat df = new DecimalFormat("#.00");
         Map<String, Object> onePieceCountByMonth = onePieceMapper.getOnePieceCountByMonth(params);
@@ -100,7 +97,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //新增姨妈周期数据
     @Override
-    public void insertMenstruationCycleData(Map<String, Object> params) {
+    public void insertMenstruationCycleData (Map<String, Object> params) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String updateTime = sdf.format(new Date());
@@ -110,7 +107,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //查询姨妈周期表格所需数据
     @Override
-    public List<Map<String, Object>> getMenstruationCycleTable(Map<String, Object> params) {
+    public List<Map<String, Object>> getMenstruationCycleTable (Map<String, Object> params) {
 
         List<Map<String, Object>> menstruationCycleTable = onePieceMapper.getMenstruationCycleTable(params);
         return KiwiUtils.formatDate(menstruationCycleTable, "start_time", "end_time");
@@ -118,10 +115,21 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     //修改是否已发货状态
     @Override
-    public void updateOnePieceDeliverState(Map<String, Object> params) {
+    public void updateOnePieceDeliverState (Map<String, Object> params) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String updateTime = sdf.format(new Date());
         params.put("updateTime", updateTime);
         onePieceMapper.updateOnePieceDeliverState(params);
+    }
+
+    //查询参与抽奖顾客信息
+    @Override
+    public Map<String, Object> getLuckDrawData (Map<String, Object> params) {
+
+        List<Map<String, Object>> luckDrawData = onePieceMapper.getLuckDrawData(params);
+        int size = luckDrawData.size();
+        Random random = new Random();
+        int i = random.nextInt(size);
+        return luckDrawData.get(i);
     }
 }

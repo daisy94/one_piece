@@ -196,4 +196,18 @@
 			id = #{id}
 		</if>
 	</update>
+
+	<!-- 查询参与抽奖顾客信息 -->
+	<select id="getLuckDrawData" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			customer_name
+		FROM
+			one_piece
+		<if test="date != null and date != ''">
+			WHERE
+				LEFT (date, 6) = #{date}
+		</if>
+		GROUP BY
+			customer_name
+	</select>
 </mapper>

@@ -9,13 +9,10 @@ let element = layui.element,
     maxYearMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1),
     maxYearMonthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
 
-$(function() {
-
-    let dateYearMonth = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
-    getDataByYearMonth(dateYearMonth);
-    let dateYear = new Date().getFullYear();
-    getDataByYear(dateYear);
-});
+let dateYearMonth = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
+getDataByYearMonth(dateYearMonth);
+let dateYear = new Date().getFullYear();
+getDataByYear(dateYear);
 
 $(".getDataByLikeSelect").click(function () {
 
@@ -164,17 +161,16 @@ function getDataByYearMonth(dateYearMonth){
         where: {
             "dateYearMonth": dateYearMonth
         },
-        cellMinWidth: 80,
         height: 235,
         method: 'post',
         cols: [[
             {field:'id', title: 'ID', hide: true},
-            {align:'center', title: '发货了吗', unresize: true, toolbar: '#is_deliver'},
-            {field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'date', title: '购买日期', align: 'center', unresize: true},
-            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton'}
+            {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
+            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 120},
+            {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
+            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
+            {field:'date', title: '哪天', align: 'center', unresize: true, width: 110},
+            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 120}
         ]]
     });
     getOnePieceEChartsByYearMonth(dateYearMonth);
@@ -189,17 +185,16 @@ function getDataByLikeSelect(params) {
         url: pathWeb + 'getOnePieceTableYearMonth',
         contentType: 'application/json',
         where: params,
-        cellMinWidth: 80,
         height: 235,
         method: 'POST',
         cols: [[
             {field:'id', title: 'ID', hide: true},
-            {align:'center', title: '发货了吗', unresize: true, toolbar: '#is_deliver'},
-            {field:'customer_name', title: '买家微信名', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'goods_name', title: '买了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'profit', title: '赚了多少钱', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'date', title: '购买日期', align: 'center', unresize: true},
-            {align:'center', title: '三思啊', toolbar: '#operationButton'}
+            {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
+            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 120},
+            {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
+            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
+            {field:'date', title: '哪天', align: 'center', unresize: true, width: 110},
+            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 120}
         ]]
     });
 }
@@ -284,7 +279,7 @@ function getDataByYear(dateYear){
         height: 235,
         method: 'post',
         cols: [[
-            {field:'profit', title: '净利润', sort: true, align: 'center', unresize: true},
+            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true},
             {field:'date', title: '统计日期', align: 'center', unresize: true},
         ]]
     });
@@ -415,17 +410,6 @@ function getAchievementPercentage(dateYearMonth){
             console.log(e.responseText);
         }
     });
-}
-
-function getMenstruationCycle(){
-
-    let index = layer.open({
-        type: 2,
-        title: ["来康康月经周期", "font-size:18px;font-weight:700"],
-        anim: 2,
-        content: pathWeb + "menstruationCycle.html"
-    });
-    layer.full(index);
 }
 
 table.on('tool(onePieceTable)', function(obj){

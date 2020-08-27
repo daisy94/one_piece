@@ -79,4 +79,11 @@ public interface OnePieceMapper {
      * @param params
      */
     void updateOnePieceDeliverState(Map<String, Object> params);
+
+    /**
+     * 查询参与抽奖顾客信息
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getLuckDrawData(Map<String, Object> params);
 }

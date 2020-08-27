@@ -8,18 +8,13 @@
         .layui-btn{
             border-radius: 5px;
         }
-        .layui-fluid{
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
         .layui-row{
-            padding: 0;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
-        .layui-col-md6{
-            padding: 5px;
-        }
-        .layui-col-md{
-            padding: 5px;
+        .layui-col-md6, .layui-col-md, .layui-fluid{
+            padding-right: 5px;
+            padding-left: 5px;
         }
         .layui-input{
             border-radius: 6px;
@@ -29,43 +24,41 @@
         }
     </style>
 </head>
-<body bgcolor="#F2F2F2">
+<body>
     <div class="layui-fluid">
         <!-- 内容主体区域 -->
-        <div class="layui-row layui-col-space15">
-            <div class="layui-row">
-                <div class="layui-col-md">
-                    <div class="layui-card">
-                        <div class="layui-card-body">
-                            <div class="layui-row">
-                                <div class="layui-col-md">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-md">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">选择时间：</label>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">选择时间：</label>
-                                        <div class="layui-inline">
-                                            <input type="text" readonly class="layui-input" id="dateYearMonthDay" placeholder="想一下开始结束时间" autocomplete="off">
-                                        </div>
-                                        <div class="layui-inline">
-                                            <button type="button" class="layui-btn insertByYearMonthDay">保存</button>
-                                        </div>
+                                        <input type="text" readonly class="layui-input" id="dateYearMonthDay" placeholder="想一下开始结束时间" autocomplete="off">
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">选择时间：</label>
-                                        <div class="layui-inline">
-                                            <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪一年的" autocomplete="off">
-                                        </div>
-                                        <div class="layui-inline">
-                                            <button type="button" class="layui-btn selectByYear">走你</button>
-                                        </div>
+                                        <button type="button" class="layui-btn insertByYearMonthDay">保存</button>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">选择时间：</label>
+                                    <div class="layui-inline">
+                                        <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪一年的" autocomplete="off">
+                                    </div>
+                                    <div class="layui-inline">
+                                        <button type="button" class="layui-btn selectByYear">走你</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="layui-row">
-                                <div class="layui-col-md6">
-                                    <table id="menstruationCycleTable"></table>
-                                </div>
-                                <div class="layui-col-md6">
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md6">
+                                <table id="menstruationCycleTable"></table>
+                            </div>
+                            <div class="layui-col-md6">
 
-                                </div>
                             </div>
                         </div>
                     </div>
