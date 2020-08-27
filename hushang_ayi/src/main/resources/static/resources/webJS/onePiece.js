@@ -7,7 +7,8 @@ let element = layui.element,
     pathWeb = getRootPathWeb(),
     maxYear = new Date().getFullYear() + "-12-31",
     maxYearMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1),
-    maxYearMonthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+    maxYearMonthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
+    isTrue = false;
 
 let dateYearMonth = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
 getDataByYearMonth(dateYearMonth);
@@ -16,6 +17,7 @@ getDataByYear(dateYear);
 
 $(".getDataByLikeSelect").click(function () {
 
+    isTrue = false;
     let customerName =  $("#customerName").val();
     let goodsName =  $("#goodsName").val();
     let profit =  $("#profit").val();
@@ -41,6 +43,7 @@ $(".getDataByLikeSelect").click(function () {
 
 $(".littleButton").click(function () {
 
+    isTrue = true;
     let is_deliver = 0;
 
     let params = {
@@ -51,6 +54,7 @@ $(".littleButton").click(function () {
 
 function insertByYearMonthDay(){
 
+    isTrue = false;
     let customerName =  $("#customerName").val();
     let goodsName =  $("#goodsName").val();
     let profit =  $("#profit").val();
@@ -103,6 +107,7 @@ function insertByYearMonthDay(){
 
 function deleteTableData(params, date) {
 
+    isTrue = false;
     $.ajax({
         type : "POST",
         contentType: "application/json;charset=UTF-8",
@@ -128,6 +133,7 @@ function deleteTableData(params, date) {
 
 function updateTableData(params, date) {
 
+    isTrue = false;
     $.ajax({
         type : "POST",
         contentType: "application/json;charset=UTF-8",
@@ -376,7 +382,7 @@ function getCountByYear(){
                     closeBtn: 0
                 });
             }else {
-                layer.alert(dateYear + "年一共赚了" + " " + data.data.profit + "块~", {
+                layer.alert(dateYear + "年一共赚了" + " " + data.data.profit + "块", {
                     skin: 'layui-layer-molv',
                     closeBtn: 0
                 });
@@ -459,6 +465,14 @@ form.on('switch(is_deliver)', function(data){
         success: function(result) {
             if(result.code === 0){
                 layer.msg(result.msg);
+                if (isTrue){
+                    if (params.is_deliver === 1){
+                        params = {
+                            "is_deliver": 0
+                        };
+                        getDataByLikeSelect(params);
+                    }
+                }
             }else if(result.code === 150){
                 layer.msg(result.msg);
             }
@@ -484,6 +498,8 @@ layDate.render({
     type: 'month',
     max: maxYearMonth,
     done: function(value){
+
+        isTrue = false;
         let dateYearMonth = formatDate(value);
         if (dateYearMonth !== ""){
             getDataByYearMonth(dateYearMonth);
@@ -498,6 +514,8 @@ layDate.render({
     type: 'year',
     max: maxYear,
     done: function(dateYear){
+
+        isTrue = false;
         if (dateYear !== ""){
             getDataByYear(dateYear);
         }

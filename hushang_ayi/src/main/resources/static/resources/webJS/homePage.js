@@ -8,9 +8,13 @@ $("#username").html(username);
 $(".logo").html("ONE PIECE");
 if(userPower !== "0"){
     $(".onePiece").hide();
+    $(".heart-fill").hide();
+    $(".cellphone").hide();
+    $(".camera-fill").hide();
 }
 
 $("li>a").click(function (e) {
+    //阻止超链接的默认跳转事件
     e.preventDefault();
     $("#iframeMain").attr("src", $(this).attr("href"));
 });

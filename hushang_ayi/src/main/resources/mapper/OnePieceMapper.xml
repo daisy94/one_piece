@@ -88,10 +88,10 @@
 			AND `date` = #{dateYearMonthDay}
 		</if>
 		<if test="customerName != null and customerName != ''">
-			AND customer_name LIKE CONCAT("%", #{customerName}, "%")
+			AND customer_name LIKE CONCAT('%', #{customerName}, '%')
 		</if>
 		<if test="goodsName != null and goodsName != ''">
-			AND goods_name LIKE CONCAT("%", #{goodsName}, "%")
+			AND goods_name LIKE CONCAT('%', #{goodsName}, '%')
 		</if>
 		<if test="profit != null and profit != ''">
 			AND profit = #{profit}
@@ -99,7 +99,14 @@
 		<if test="is_deliver != null">
 			AND is_deliver = #{is_deliver}
 		</if>
-		ORDER BY `date`
+		<choose>
+			<when test="is_deliver != null">
+				ORDER BY customer_name
+			</when>
+			<otherwise>
+				ORDER BY `date`
+			</otherwise>
+		</choose>
 	</select>
 
 	<!-- 按年份查询恰饭表格所需数据 -->

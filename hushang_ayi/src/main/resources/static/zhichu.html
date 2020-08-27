@@ -5,62 +5,45 @@
     <title>支出统计</title>
     <link rel="stylesheet" href="resources/layui/css/layui.css">
     <style>
-        .layui-btn{
+        .layui-btn, .layui-input{
             border-radius: 5px;
         }
-        .layui-fluid{
-            padding: 10px;
-        }
-        .layui-row{
-            padding: 0;
-        }
-        .layui-col-md6{
+        .layui-col-md6, .layui-col-md, .layui-fluid{
             padding: 5px;
         }
-        .layui-col-md{
-            padding: 5px;
-        }
-        .layui-input{
-            border-radius: 6px;
-        }
-        #zhichuEchartsByYMD{
-            height:356px;
-        }
-        #zhichuEchartsByYM{
-            height:356px;
+        #zhichuEchartsByYMD, #zhichuEchartsByYM{
+            height:352px;
         }
     </style>
 </head>
 <body>
     <div class="layui-fluid">
         <!-- 内容主体区域 -->
-        <div class="layui-row layui-col-space15">
-            <div class="layui-row">
-                <div class="layui-col-md">
-                    <div class="layui-card">
-                        <div class="layui-card-body">
-                            <div class="layui-row">
-                                <div class="layui-col-md">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-md">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">支出类型：</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="insertzhichuType" placeholder="支出明细是什么呀" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">支出金额：</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="insertzhichuData" placeholder="支出了多少钱呀" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">支出时间：</label>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">支出类型：</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" id="insertzhichuType" placeholder="支出明细是什么呀" autocomplete="off" class="layui-input">
-                                        </div>
+                                        <input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的支出呢" autocomplete="off">
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">支出金额：</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" id="insertzhichuData" placeholder="支出了多少钱呀" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">支出时间：</label>
-                                        <div class="layui-inline">
-                                            <input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的支出呢" autocomplete="off">
-                                        </div>
-                                        <div class="layui-inline">
-                                            <button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
-                                        </div>
+                                        <button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
                                     </div>
                                 </div>
                             </div>
@@ -68,66 +51,66 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="layui-row">
-                <div class="layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-body">
-                            <div class="layui-row">
-                                <label class="layui-form-label">选择时间：</label>
-                                <div class="layui-inline">
-                                    <input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出月支出</button>
-                                </div>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <label class="layui-form-label">选择时间：</label>
+                            <div class="layui-inline">
+                                <input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
                             </div>
-                            <div class="layui-row">
-                                <div>
-                                    <table id="zhiChuTableMonth"></table>
-                                </div>
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出月支出</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-body">
-                            <div class="layui-row">
-                                <label class="layui-form-label">选择时间：</label>
-                                <div class="layui-inline">
-                                    <input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" onclick="getZCDataByY()">走你</button>
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" onclick="getZCCountByY()">合计支出</button>
-                                </div>
-                            </div>
-                            <div class="layui-row">
-                                <div>
-                                    <table id="zhiChuTableYear"></table>
-                                </div>
+                        <div class="layui-row">
+                            <div>
+                                <table id="zhiChuTableMonth"></table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="layui-row">
-                <div class="layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-body" id="zhichuEchartsByYMD"></div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <label class="layui-form-label">选择时间：</label>
+                            <div class="layui-inline">
+                                <input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
+                            </div>
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn" onclick="getZCDataByY()">走你</button>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn" onclick="getZCCountByY()">合计支出</button>
+                            </div>
+                        </div>
+                        <div class="layui-row">
+                            <div>
+                                <table id="zhiChuTableYear"></table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-body" id="zhichuEchartsByYM"></div>
-                    </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-body" id="zhichuEchartsByYMD"></div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-body" id="zhichuEchartsByYM"></div>
                 </div>
             </div>
         </div>
