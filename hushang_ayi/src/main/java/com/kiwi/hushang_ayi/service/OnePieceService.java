@@ -1,5 +1,8 @@
 package com.kiwi.hushang_ayi.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -90,4 +93,18 @@ public interface OnePieceService {
      * @return
      */
     Map<String, Object> getLuckDrawData (Map<String, Object> params);
+
+    /**
+     * 保存图片至服务器，保存照片信息至数据库
+     * @param file
+     * @param params
+     */
+    void savePhotoAndData (MultipartFile file, Map<String, Object> params) throws IOException;
+
+    /**
+     * 查询照片和相关信息
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getPhotoInfo(Map<String, Object> params);
 }

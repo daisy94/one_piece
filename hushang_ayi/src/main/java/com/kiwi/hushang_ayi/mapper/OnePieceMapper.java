@@ -86,4 +86,17 @@ public interface OnePieceMapper {
      * @return
      */
     List<Map<String, Object>> getLuckDrawData(Map<String, Object> params);
+
+    /**
+     * 新增照片信息
+     * @param params
+     */
+    void insertPhotoInfo(Map<String, Object> params);
+
+    /**
+     * 查询照片和相关信息
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getPhotoInfo(Map<String, Object> params);
 }

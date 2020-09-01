@@ -217,4 +217,67 @@
 		GROUP BY
 			customer_name
 	</select>
+
+	<!-- 新增照片信息 -->
+	<insert id="insertPhotoInfo" parameterType="java.util.Map">
+		INSERT INTO photo_information
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="photoName != null and photoName != ''">
+				photo_name,
+			</if>
+			<if test="remark != null and remark != ''">
+				photo_remark,
+			</if>
+			<if test="dateYearMonth != null and dateYearMonth != ''">
+				photo_date,
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+			<if test="photoUrl != null and photoUrl != ''">
+				photo_url,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="photoName != null and photoName != ''">
+				#{photoName},
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark},
+			</if>
+			<if test="dateYearMonth != null and dateYearMonth != ''">
+				#{dateYearMonth},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime},
+			</if>
+			<if test="photoUrl != null and photoUrl != ''">
+				#{photoUrl},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 查询照片和相关信息 -->
+	<select id="getPhotoInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			id,
+			photo_name AS photoName,
+			photo_remark AS photoRemark,
+			photo_date AS photoDate,
+			photo_url AS photoUrl
+		FROM
+			photo_information
+		WHERE
+			is_del = 0
+		<if test="dateYearMonth != null and dateYearMonth != ''">
+			AND
+				photo_date = #{dateYearMonth}
+		</if>
+	</select>
 </mapper>

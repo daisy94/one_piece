@@ -1,11 +1,15 @@
 function formatDate(date){
 
-    let str = String();
-    let arr = date.split('-');
-    for(let i=0;i<arr.length;i++){
-        str += arr[i];
+    if (date !== "" && date !== null){
+        let str = String();
+        let arr = date.split('-');
+        for(let i=0;i<arr.length;i++){
+            str += arr[i];
+        }
+        return str;
+    }else {
+        return date;
     }
-    return str
 }
 
 function formatDateMonth(date){

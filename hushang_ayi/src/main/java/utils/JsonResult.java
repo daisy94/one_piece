@@ -6,6 +6,7 @@ public class JsonResult<T> {
     private int code;
     private String msg;
     private  int count;
+    private InfoCode infoCode;
 
     public T getData() {
         return data;
@@ -37,6 +38,14 @@ public class JsonResult<T> {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public InfoCode getNfoCode() {
+        return infoCode;
+    }
+
+    public void setNfoCode(InfoCode nfoCode) {
+        this.infoCode = nfoCode;
     }
 
     /**
@@ -76,6 +85,15 @@ public class JsonResult<T> {
         this.data = data;
         this.code = 0;
         this.msg = msg;
+    }
+
+    /**
+     * 无数据返回，状态码为 0，人为指定提示信息类
+     * @param infoCode
+     */
+    public JsonResult(InfoCode infoCode) {
+        this.code = infoCode.code;
+        this.msg = infoCode.msg;
     }
 
     /**
