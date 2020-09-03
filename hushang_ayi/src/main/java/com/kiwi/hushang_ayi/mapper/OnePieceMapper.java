@@ -94,6 +94,19 @@ public interface OnePieceMapper {
     void insertPhotoInfo(Map<String, Object> params);
 
     /**
+     * 新增相册信息
+     * @param params
+     */
+    void insertPhotoAlbumInfo(Map<String, Object> params);
+
+    /**
+     * 查询相册和相关信息
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getPhotoAlbumInfo(Map<String, Object> params);
+
+    /**
      * 查询照片和相关信息
      * @param params
      * @return

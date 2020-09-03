@@ -95,11 +95,25 @@ public interface OnePieceService {
     Map<String, Object> getLuckDrawData (Map<String, Object> params);
 
     /**
-     * 保存图片至服务器，保存照片信息至数据库
+     * 保存照片至服务器，保存照片信息至数据库
      * @param file
      * @param params
      */
     void savePhotoAndData (MultipartFile file, Map<String, Object> params) throws IOException;
+
+    /**
+     * 保存相册封面至服务器，保存相册封面信息至数据库
+     * @param file
+     * @param params
+     */
+    void savePhotoCover (MultipartFile file, Map<String, Object> params) throws IOException;
+
+    /**
+     * 查询相册和相关信息
+     * @param params
+     * @return
+     */
+    List<Map<String, Object>> getPhotoAlbumInfo(Map<String, Object> params);
 
     /**
      * 查询照片和相关信息

@@ -18,9 +18,11 @@
             text-align: center;
         }
         .site-flow img {
-            width: 100%;
-            margin: 1px;
+            width: 279px;
             border: none;
+        }
+        .layui-form-label {
+            width: 45px;
         }
     </style>
 </head>
@@ -33,17 +35,26 @@
                         <div class="layui-row">
                             <div class="layui-col-md">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">选个时间：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="几月的回忆呀" autocomplete="off">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">年份：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" readonly class="layui-input" id="dateYear" placeholder="选择回忆的年份" autocomplete="off">
+                                        </div>
                                     </div>
                                     <div class="layui-inline">
                                         <button type="button" class="layui-btn">查询</button>
                                     </div>
-                                </div>
-                                <div class="layui-inline" style="float: right">
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">取个名字：</label>
+                                        <label class="layui-form-label">月份：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="几月的回忆呀" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <button type="button" class="layui-btn" id="selectPhotoCover"><i class="layui-icon">&#xe67c;</i>创建相册</button>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">名字：</label>
                                         <div class="layui-input-inline">
                                             <input type="text" id="photoName" placeholder="给这张照片取个名字吧" autocomplete="off" class="layui-input">
                                         </div>
@@ -53,6 +64,16 @@
                                         <div class="layui-input-inline">
                                             <input type="text" id="photoRemark" placeholder="给这张照片记录些什么吧" autocomplete="off" class="layui-input">
                                         </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <form class="layui-form">
+                                                <label class="layui-form-label">相册：</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="photoAlbum">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                        </form>
                                     </div>
                                     <div class="layui-inline">
                                         <button type="button" class="layui-btn" id="selectPhoto"><i class="layui-icon">&#xe67c;</i>保存回忆</button>
@@ -72,7 +93,6 @@
     </div>
 
     <script src="resources/layui/layui.all.js"></script>
-    <script src="resources/echarts/echarts.js"></script>
     <script src="resources/utils/utils.js"></script>
     <script src="resources/webJS/myTreasure.js"></script>
 </body>

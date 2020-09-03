@@ -26,7 +26,7 @@ public class OnePieceServiceImpl implements OnePieceService {
     private String photo_path;
 
     @Autowired
-    OnePieceMapper onePieceMapper;
+    private OnePieceMapper onePieceMapper;
 
     // 新增恰饭收入数据
     @Override
@@ -144,7 +144,7 @@ public class OnePieceServiceImpl implements OnePieceService {
         return luckDrawData.get(i);
     }
 
-    // 保存图片至服务器
+    // 保存照片至服务器，保存照片信息至数据库
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void savePhotoAndData(MultipartFile file, Map<String, Object> params) throws IOException {
@@ -162,7 +162,7 @@ public class OnePieceServiceImpl implements OnePieceService {
 
         // 文件上传后的路径
         String filePath = photo_path;
-        String photoTime = String.valueOf(params.get("dateYearMonth"));
+        String photoTime = String.valueOf(params.get("photoAlbumName"));
         filePath = filePath + photoTime + "/" + fileName;
         params.put("photoUrl", photo_url + photoTime + "/" + fileName);
         onePieceMapper.insertPhotoInfo(params);
@@ -174,6 +174,50 @@ public class OnePieceServiceImpl implements OnePieceService {
         } else{
             file.transferTo(photoFile);
         }
+    }
+
+    // 保存相册封面至服务器，保存相册封面信息至数据库
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void savePhotoCover(MultipartFile file, Map<String, Object> params) throws IOException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dateTime = sdf.format(new Date());
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        params.put("photoAlbumDate", String.valueOf(params.get("dateYearMonth")));
+        params.put("updateTime", dateTime);
+        if (fileName != null){
+            String[] split = fileName.split("\\.");
+            fileName = split[0] + dateTime + "." + split[1];
+        }
+
+        // 文件上传后的路径
+        String filePath = photo_path;
+        filePath = filePath + "photo_album/" + fileName;
+        params.put("photoAlbumUrl", photo_url + "photo_album/" + fileName);
+        onePieceMapper.insertPhotoAlbumInfo(params);
+
+        File photoAlbumFile = new File(filePath);
+        // 检测是否存在目录
+        if (photoAlbumFile.getParentFile().mkdirs()){
+            file.transferTo(photoAlbumFile);
+        } else{
+            file.transferTo(photoAlbumFile);
+        }
+    }
+
+    // 查询相册和相关信息
+    @Override
+    public List<Map<String, Object>> getPhotoAlbumInfo(Map<String, Object> params) {
+
+        List<Map<String, Object>> photoAlbumInfo = onePieceMapper.getPhotoAlbumInfo(params);
+        for (Map<String, Object> map : photoAlbumInfo){
+            String photoAlbumDateYear = String.valueOf(map.get("photoAlbumDate")).substring(0, 4);
+            String photoAlbumDateMonth = String.valueOf(map.get("photoAlbumDate")).substring(4, 6);
+            map.put("photoAlbumDate", photoAlbumDateYear + "年 " + photoAlbumDateMonth + "月");
+        }
+        return photoAlbumInfo;
     }
 
     // 查询照片和相关信息

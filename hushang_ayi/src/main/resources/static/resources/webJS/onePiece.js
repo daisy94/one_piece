@@ -15,6 +15,7 @@ getDataByYearMonth(dateYearMonth);
 let dateYear = new Date().getFullYear();
 getDataByYear(dateYear);
 
+// 点击模糊查询
 $(".getDataByLikeSelect").click(function () {
 
     isTrue = false;
@@ -41,6 +42,7 @@ $(".getDataByLikeSelect").click(function () {
     getDataByLikeSelect(params);
 });
 
+// 点击查询未发货订单
 $(".littleButton").click(function () {
 
     isTrue = true;
@@ -52,6 +54,7 @@ $(".littleButton").click(function () {
     getDataByLikeSelect(params);
 });
 
+// 新增订单信息
 function insertByYearMonthDay(){
 
     isTrue = false;
@@ -105,6 +108,7 @@ function insertByYearMonthDay(){
     });
 }
 
+// 逻辑删除订单信息
 function deleteTableData(params, date) {
 
     isTrue = false;
@@ -131,6 +135,7 @@ function deleteTableData(params, date) {
     });
 }
 
+// 修改订单信息
 function updateTableData(params, date) {
 
     isTrue = false;
@@ -157,6 +162,7 @@ function updateTableData(params, date) {
     });
 }
 
+// 根据月份查询订单信息
 function getDataByYearMonth(dateYearMonth){
 
     table.render({
@@ -183,6 +189,7 @@ function getDataByYearMonth(dateYearMonth){
     getAchievementPercentage(dateYearMonth);
 }
 
+// 模糊查询订单信息
 function getDataByLikeSelect(params) {
 
     table.render({
@@ -205,6 +212,7 @@ function getDataByLikeSelect(params) {
     });
 }
 
+// 根据月份展示订单信息ECharts图
 function getOnePieceEChartsByYearMonth(dateYearMonth) {
 
     let myChart = echarts.init(document.getElementById("onePieceEChartsByYearMonth"));
@@ -271,6 +279,7 @@ function getOnePieceEChartsByYearMonth(dateYearMonth) {
     });
 }
 
+// 根据年份查询订单信息
 function getDataByYear(dateYear){
 
     table.render({
@@ -292,6 +301,7 @@ function getDataByYear(dateYear){
     getOnePieceEChartsByYear(dateYear);
 }
 
+// 根据年份展示订单信息ECharts图
 function getOnePieceEChartsByYear(dateYear) {
 
     let myChart = echarts.init(document.getElementById("onePieceEChartsByYear"));
@@ -356,6 +366,7 @@ function getOnePieceEChartsByYear(dateYear) {
     });
 }
 
+// 根据年份查询收入总额
 function getCountByYear(){
 
     let dateYear = $("#dateYear").val();
@@ -395,6 +406,7 @@ function getCountByYear(){
     });
 }
 
+// 根据月份查询月目标达成百分率
 function getAchievementPercentage(dateYearMonth){
 
     let params = {
@@ -408,7 +420,8 @@ function getAchievementPercentage(dateYearMonth){
         success: function(result) {
             if(result.code === 0){
                 let achievementPercentage = result.data.achievementPercentage;
-                element.progress("achievement", achievementPercentage + "%");
+                $(".layui-progress-bar").attr("lay-percent", achievementPercentage + "%");
+                element.init();
             }
         },
         error: function(e){
@@ -418,6 +431,7 @@ function getAchievementPercentage(dateYearMonth){
     });
 }
 
+// 表格数据编辑、删除监听事件
 table.on('tool(onePieceTable)', function(obj){
     let data = obj.data;
     let date = data.date;
@@ -444,6 +458,7 @@ table.on('tool(onePieceTable)', function(obj){
     }
 });
 
+// 表格订单发货按钮监听事件
 form.on('switch(is_deliver)', function(data){
 
     let is_deliver;
@@ -484,14 +499,14 @@ form.on('switch(is_deliver)', function(data){
     });
 });
 
-//年月日选择器
+// 年月日选择器
 layDate.render({
     elem: '#dateYearMonthDay',
     trigger: 'click',
     max: maxYearMonthDay
 });
 
-//年月选择器
+// 年月选择器
 layDate.render({
     elem: '#dateYearMonth',
     trigger: 'click',
@@ -507,7 +522,7 @@ layDate.render({
     }
 });
 
-//年选择器
+// 年选择器
 layDate.render({
     elem: '#dateYear',
     trigger: 'click',

@@ -231,8 +231,8 @@
 			<if test="remark != null and remark != ''">
 				photo_remark,
 			</if>
-			<if test="dateYearMonth != null and dateYearMonth != ''">
-				photo_date,
+			<if test="photoAlbumId != null and photoAlbumId != ''">
+				photo_album_id,
 			</if>
 			<if test="updateTime != null and updateTime != ''">
 				update_time,
@@ -251,8 +251,8 @@
 			<if test="remark != null and remark != ''">
 				#{remark},
 			</if>
-			<if test="dateYearMonth != null and dateYearMonth != ''">
-				#{dateYearMonth},
+			<if test="photoAlbumId != null and photoAlbumId != ''">
+				#{photoAlbumId},
 			</if>
 			<if test="updateTime != null and updateTime != ''">
 				#{updateTime},
@@ -263,21 +263,69 @@
 		</trim>
 	</insert>
 
+	<insert id="insertPhotoAlbumInfo" parameterType="java.util.Map">
+		INSERT INTO photo_album
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="photoAlbumDate != null and photoAlbumDate != ''">
+				photo_album_date,
+			</if>
+			<if test="photoAlbumUrl != null and photoAlbumUrl != ''">
+				photo_album_url,
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="photoAlbumDate != null and photoAlbumDate != ''">
+				#{photoAlbumDate},
+			</if>
+			<if test="photoAlbumUrl != null and photoAlbumUrl != ''">
+				#{photoAlbumUrl},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 查询相册和相关信息 -->
+	<select id="getPhotoAlbumInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			id,
+			photo_album_date AS photoAlbumDate,
+			photo_album_url AS photoAlbumUrl
+		FROM
+			photo_album
+		WHERE
+			is_del = 0
+		<if test="dateYear != null and dateYear != ''">
+			AND
+				LEFT(photo_album_date, 4) = #{dateYear}
+		</if>
+        ORDER BY photo_album_date
+	</select>
+
 	<!-- 查询照片和相关信息 -->
 	<select id="getPhotoInfo" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			id,
 			photo_name AS photoName,
 			photo_remark AS photoRemark,
-			photo_date AS photoDate,
 			photo_url AS photoUrl
 		FROM
 			photo_information
 		WHERE
 			is_del = 0
-		<if test="dateYearMonth != null and dateYearMonth != ''">
+		<if test="photoAlbumId != null and photoAlbumId != ''">
 			AND
-				photo_date = #{dateYearMonth}
+                photo_album_id = #{photoAlbumId}
 		</if>
 	</select>
 </mapper>

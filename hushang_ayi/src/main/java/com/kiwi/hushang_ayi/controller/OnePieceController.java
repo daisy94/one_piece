@@ -19,7 +19,7 @@ import java.util.Map;
 public class OnePieceController {
 
     @Autowired
-    OnePieceService onePieceService;
+    private OnePieceService onePieceService;
 
     // 新增恰饭收入数据
     @RequestMapping(value = "/insertOnePieceData", method = RequestMethod.POST)
@@ -152,23 +152,54 @@ public class OnePieceController {
         }
     }
 
-    // 保存图片至服务器
+    // 保存照片至服务器，保存照片信息至数据库
     @RequestMapping(value = "/savePhotoAndData", method = RequestMethod.POST)
-    public JsonResult savePhotoAndData(MultipartFile file, String dateYearMonth, String remark, String photoName) throws Exception{
+    public JsonResult savePhotoAndData(MultipartFile file, String photoName, String remark, String photoAlbumName, String photoAlbumId) throws Exception{
 
-        if (("").equals(dateYearMonth) || ("").equals(remark) || ("").equals(photoName)){
+        if (("").equals(photoAlbumName) || ("").equals(remark) || ("").equals(photoName) || ("").equals(photoAlbumId)){
             return new JsonResult(InfoCode.PARAMS_ERROR);
         }
 
         Map<String, Object> params = new HashMap<>();
         params.put("photoName", photoName);
-        params.put("dateYearMonth", dateYearMonth);
         params.put("remark", remark);
+        params.put("photoAlbumName", photoAlbumName);
+        params.put("photoAlbumId", photoAlbumId);
         try {
             onePieceService.savePhotoAndData(file, params);
             return new JsonResult(InfoCode.SAVE_SUCCESS);
         } catch(Exception e){
             return new JsonResult<>(InfoCode.SAVE_FAIL);
+        }
+    }
+
+    // 保存相册封面至服务器，保存相册封面信息至数据库
+    @RequestMapping(value = "/savePhotoCover", method = RequestMethod.POST)
+    public JsonResult savePhotoCover(MultipartFile file, String dateYearMonth) throws Exception{
+
+        if (("").equals(dateYearMonth)){
+            return new JsonResult(InfoCode.PARAMS_ERROR);
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("dateYearMonth", dateYearMonth);
+        try {
+            onePieceService.savePhotoCover(file, params);
+            return new JsonResult(InfoCode.SAVE_SUCCESS);
+        } catch(Exception e){
+            return new JsonResult<>(InfoCode.SAVE_FAIL);
+        }
+    }
+
+    // 查询相册和相关信息
+    @RequestMapping(value = "/getPhotoAlbumInfo", method = RequestMethod.POST)
+    public JsonResult getPhotoAlbumInfo (@RequestBody Map<String, Object> params) throws Exception{
+
+        try {
+            List<Map<String, Object>> photoAlbumInfo = onePieceService.getPhotoAlbumInfo(params);
+            return new JsonResult<>(photoAlbumInfo);
+        }catch (Exception e) {
+            return new JsonResult<>(InfoCode.OPERATION_FAIL);
         }
     }
 

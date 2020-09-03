@@ -47,3 +47,12 @@ function getRootPathWeb() {
     let projectName = pathName.substring(0, pathName.substr(1).indexOf("/") + 1);
     return (localhostPaht + projectName + "/");
 }
+
+//获取GET请求携带的参数
+function getQueryString(name) {
+    let result = window.location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+    if (result == null || result.length < 1) {
+        return "";
+    }
+    return result[1];
+}
