@@ -182,7 +182,7 @@ function getDataByYearMonth(dateYearMonth){
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '哪天', align: 'center', unresize: true, width: 110},
-            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 120}
+            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 145}
         ]]
     });
     getOnePieceEChartsByYearMonth(dateYearMonth);
@@ -207,7 +207,7 @@ function getDataByLikeSelect(params) {
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '哪天', align: 'center', unresize: true, width: 110},
-            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 120}
+            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 145}
         ]]
     });
 }

@@ -57,7 +57,7 @@
                                         <input type="text" readonly class="layui-input" id="dateYearMonthDay" placeholder="几号恰的呀" autocomplete="off">
                                     </div>
                                     <div class="layui-inline">
-                                        <button type="button" class="layui-btn insert" onclick="insertByYearMonthDay()">保存</button>
+                                        <button type="button" class="layui-btn insert" onclick="insertByYearMonthDay()"><i class="layui-icon">&#xe600;</i>保存</button>
                                     </div>
                                 </div>
                             </div>
@@ -77,10 +77,10 @@
                                 <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn getDataByLikeSelect">精准打击</button>
+                                <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>精准打击</button>
                             </div>
                             <div class="layui-inline littleButton">
-                                <button type="button" class="layui-btn littleButton">未发货</button>
+                                <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
                             </div>
                         </div>
                         <div class="layui-row">
@@ -100,7 +100,7 @@
                                 <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="getCountByYear()">合计恰饭</button>
+                                <button type="button" class="layui-btn" onclick="getCountByYear()"><i class="layui-icon">&#xe615;</i>合计恰饭</button>
                             </div>
                         </div>
                         <div class="layui-row">
@@ -149,8 +149,8 @@
     </div>
 
     <script type="text/html" id="operationButton">
-        <a class="layui-btn layui-btn-xs edit" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+        <a class="layui-btn layui-btn-xs edit" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</a>
     </script>
     <script type="text/html" id="is_deliver">
         {{#  if(d.is_deliver === 1){ }}

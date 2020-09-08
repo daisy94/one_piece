@@ -2,7 +2,6 @@ let element = layui.element,
     username = document.cookie.split("; ")[0].split("=")[1],
     userPower = document.cookie.split("; ")[1].split("=")[1],
     pathWeb = getRootPathWeb();
-$(".layui-icon-spread-left").hide();
 
 $("#username").html(username);
 $(".logo").html("ONE PIECE");
@@ -20,47 +19,45 @@ $("li>a").click(function (e) {
 });
 
 let isShow = true;  //定义一个标志位
-$('.shouSuo').click(function(){
+function switchLength() {
     //选择出所有的span，并判断是不是hidden
-    $('.layui-nav-item span').each(function(){
-        if($(this).is(':hidden')){
+    $('.layui-nav-item span').each(function () {
+        if ($(this).is(':hidden')) {
             $(this).show();
-        }else{
+        } else {
             $(this).hide();
             $(".header").show();
             $(".layui-icon-username").show();
         }
     });
     //判断isShow的状态
-    if(isShow){
+    if (isShow) {
         $('.layui-side').width(45); //设置宽度
-        $(".layui-icon-shrink-right").hide();
-        $(".layui-icon-spread-left").show();
+        $("#layui-icon-shrink").attr("class", "layui-icon layui-icon-spread-left");
         $('.layui-logo').css('left', '-155px');
         $('.layui-icon-android').css('left', '-8px');
         $('.layui-icon-ios').css('left', '-8px');
         $('.layui-icon-windows').css('left', '-8px');
         $('.layui-icon-rate-solid').css('left', '-8px');
         //将footer和body的宽度修改
-        $('.layui-layout-left').css('left', 45+'px');
-        $('.layui-body').css('left', 45+'px');
-        $('.layui-footer').css('left', 45+'px');
+        $('.layui-layout-left').css('left', 45 + 'px');
+        $('.layui-body').css('left', 45 + 'px');
+        $('.layui-footer').css('left', 45 + 'px');
         isShow = false;
-    }else{
+    } else {
         $('.layui-side').width(200);
-        $(".layui-icon-shrink-right").show();
-        $(".layui-icon-spread-left").hide();
+        $("#layui-icon-shrink").attr("class", "layui-icon layui-icon-shrink-right");
         $('.layui-logo').css('left', '0px');
         $('.layui-icon-android').css('left', '0px');
         $('.layui-icon-ios').css('left', '0px');
         $('.layui-icon-windows').css('left', '0px');
         $('.layui-icon-rate-solid').css('left', '0px');
-        $('.layui-layout-left').css('left', 200+'px');
-        $('.layui-body').css('left', 200+'px');
-        $('.layui-footer').css('left', 200+'px');
+        $('.layui-layout-left').css('left', 200 + 'px');
+        $('.layui-body').css('left', 200 + 'px');
+        $('.layui-footer').css('left', 200 + 'px');
         isShow = true;
     }
-});
+}
 
 $('.refresh').click(function(){
     location.reload();

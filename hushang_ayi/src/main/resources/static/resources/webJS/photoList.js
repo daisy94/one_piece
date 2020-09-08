@@ -31,7 +31,7 @@ function getPhotoInfo(id){
                                                     '<h2><b>'+ v.photoName +'</b></h2>' +
                                                 '</div>' +
                                                 '<div class="layui-card-body">' +
-                                                    '<img lay-src="'+ v.photoUrl +'">' +
+                                                    '<a href="javascript:void(0)" onclick="lookPhoto(\''+ v.photoName +'\', \''+ v.photoUrl +'\')"><img lay-src="'+ v.photoUrl +'"></a>' +
                                                 '</div>' +
                                             '</div>' +
                                             '<span>' + v.photoRemark + '</span>' +
@@ -55,6 +55,16 @@ function getPhotoInfo(id){
             console.log(e.status);
             console.log(e.responseText);
         }
+    });
+}
+
+function lookPhoto(photoName, photoUrl){
+
+    layer.open({
+        title: [photoName, "font-size:18px;"],
+        type: 2,
+        area: ["100%", "100%"],
+        content: "lookPhoto.html?photoUrl=" + photoUrl
     });
 }
 

@@ -50,7 +50,7 @@
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item" lay-unselect>
-                    <a class="shouSuo" href="javascript:"><i class="layui-icon layui-icon-shrink-right"></i><i class="layui-icon layui-icon-spread-left"></i></a>
+                    <a href="javascript:" onclick="switchLength()"><i id="layui-icon-shrink" class="layui-icon layui-icon-shrink-right"></i></a>
                 </li>
                 <li class="layui-nav-item heart-fill" lay-unselect>
                     <a href="menstruationCycle.html"><i class="layui-icon layui-icon-heart-fill"></i></a>
@@ -64,10 +64,10 @@
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item" lay-unselect>
-                    <a href="" class="refresh"><i class="layui-icon layui-icon-username"></i><span id="username" class="header"></span></a>
+                    <a href="" class="refresh"><i class="layui-icon">&#xe66f;</i><span id="username" class="header"></span></a>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
-                    <a href="" onclick="out()"><i class="layui-icon layui-icon-logout"></i><span class="header">退出</span></a>
+                    <a href="" onclick="out()"><i class="layui-icon">&#xe682;</i><span class="header">退出</span></a>
                 </li>
             </ul>
         </div>

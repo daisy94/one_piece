@@ -124,11 +124,16 @@ upload.render({
             return $("#photoAlbum option:selected").val();
         }
     },
+    before: function(){
+        layer.load();
+    },
     done: function(res){
         //上传完毕
         if (res.code === 0){
+            layer.closeAll("loading");
             layer.msg(res.msg);
         } else{
+            layer.closeAll("loading");
             layer.msg(res.msg, {
                 anim: 6
             });
