@@ -29,7 +29,7 @@ function getPhotoAlbumInfo(dateYear){
                 let htmlPhoto = "";
                 if (data.data !== null){
                     $.each(data.data, function(k, v){
-                        html += '<div class="layui-col-md3">' +
+                        html += '<div class="layui-col-md3 layui-col-xs3">' +
                                     '<div class="layui-card">' +
                                         '<div class="layui-card-body">' +
                                             '<div class="layui-card">' +
@@ -90,6 +90,9 @@ upload.render({
             return formatDate($("#dateYearMonth").val());
         }
     },
+    before: function(){
+        layer.load();
+    },
     done: function(res){
         //上传完毕
         if (res.code === 0){
@@ -97,8 +100,10 @@ upload.render({
             $("#photoAlbum").empty();
             $("#dateYearMonth").val("");
             getPhotoAlbumInfo(dateYear);
+            layer.closeAll("loading");
             layer.msg(res.msg);
         } else{
+            layer.closeAll("loading");
             layer.msg(res.msg, {
                 anim: 6
             });
@@ -131,6 +136,8 @@ upload.render({
         //上传完毕
         if (res.code === 0){
             layer.closeAll("loading");
+            $("#photoName").val("");
+            $("#photoRemark").val("");
             layer.msg(res.msg);
         } else{
             layer.closeAll("loading");

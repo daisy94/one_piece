@@ -97,7 +97,7 @@ function insertByYearMonthDay(){
                 $("#goodsName").val("");
                 $("#profit").val("");
                 layer.msg(result.msg);
-            }else if(result.code === 150){
+            } else{
                 layer.msg(result.msg);
             }
         },
@@ -124,7 +124,7 @@ function deleteTableData(params, date) {
                 let dateYear = dateYearMonth.substring(0,4);
                 getDataByYear(dateYear);
                 layer.msg(result.msg);
-            }else if(result.code === 150){
+            } else{
                 layer.msg(result.msg);
             }
         },
@@ -151,7 +151,7 @@ function updateTableData(params, date) {
                 let dateYear = dateYearMonth.substring(0,4);
                 getDataByYear(dateYear);
                 layer.msg(result.msg);
-            }else if(result.code === 150){
+            } else{
                 layer.msg(result.msg);
             }
         },
@@ -488,7 +488,7 @@ form.on('switch(is_deliver)', function(data){
                         getDataByLikeSelect(params);
                     }
                 }
-            }else if(result.code === 150){
+            } else{
                 layer.msg(result.msg);
             }
         },

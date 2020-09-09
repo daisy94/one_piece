@@ -8,7 +8,7 @@
         .layui-btn, .layui-input{
             border-radius: 5px;
         }
-        .layui-col-md6, .layui-col-md, .layui-fluid{
+        .layui-col-md6, .layui-col-md, .layui-col-md2, .layui-col-md3, .layui-fluid{
             padding: 5px;
         }
         .edit{
@@ -32,25 +32,31 @@
                 <div class="layui-card">
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <div class="layui-col-md">
+                            <div class="layui-col-md3 layui-col-xs5">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">谁恰的呀：</label>
                                     <div class="layui-input-inline">
                                         <input type="text" id="customerName" placeholder="谁恰的呀" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="layui-col-md3 layui-col-xs5">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">恰了什么：</label>
                                     <div class="layui-input-inline">
                                         <input type="text" id="goodsName" placeholder="恰了什么呀" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="layui-col-md3 layui-col-xs5">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">恰饭：</label>
                                     <div class="layui-input-inline">
                                         <input type="text" id="profit" placeholder="恰了多少呀" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="layui-col-md3 layui-col-xs6">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">恰的时间：</label>
                                     <div class="layui-inline">
@@ -68,19 +74,21 @@
         </div>
 
         <div class="layui-row">
-            <div class="layui-col-md6 layui-col-xs layui-col-sm">
+            <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <label class="layui-form-label">选择时间：</label>
-                            <div class="layui-inline">
-                                <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
-                            </div>
-                            <div class="layui-inline">
-                                <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>精准打击</button>
-                            </div>
-                            <div class="layui-inline littleButton">
-                                <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
+                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>精准打击</button>
+                                </div>
+                                <div class="layui-inline littleButton">
+                                    <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-row">
@@ -91,16 +99,18 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md6 layui-col-xs layui-col-sm">
+            <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <label class="layui-form-label">选择时间：</label>
-                            <div class="layui-inline">
-                                <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
-                            </div>
-                            <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="getCountByYear()"><i class="layui-icon">&#xe615;</i>合计恰饭</button>
+                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="getCountByYear()"><i class="layui-icon">&#xe615;</i>合计恰饭</button>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-row">
@@ -114,7 +124,7 @@
         </div>
 
         <div class="layui-row">
-            <div class="layui-col-md6 layui-col-xs layui-col-sm">
+            <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-row">
                         <div class="layui-card-header"><h3><b>日恰饭走势</b></h3></div>
@@ -122,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md6 layui-col-xs layui-col-sm">
+            <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-row">
                         <div class="layui-card-header"><h3><b>月恰饭走势</b></h3></div>

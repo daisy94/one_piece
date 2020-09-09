@@ -278,7 +278,7 @@ function insertZCData(){
                 $("#insertzhichuType").val("");
                 $("#insertzhichuData").val("");
                 layer.msg(result.msg);
-            }else if(result.code === 150){
+            } else{
                 layer.msg(result.msg);
             }
         },

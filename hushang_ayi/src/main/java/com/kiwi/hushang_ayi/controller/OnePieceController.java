@@ -157,7 +157,7 @@ public class OnePieceController {
     public JsonResult savePhotoAndData(MultipartFile file, String photoName, String remark, String photoAlbumName, String photoAlbumId) throws Exception{
 
         if (("").equals(photoAlbumName) || ("").equals(remark) || ("").equals(photoName) || ("").equals(photoAlbumId)){
-            return new JsonResult(InfoCode.PARAMS_ERROR);
+            return new JsonResult(InfoCode.PHOTO_PARAMS_ERROR);
         }
 
         Map<String, Object> params = new HashMap<>();
@@ -178,7 +178,7 @@ public class OnePieceController {
     public JsonResult savePhotoCover(MultipartFile file, String dateYearMonth) throws Exception{
 
         if (("").equals(dateYearMonth)){
-            return new JsonResult(InfoCode.PARAMS_ERROR);
+            return new JsonResult(InfoCode.PHOTO_ALBUM_PARAMS_ERROR);
         }
 
         Map<String, Object> params = new HashMap<>();

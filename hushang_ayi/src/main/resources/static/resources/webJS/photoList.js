@@ -23,9 +23,9 @@ function getPhotoInfo(id){
                 let html = "";
                 if (data.data !== null){
                     $.each(data.data, function(k, v){
-                        html += '<div class="layui-col-md3">' +
+                        html += '<div class="layui-col-md3 layui-col-xs6">' +
                                     '<div class="layui-card">' +
-                                        '<div class="layui-card-body">' +
+                                        '<div class="layui-card-body" style="height:345px">' +
                                             '<div class="layui-card">' +
                                                 '<div class="layui-card-header">' +
                                                     '<h2><b>'+ v.photoName +'</b></h2>' +
