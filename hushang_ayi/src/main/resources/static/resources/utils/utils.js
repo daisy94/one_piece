@@ -14,14 +14,14 @@ function formatDate(date){
 
 function formatDateMonth(date){
 
-    let month = String();
+    let month = "";
     if(date < 10){
 
         month = "0" + date;
         return month;
     }else{
 
-        month = date;
+        month = date.toString();
         return month;
     }
 }
