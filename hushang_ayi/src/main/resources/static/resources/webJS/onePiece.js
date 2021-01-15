@@ -173,12 +173,12 @@ function getDataByYearMonth(dateYearMonth){
         where: {
             "dateYearMonth": dateYearMonth
         },
-        height: 235,
+        height: 312,
         method: 'post',
         cols: [[
             {field:'id', title: 'ID', hide: true},
             {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
-            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 120},
+            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 200},
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '哪天', align: 'center', unresize: true, width: 110},
@@ -198,12 +198,12 @@ function getDataByLikeSelect(params) {
         url: pathWeb + 'getOnePieceTableYearMonth',
         contentType: 'application/json',
         where: params,
-        height: 235,
+        height: 312,
         method: 'POST',
         cols: [[
             {field:'id', title: 'ID', hide: true},
             {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
-            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 120},
+            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 200},
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '哪天', sort: true, align: 'center', unresize: true, width: 110},
@@ -291,7 +291,7 @@ function getDataByYear(dateYear){
             "dateYear": dateYear
         },
         cellMinWidth: 80,
-        height: 235,
+        height: 335,
         method: 'post',
         cols: [[
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true},

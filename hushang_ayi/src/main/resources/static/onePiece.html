@@ -16,18 +16,18 @@
         }
         .littleButton{
             float: right;
-            border-radius: 20px;
+            border-radius: 5px;
             background-color: #d2d2d2;
         }
         #onePieceEChartsByYearMonth, #onePieceEChartsByYear{
-            height: 258px;
+            height: 350px;
         }
     </style>
 </head>
 <body>
     <div class="layui-fluid">
         <!-- 内容主体区域 -->
-        <div class="layui-row">
+        <!--<div class="layui-row">
             <div class="layui-col-md">
                 <div class="layui-card">
                     <div class="layui-card-body">
@@ -71,23 +71,28 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="layui-row">
-            <div class="layui-col-md6 layui-col-xs">
+            <div class="layui-col-md layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-card-body">
                         <div class="layui-row">
                             <div class="layui-col-md" style="padding: 0 5px 0 5px">
-                                <label class="layui-form-label">选择时间：</label>
                                 <div class="layui-inline">
-                                    <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
+                                    <button type="button" class="layui-btn"><i class="layui-icon">&#xe65e;</i>赚钱啦</button>
                                 </div>
                                 <div class="layui-inline">
-                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>精准打击</button>
+                                    <label class="layui-form-label">选择时间：</label>
+                                    <div class="layui-inline">
+                                        <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
+                                    </div>
                                 </div>
                                 <div class="layui-inline littleButton">
                                     <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
+                                </div>
+                                <div class="layui-inline" style="float: right;margin-right: 5px;">
+                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
                                 </div>
                             </div>
                         </div>
@@ -99,6 +104,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md layui-col-xs">
+                <div class="layui-card">
+                    <div class="layui-row">
+                        <div class="layui-card-header"><h3><b>日恰饭走势</b></h3></div>
+                        <div class="layui-card-body" id="onePieceEChartsByYearMonth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
             <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-card-body">
@@ -118,17 +137,6 @@
                                 <table id="onePieceTableYear"></table>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-row">
-            <div class="layui-col-md6 layui-col-xs">
-                <div class="layui-card">
-                    <div class="layui-row">
-                        <div class="layui-card-header"><h3><b>日恰饭走势</b></h3></div>
-                        <div class="layui-card-body" id="onePieceEChartsByYearMonth"></div>
                     </div>
                 </div>
             </div>
