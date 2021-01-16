@@ -173,7 +173,7 @@ function getDataByYearMonth(dateYearMonth){
         where: {
             "dateYearMonth": dateYearMonth
         },
-        height: 312,
+        height: 269,
         method: 'post',
         cols: [[
             {field:'id', title: 'ID', hide: true},
@@ -198,7 +198,7 @@ function getDataByLikeSelect(params) {
         url: pathWeb + 'getOnePieceTableYearMonth',
         contentType: 'application/json',
         where: params,
-        height: 312,
+        height: 269,
         method: 'POST',
         cols: [[
             {field:'id', title: 'ID', hide: true},
@@ -291,7 +291,7 @@ function getDataByYear(dateYear){
             "dateYear": dateYear
         },
         cellMinWidth: 80,
-        height: 335,
+        height: 292,
         method: 'post',
         cols: [[
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true},
@@ -428,6 +428,16 @@ function getAchievementPercentage(dateYearMonth){
             console.log(e.status);
             console.log(e.responseText);
         }
+    });
+}
+
+function insertCustomer() {
+
+    layer.open({
+        title: ["新增顾客信息", "font-size:18px;"],
+        type: 2,
+        area: ["50%", "50%"],
+        content: "insertCustomer.html"
     });
 }
 

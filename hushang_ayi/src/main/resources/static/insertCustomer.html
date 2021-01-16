@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ONE PIECE</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-btn, .layui-input{
+            border-radius: 5px;
+        }
+        .layui-col-md6, .layui-col-md, .layui-col-md2, .layui-col-md3, .layui-fluid{
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid" style="background-color: #F2F2F2;">
+
+    <div class="layui-row">
+        <div class="layui-col-md">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-row">
+                        <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn"><i class="layui-icon">&#xe65e;</i>赚钱啦</button>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" for="dateYearMonth">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline littleButton">
+                                <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
+                            </div>
+                            <div class="layui-inline" style="float: right;margin-right: 5px;">
+                                <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="resources/layui/layui.all.js"></script>
+<script src="resources/utils/utils.js"></script>
+<script src="resources/webJS/insertCustomer.js"></script>
+</body>
+</html>

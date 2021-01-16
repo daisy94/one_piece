@@ -76,6 +76,7 @@
         <div class="layui-row">
             <div class="layui-col-md layui-col-xs">
                 <div class="layui-card">
+                    <div class="layui-card-header"><h3><b>日收入详情</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
                             <div class="layui-col-md" style="padding: 0 5px 0 5px">
@@ -83,7 +84,7 @@
                                     <button type="button" class="layui-btn"><i class="layui-icon">&#xe65e;</i>赚钱啦</button>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">选择时间：</label>
+                                    <label class="layui-form-label" for="dateYearMonth">选择时间：</label>
                                     <div class="layui-inline">
                                         <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="想查几月呀" autocomplete="off">
                                     </div>
@@ -110,7 +111,7 @@
             <div class="layui-col-md layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-row">
-                        <div class="layui-card-header"><h3><b>日恰饭走势</b></h3></div>
+                        <div class="layui-card-header"><h3><b>日收入走势</b></h3></div>
                         <div class="layui-card-body" id="onePieceEChartsByYearMonth"></div>
                     </div>
                 </div>
@@ -120,6 +121,7 @@
         <div class="layui-row">
             <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
+                    <div class="layui-card-header"><h3><b>月收入详情</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
                             <div class="layui-col-md" style="padding: 0 5px 0 5px">
@@ -143,8 +145,55 @@
             <div class="layui-col-md6 layui-col-xs">
                 <div class="layui-card">
                     <div class="layui-row">
-                        <div class="layui-card-header"><h3><b>月恰饭走势</b></h3></div>
+                        <div class="layui-card-header"><h3><b>月收入走势</b></h3></div>
                         <div class="layui-card-body" id="onePieceEChartsByYear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-xs">
+                <div class="layui-card">
+                    <div class="layui-card-header"><h3><b>顾客信息</b></h3></div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn" onclick="insertCustomer()"><i class="layui-icon">&#xe624;</i>新增</button>
+                                </div>
+                                <div class="layui-inline" style="float: right;margin-right: 5px;">
+                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row">
+                            <div>
+                                <!--<table id="onePieceTableYearMonth" lay-filter="onePieceTable"></table>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6 layui-col-xs">
+                <div class="layui-card">
+                    <div class="layui-card-header"><h3><b>商品信息</b></h3></div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn"><i class="layui-icon">&#xe624;</i>新增</button>
+                                </div>
+                                <div class="layui-inline" style="float: right;margin-right: 5px;">
+                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row">
+                            <div>
+                                <!--<table id="onePieceTableYearMonth" lay-filter="onePieceTable"></table>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
