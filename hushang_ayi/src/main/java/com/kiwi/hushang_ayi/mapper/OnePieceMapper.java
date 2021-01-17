@@ -112,4 +112,10 @@ public interface OnePieceMapper {
      * @return
      */
     List<Map<String, Object>> getPhotoInfo(Map<String, Object> params);
+
+    /**
+     * 新增顾客信息
+     * @param params
+     */
+    void insertCustomer(Map<String, Object> params);
 }

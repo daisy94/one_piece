@@ -21,7 +21,7 @@ public enum InfoCode {
     public final int code;
     public final String msg;
 
-    InfoCode (int code, String msg){
+    InfoCode(int code, String msg){
         this.code = code;
         this.msg = msg;
     }

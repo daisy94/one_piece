@@ -225,4 +225,14 @@ public class OnePieceServiceImpl implements OnePieceService {
     public List<Map<String, Object>> getPhotoInfo(Map<String, Object> params) {
         return onePieceMapper.getPhotoInfo(params);
     }
+
+    // 新增顾客信息
+    @Override
+    public void insertCustomer(Map<String, Object> params) {
+
+        Date createTime = new Date();
+        params.put("createTime", createTime);
+        params.put("updateTime", createTime);
+        onePieceMapper.insertCustomer(params);
+    }
 }

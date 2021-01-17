@@ -109,9 +109,8 @@ function insertByYearMonthDay(){
 }
 
 // 逻辑删除订单信息
-function deleteTableData(params, date) {
+function deleteTableData(params) {
 
-    isTrue = false;
     $.ajax({
         type : "POST",
         contentType: "application/json;charset=UTF-8",
@@ -119,10 +118,16 @@ function deleteTableData(params, date) {
         data : params,
         success: function(result) {
             if(result.code === 0){
-                let dateYearMonth = formatDate(date).substring(0,6);
-                getDataByYearMonth(dateYearMonth);
-                let dateYear = dateYearMonth.substring(0,4);
-                getDataByYear(dateYear);
+                if (isTrue) {
+                    let params = {
+                        "is_deliver": 0
+                    };
+                    getDataByLikeSelect(params);
+                } else {
+                    getDataByYearMonth(dateYearMonth);
+                    let dateYear = dateYearMonth.substring(0,4);
+                    getDataByYear(dateYear);
+                }
                 layer.msg(result.msg);
             } else{
                 layer.msg(result.msg);
@@ -136,9 +141,8 @@ function deleteTableData(params, date) {
 }
 
 // 修改订单信息
-function updateTableData(params, date) {
+function updateTableData(params) {
 
-    isTrue = false;
     $.ajax({
         type : "POST",
         contentType: "application/json;charset=UTF-8",
@@ -146,10 +150,16 @@ function updateTableData(params, date) {
         data : params,
         success: function(result) {
             if(result.code === 0){
-                let dateYearMonth = formatDate(date).substring(0,6);
-                getDataByYearMonth(dateYearMonth);
-                let dateYear = dateYearMonth.substring(0,4);
-                getDataByYear(dateYear);
+                if (isTrue) {
+                    let params = {
+                        "is_deliver": 0
+                    };
+                    getDataByLikeSelect(params);
+                } else {
+                    getDataByYearMonth(dateYearMonth);
+                    let dateYear = dateYearMonth.substring(0,4);
+                    getDataByYear(dateYear);
+                }
                 layer.msg(result.msg);
             } else{
                 layer.msg(result.msg);
@@ -431,12 +441,13 @@ function getAchievementPercentage(dateYearMonth){
     });
 }
 
+// 新增顾客信息页弹框
 function insertCustomer() {
 
     layer.open({
         title: ["新增顾客信息", "font-size:18px;"],
         type: 2,
-        area: ["50%", "50%"],
+        area: ["35%", "237px"],
         content: "insertCustomer.html"
     });
 }
