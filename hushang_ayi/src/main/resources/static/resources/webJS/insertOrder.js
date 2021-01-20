@@ -161,7 +161,7 @@ function addProduct() {
         $("#addProduct").append('<button type="button" class="layui-btn layui-btn-normal" style="margin-bottom: 5px;">' + productInfo +'</button>');
         if (form.val("orderForm").productList !== "" && form.val("orderForm").productList != null) {
             form.val("orderForm", {
-                "productList": form.val("orderForm").productList + "," + productInfo
+                "productList": form.val("orderForm").productList + "，" + productInfo
             });
         } else {
             form.val("orderForm", {
