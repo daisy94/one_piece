@@ -12,7 +12,7 @@ public interface OnePieceMapper {
      * 新增恰饭收入数据
      * @param params
      */
-    void insertOnePieceData(Map<String, Object> params);
+    void insertOrder(Map<String, Object> params);
 
     /**
      * 删除恰饭收入数据
@@ -118,4 +118,67 @@ public interface OnePieceMapper {
      * @param params
      */
     void insertCustomer(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 查询顾客信息
+     * @Date: 2021/1/17
+     * @Param: [params]
+     * @Return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    List<Map<String, Object>> getCustomerTable(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 删除顾客信息
+     * @Date: 2021/1/17
+     * @Param: [params]
+     * @Return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    void deleteCustomer(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 修改顾客信息
+     * @Date: 2021/1/17
+     * @Param: [params]
+     * @Return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    void updateCustomer(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 新增商品信息
+     * @Date: 2021/1/17
+     * @Param: [params]
+     * @Return: void
+     */
+    void insertProduct(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 删除商品信息
+     * @Date: 2021/1/18
+     * @Param: [params]
+     * @Return: void
+     */
+    void deleteProduct(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 修改商品信息
+     * @Date: 2021/1/18
+     * @Param: [params]
+     * @Return: void
+     */
+    void updateProduct(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 查询商品信息
+     * @Date: 2021/1/17
+     * @Param: [params]
+     * @Return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    List<Map<String, Object>> getProductTable(Map<String, Object> params);
 }

@@ -5,48 +5,9 @@
 <mapper namespace="com.kiwi.hushang_ayi.mapper.OnePieceMapper">
 
 	<!-- 新增恰饭收入数据 -->
-	<insert id="insertOnePieceData" parameterType="java.util.Map">
-		INSERT INTO one_piece
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">
-				id,
-			</if>
-			<if test="customerName != null and customerName != ''">
-				customer_name,
-			</if>
-			<if test="goodsName != null and goodsName != ''">
-				goods_name,
-			</if>
-			<if test="profit != null and profit != ''">
-				profit,
-			</if>
-			<if test="dateYearMonthDay != null and dateYearMonthDay != ''">
-				`date`,
-			</if>
-			<if test="updateTime != null and updateTime != ''">
-				update_time,
-			</if>
-		</trim>
-		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">
-				#{id},
-			</if>
-			<if test="customerName != null and customerName != ''">
-				#{customerName},
-			</if>
-			<if test="goodsName != null and goodsName != ''">
-				#{goodsName},
-			</if>
-			<if test="profit != null and profit != ''">
-				#{profit},
-			</if>
-			<if test="dateYearMonthDay != null and dateYearMonthDay != ''">
-				#{dateYearMonthDay},
-			</if>
-			<if test="updateTime != null and updateTime != ''">
-				#{updateTime},
-			</if>
-		</trim>
+	<insert id="insertOrder" parameterType="java.util.Map">
+		INSERT INTO one_piece (customer_name, goods_name, customer_address, profit, `date`, update_time)
+		VALUES (#{customerName}, #{productList}, #{orderAddress}, #{productProfit}, #{date}, #{updateTime})
 	</insert>
 
 	<!-- 删除恰饭收入数据 -->
@@ -66,6 +27,9 @@
 			<if test="goods_name != null and goods_name != ''">
 				goods_name = #{goods_name},
 			</if>
+			<if test="customer_address != null and customer_address != ''">
+				customer_address = #{customer_address},
+			</if>
 			<if test="profit != null and profit != ''">
 				profit = #{profit},
 			</if>
@@ -78,23 +42,14 @@
 
 	<!-- 按月份查询恰饭表格所需数据 -->
 	<select id="getOnePieceDataByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT id, customer_name, goods_name, profit, `date`, is_deliver
+		SELECT id, customer_name, goods_name, customer_address, profit, `date`, is_deliver
 		FROM one_piece
 		WHERE is_del = 0
 		<if test="dateYearMonth != null and dateYearMonth != ''">
 			AND LEFT(`date`, 6) = #{dateYearMonth}
 		</if>
-		<if test="dateYearMonthDay != null and dateYearMonthDay != ''">
-			AND `date` = #{dateYearMonthDay}
-		</if>
-		<if test="customerName != null and customerName != ''">
-			AND customer_name LIKE CONCAT('%', #{customerName}, '%')
-		</if>
-		<if test="goodsName != null and goodsName != ''">
-			AND goods_name LIKE CONCAT('%', #{goodsName}, '%')
-		</if>
-		<if test="profit != null and profit != ''">
-			AND profit = #{profit}
+		<if test="queryKeyword != null and queryKeyword != ''">
+			AND (customer_name LIKE CONCAT('%', #{queryKeyword}, '%') OR goods_name LIKE CONCAT('%', #{queryKeyword}, '%'))
 		</if>
 		<if test="is_deliver != null">
 			AND is_deliver = #{is_deliver}
@@ -295,14 +250,70 @@
 		</trim>
 	</insert>
 
-	<!--<insert id="insertCustomer" parameterType="java.util.Map">
-		INSERT INTO t_customers
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="customerName != null and customerName != ''">
-				customer_name,
+	<!-- 新增顾客信息 -->
+	<insert id="insertCustomer" parameterType="java.util.Map">
+		INSERT INTO t_customers (customer_name, customer_address, update_time, create_time)
+		VALUES (#{customerName}, #{customerAddress}, #{updateTime}, #{createTime})
+	</insert>
+
+	<!-- 查询顾客信息 -->
+	<select id="getCustomerTable" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		id,
+		customer_name,
+		customer_address
+		FROM
+        t_customers
+		WHERE
+		is_use = 1
+		<if test="customerName != null and customerName != ''">
+			AND customer_name LIKE CONCAT('%', #{customerName}, '%')
+		</if>
+		ORDER BY update_time DESC
+	</select>
+
+	<!-- 删除顾客数据 -->
+	<delete id="deleteCustomer" parameterType="java.util.Map">
+		<if test="id != null">
+			UPDATE t_customers SET is_use = 0, update_time = #{updateTime} WHERE id = #{id}
+		</if>
+	</delete>
+
+	<!-- 修改顾客数据 -->
+	<update id="updateCustomer" parameterType="java.util.Map">
+		UPDATE t_customers
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="customer_name != null and customer_name != ''">
+				customer_name = #{customer_name},
 			</if>
-			<if test="customerAddress != null and customerAddress != ''">
-				customer_address,
+			<if test="customer_address != null and customer_address != ''">
+				customer_address = #{customer_address},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</trim>
+		WHERE
+		<if test="id != null">
+			id = #{id}
+		</if>
+	</update>
+
+	<!-- 新增商品信息 -->
+	<insert id="insertProduct" parameterType="java.util.Map">
+		INSERT INTO t_products
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productName != null and productName != ''">
+				product_name,
+			</if>
+			<if test="productPrice != null">
+				product_price,
+			</if>
+			<if test="productCost != null">
+				product_cost,
+			</if>
+			<if test="productProfit != null">
+				product_profit,
 			</if>
 			<if test="updateTime != null">
 				update_time,
@@ -312,11 +323,17 @@
 			</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-			<if test="customerName != null and customerName != ''">
-				#{customerName},
+			<if test="productName != null and productName != ''">
+				#{productName},
 			</if>
-			<if test="customerAddress != null and customerAddress != ''">
-				#{customerAddress},
+			<if test="productPrice != null">
+				#{productPrice},
+			</if>
+			<if test="productCost != null">
+				#{productCost},
+			</if>
+			<if test="productProfit != null">
+				#{productProfit},
 			</if>
 			<if test="updateTime != null">
 				#{updateTime},
@@ -325,11 +342,46 @@
 				#{createTime},
 			</if>
 		</trim>
-	</insert>-->
-
-	<insert id="insertCustomer" parameterType="java.util.Map">
-		INSERT INTO t_customers (customer_name, customer_address, update_time, create_time) VALUES (#{customerName}, #{customerAddress}, #{updateTime}, #{createTime})
 	</insert>
+
+	<!-- 删除商品数据 -->
+	<delete id="deleteProduct" parameterType="java.util.Map">
+		<if test="id != null">
+			UPDATE t_products SET is_use = 0, update_time = #{updateTime} WHERE id = #{id}
+		</if>
+	</delete>
+
+	<!-- 修改商品数据 -->
+	<update id="updateProduct" parameterType="java.util.Map">
+		UPDATE t_products SET
+			product_name = #{product_name},
+			product_price = #{product_price},
+			product_cost = #{product_cost},
+			product_profit = #{product_profit},
+			update_time = #{updateTime}
+		WHERE
+		<if test="id != null">
+			id = #{id}
+		</if>
+	</update>
+
+	<!-- 查询商品信息 -->
+	<select id="getProductTable" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		id,
+		product_name,
+		product_price,
+		product_cost,
+		product_profit
+		FROM
+		t_products
+		WHERE
+		is_use = 1
+		<if test="productName != null and productName != ''">
+			AND product_name LIKE CONCAT('%', #{productName}, '%')
+		</if>
+		ORDER BY product_name
+	</select>
 
 	<!-- 查询相册和相关信息 -->
 	<select id="getPhotoAlbumInfo" parameterType="java.util.Map" resultType="java.util.Map">

@@ -1,11 +1,9 @@
 let $ = layui.jquery,
     layer = layui.layer,
-    table = layui.table,
     form = layui.form,
     pathWeb = getRootPathWeb();
 
-customerTable();
-
+// 提交表单，新增顾客信息
 form.on("submit", function(data){
 
     $.ajax({
@@ -32,6 +30,7 @@ form.on("submit", function(data){
     return false;
 });
 
+// 顾客信息表单验证规则
 form.verify({
 
     customerName: function(value) {
@@ -45,21 +44,3 @@ form.verify({
         }
     }
 });
-
-function customerTable() {
-
-    table.render({
-        elem: "#customerTable",
-        skin: "line",
-        url: pathWeb + "getCustomerTable",
-        contentType: "application/json",
-        height: 269,
-        method: "POST",
-        cols: [[
-            {field: "id", title: "ID", hide: true},
-            {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable"},
-            {field: "customer_address", title: "微信名", align: "center", unresize: true, edit: "customerTable"},
-            {align: "center", title: "操作", unresize: true, toolbar: "#operationButton", width: 145}
-        ]]
-    });
-}

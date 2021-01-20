@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增订单</title>
+    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <style>
+        .layui-btn, .layui-input{
+            border-radius: 5px;
+        }
+        .layui-col-md, .layui-fluid{
+            padding: 5px;
+        }
+        .layui-input-block {
+            margin-left: 160px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid" style="background-color: #F2F2F2;">
+
+    <div class="layui-row">
+        <div class="layui-col-md">
+            <div class="layui-card">
+                <div class="layui-card-body" style="height: 477px;">
+                    <div class="layui-row">
+                        <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <form class="layui-form" lay-filter="orderForm">
+                                <div class="layui-form-item" style="margin-top: 15px;">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="yearMonthDay">订单时间：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" id="yearMonthDay" name="yearMonthDay" placeholder="哪天买的呀" autocomplete="off" readonly lay-verify="yearMonthDay" lay-verType="tips">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="customerName">微信名：</label>
+                                        <div class="layui-input-inline">
+                                            <select id="customerName" name="customerName" lay-search lay-verify="customerName" lay-verType="tips" lay-filter="customer">
+                                                <option value="">哪个小伙伴买的呀</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="productName">买了什么：</label>
+                                        <div class="layui-input-inline">
+                                            <select id="productName" name="productName" lay-search lay-verify="productName" lay-verType="tips" lay-filter="product">
+                                                <option value="">这个小伙伴买了什么呀</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="productAmount">数量：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" id="productAmount" name="productAmount" placeholder="买了多少呀" autocomplete="off" lay-verify="productAmount" lay-verType="tips">
+                                        </div>
+                                        <button type="button" class="layui-btn" onclick="addProduct()">添加</button>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="productProfit">宝贝利润：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" id="productProfit" name="productProfit" placeholder="赚了多少钱呀" autocomplete="off" lay-verify="productProfit" lay-verType="tips">
+                                        </div>
+                                        <input type="checkbox" name="switch" lay-skin="switch" lay-text="包邮|不包" checked lay-filter="switch">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="orderAddress">发货地址：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" id="orderAddress" name="orderAddress" placeholder="宝贝发到哪里呀" autocomplete="off" lay-verify="orderAddress" lay-verType="tips">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" id="addProduct" style="margin-left: 0;">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="display: none;">
+                                    <div class="layui-input-block">
+                                        <label class="layui-form-label" for="productList"></label>
+                                        <input type="text" class="layui-input" id="productList" name="productList" lay-verify="productList">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="margin-bottom: 0;">
+                                    <div class="layui-input-block" style="margin-left: 185px;width: 275px;">
+                                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit><i class="layui-icon">&#xe600;</i>保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="resources/layui/layui.all.js"></script>
+<script src="resources/utils/utils.js"></script>
+<script src="resources/webJS/insertOrder.js"></script>
+</body>
+</html>

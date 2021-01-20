@@ -8,7 +8,7 @@
         .layui-btn, .layui-input{
             border-radius: 5px;
         }
-        .layui-col-md6, .layui-col-md, .layui-col-md2, .layui-col-md3, .layui-fluid{
+        .layui-col-md6, .layui-col-md, .layui-fluid{
             padding: 5px;
         }
         .edit{
@@ -20,58 +20,15 @@
             background-color: #d2d2d2;
         }
         #onePieceEChartsByYearMonth, #onePieceEChartsByYear{
-            height: 350px;
+            height: 345px;
+        }
+        .col1{
+            padding: 0 5px 0 5px;
         }
     </style>
 </head>
 <body>
     <div class="layui-fluid">
-        <!-- 内容主体区域 -->
-        <!--<div class="layui-row">
-            <div class="layui-col-md">
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-row">
-                            <div class="layui-col-md3 layui-col-xs5">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">谁恰的呀：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="customerName" placeholder="谁恰的呀" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md3 layui-col-xs5">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">恰了什么：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="goodsName" placeholder="恰了什么呀" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md3 layui-col-xs5">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">恰饭：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="profit" placeholder="恰了多少呀" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md3 layui-col-xs6">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">恰的时间：</label>
-                                    <div class="layui-inline">
-                                        <input type="text" readonly class="layui-input" id="dateYearMonthDay" placeholder="几号恰的呀" autocomplete="off">
-                                    </div>
-                                    <div class="layui-inline">
-                                        <button type="button" class="layui-btn insert" onclick="insertByYearMonthDay()"><i class="layui-icon">&#xe600;</i>保存</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
         <div class="layui-row">
             <div class="layui-col-md layui-col-xs">
@@ -79,9 +36,9 @@
                     <div class="layui-card-header"><h3><b>日收入详情</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <div class="layui-col-md col1">
                                 <div class="layui-inline">
-                                    <button type="button" class="layui-btn"><i class="layui-icon">&#xe65e;</i>赚钱啦</button>
+                                    <button type="button" class="layui-btn" onclick="insertOrder()"><i class="layui-icon">&#xe65e;</i>赚钱啦</button>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label" for="dateYearMonth">选择时间：</label>
@@ -93,7 +50,10 @@
                                     <button type="button" class="layui-btn littleButton"><i class="layui-icon">&#xe609;</i>未发货</button>
                                 </div>
                                 <div class="layui-inline" style="float: right;margin-right: 5px;">
-                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                                    <button type="button" class="layui-btn" onclick="queryKeyword()"><i class="layui-icon">&#xe615;</i>查询</button>
+                                </div>
+                                <div class="layui-inline" style="float: right;margin-right: 5px;">
+                                    <input type="text" class="layui-input" id="queryKeyword" placeholder="微信名或者宝贝名关键字" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -108,7 +68,7 @@
         </div>
 
         <div class="layui-row">
-            <div class="layui-col-md layui-col-xs">
+            <div class="layui-col-md">
                 <div class="layui-card">
                     <div class="layui-row">
                         <div class="layui-card-header"><h3><b>日收入走势</b></h3></div>
@@ -124,13 +84,13 @@
                     <div class="layui-card-header"><h3><b>月收入详情</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <div class="layui-col-md col1">
                                 <label class="layui-form-label">选择时间：</label>
                                 <div class="layui-inline">
                                     <input type="text" readonly class="layui-input" id="dateYear" placeholder="想查哪年呀" autocomplete="off">
                                 </div>
                                 <div class="layui-inline">
-                                    <button type="button" class="layui-btn" onclick="getCountByYear()"><i class="layui-icon">&#xe615;</i>合计恰饭</button>
+                                    <button type="button" class="layui-btn" onclick="getCountByYear()"><i class="layui-icon">&#xe615;</i>合计</button>
                                 </div>
                             </div>
                         </div>
@@ -158,12 +118,17 @@
                     <div class="layui-card-header"><h3><b>顾客信息</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <div class="layui-col-md col1">
                                 <div class="layui-inline">
                                     <button type="button" class="layui-btn" onclick="insertCustomer()"><i class="layui-icon">&#xe624;</i>新增</button>
                                 </div>
                                 <div class="layui-inline" style="float: right;margin-right: 5px;">
-                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                                    <div class="layui-inline">
+                                        <input type="text" class="layui-input" id="customerName" placeholder="根据微信名查询" autocomplete="off">
+                                    </div>
+                                    <div class="layui-inline">
+                                        <button type="button" class="layui-btn" onclick="queryCustomer()"><i class="layui-icon">&#xe615;</i>查询</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -180,18 +145,23 @@
                     <div class="layui-card-header"><h3><b>商品信息</b></h3></div>
                     <div class="layui-card-body">
                         <div class="layui-row">
-                            <div class="layui-col-md" style="padding: 0 5px 0 5px">
+                            <div class="layui-col-md col1">
                                 <div class="layui-inline">
-                                    <button type="button" class="layui-btn"><i class="layui-icon">&#xe624;</i>新增</button>
+                                    <button type="button" class="layui-btn" onclick="insertProduct()"><i class="layui-icon">&#xe624;</i>新增</button>
                                 </div>
                                 <div class="layui-inline" style="float: right;margin-right: 5px;">
-                                    <button type="button" class="layui-btn getDataByLikeSelect"><i class="layui-icon">&#xe615;</i>高级查询</button>
+                                    <div class="layui-inline">
+                                        <input type="text" class="layui-input" id="productName" placeholder="根据商品名称查询" autocomplete="off">
+                                    </div>
+                                    <div class="layui-inline">
+                                        <button type="button" class="layui-btn" onclick="queryProduct()"><i class="layui-icon">&#xe615;</i>查询</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-row">
                             <div>
-                                <!--<table id="onePieceTableYearMonth" lay-filter="onePieceTable"></table>-->
+                                <table id="productTable" lay-filter="productTable"></table>
                             </div>
                         </div>
                     </div>
@@ -216,6 +186,14 @@
     </div>
 
     <script type="text/html" id="operationButton">
+        <a class="layui-btn layui-btn-xs edit" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</a>
+    </script>
+    <script type="text/html" id="operationButtonCustomer">
+        <a class="layui-btn layui-btn-xs edit" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</a>
+    </script>
+    <script type="text/html" id="operationButtonProduct">
         <a class="layui-btn layui-btn-xs edit" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</a>
     </script>

@@ -30,11 +30,16 @@ public class OnePieceServiceImpl implements OnePieceService {
 
     // 新增恰饭收入数据
     @Override
-    public void insertOnePieceData (Map<String, Object> params) {
+    public void insertOrder (Map<String, Object> params) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String updateTime = sdf.format(new Date());
         params.put("updateTime", updateTime);
-        onePieceMapper.insertOnePieceData(params);
+        String year = String.valueOf(params.get("yearMonthDay")).substring(0, 4);
+        String month = String.valueOf(params.get("yearMonthDay")).substring(5, 7);
+        String day = String.valueOf(params.get("yearMonthDay")).substring(8, 10);
+        params.put("date", year + month + day);
+        onePieceMapper.insertOrder(params);
     }
 
     // 删除恰饭收入数据
@@ -234,5 +239,75 @@ public class OnePieceServiceImpl implements OnePieceService {
         params.put("createTime", createTime);
         params.put("updateTime", createTime);
         onePieceMapper.insertCustomer(params);
+    }
+
+    // 查询顾客信息
+    @Override
+    public List<Map<String, Object>> getCustomerTable(Map<String, Object> params) {
+        return onePieceMapper.getCustomerTable(params);
+    }
+
+    // 删除顾客数据
+    @Override
+    public void deleteCustomer(Map<String, Object> params) {
+
+        Date updateTime = new Date();
+        params.put("updateTime", updateTime);
+        onePieceMapper.deleteCustomer(params);
+    }
+
+    // 修改顾客数据
+    @Override
+    public void updateCustomer(Map<String, Object> params) {
+
+        Date updateTime = new Date();
+        params.put("updateTime", updateTime);
+        onePieceMapper.updateCustomer(params);
+    }
+
+    // 新增商品数据
+    @Override
+    public void insertProduct(Map<String, Object> params) {
+
+        Date createTime = new Date();
+        params.put("createTime", createTime);
+        params.put("updateTime", createTime);
+        onePieceMapper.insertProduct(params);
+    }
+
+    // 删除商品数据
+    @Override
+    public void deleteProduct(Map<String, Object> params) {
+
+        Date updateTime = new Date();
+        params.put("updateTime", updateTime);
+        onePieceMapper.deleteProduct(params);
+    }
+
+    // 修改商品数据
+    @Override
+    public void updateProduct(Map<String, Object> params) {
+
+        Date updateTime = new Date();
+        params.put("updateTime", updateTime);
+        onePieceMapper.updateProduct(params);
+    }
+
+    // 查询商品信息
+    @Override
+    public List<Map<String, Object>> getProductTable(Map<String, Object> params) {
+        return onePieceMapper.getProductTable(params);
+    }
+
+    // 获取下拉框列表
+    @Override
+    public Map<String, Object> getDropDownList() {
+
+        HashMap<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> customer = onePieceMapper.getCustomerTable(result);
+        List<Map<String, Object>> product = onePieceMapper.getProductTable(result);
+        result.put("customer", customer);
+        result.put("product", product);
+        return result;
     }
 }

@@ -22,13 +22,14 @@ public class OnePieceController {
     private OnePieceService onePieceService;
 
     // 新增恰饭收入数据
-    @RequestMapping(value = "/insertOnePieceData", method = RequestMethod.POST)
-    public JsonResult insertOnePieceData (@RequestBody Map<String, Object> params) {
+    @RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
+    public JsonResult insertOrder (@RequestBody Map<String, Object> params) {
 
         try {
-            onePieceService.insertOnePieceData(params);
+            onePieceService.insertOrder(params);
             return new JsonResult(InfoCode.SAVE_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new JsonResult(InfoCode.SAVE_FAIL);
         }
     }
@@ -41,6 +42,7 @@ public class OnePieceController {
             onePieceService.deleteOnePieceTableData(params);
             return new JsonResult(InfoCode.DELETE_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new JsonResult(InfoCode.DELETE_FAIL);
         }
     }
@@ -53,13 +55,14 @@ public class OnePieceController {
             onePieceService.updateOnePieceTableData(params);
             return new JsonResult(InfoCode.UPDATE_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new JsonResult(InfoCode.UPDATE_FAIL);
         }
     }
 
     // 按月份查询恰饭表格所需数据
     @RequestMapping(value = "/getOnePieceTableYearMonth", method = RequestMethod.POST)
-    public JsonResult getGongZiByMonth (@RequestBody Map<String, Object> params) {
+    public JsonResult getOnePieceTableYearMonth (@RequestBody Map<String, Object> params) {
 
         List<Map<String, Object>> onePieceDataByYearMonth = onePieceService.getOnePieceDataByYearMonth(params);
         int count = onePieceDataByYearMonth.size();
@@ -115,6 +118,7 @@ public class OnePieceController {
             onePieceService.insertMenstruationCycleData(params);
             return new JsonResult(InfoCode.SAVE_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new JsonResult(InfoCode.SAVE_FAIL);
         }
     }
@@ -136,6 +140,7 @@ public class OnePieceController {
             onePieceService.updateOnePieceDeliverState(params);
             return new JsonResult(InfoCode.UPDATE_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new JsonResult(InfoCode.UPDATE_FAIL);
         }
     }
@@ -148,6 +153,7 @@ public class OnePieceController {
             Map<String, Object> luckDrawData = onePieceService.getLuckDrawData(params);
             return new JsonResult<>(luckDrawData);
         }catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult<>(InfoCode.OPERATION_FAIL);
         }
     }
@@ -169,6 +175,7 @@ public class OnePieceController {
             onePieceService.savePhotoAndData(file, params);
             return new JsonResult(InfoCode.SAVE_SUCCESS);
         } catch(Exception e){
+            e.printStackTrace();
             return new JsonResult<>(InfoCode.SAVE_FAIL);
         }
     }
@@ -187,6 +194,7 @@ public class OnePieceController {
             onePieceService.savePhotoCover(file, params);
             return new JsonResult(InfoCode.SAVE_SUCCESS);
         } catch(Exception e){
+            e.printStackTrace();
             return new JsonResult<>(InfoCode.SAVE_FAIL);
         }
     }
@@ -199,6 +207,7 @@ public class OnePieceController {
             List<Map<String, Object>> photoAlbumInfo = onePieceService.getPhotoAlbumInfo(params);
             return new JsonResult<>(photoAlbumInfo);
         }catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult<>(InfoCode.OPERATION_FAIL);
         }
     }
@@ -211,6 +220,7 @@ public class OnePieceController {
             List<Map<String, Object>> photoInfo = onePieceService.getPhotoInfo(params);
             return new JsonResult<>(photoInfo);
         }catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult<>(InfoCode.OPERATION_FAIL);
         }
     }
@@ -225,6 +235,110 @@ public class OnePieceController {
         } catch(Exception e){
             e.printStackTrace();
             return new JsonResult<>(InfoCode.SAVE_FAIL);
+        }
+    }
+
+    // 删除顾客信息
+    @RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
+    public JsonResult deleteCustomer (@RequestBody Map<String, Object> params) {
+
+        try {
+            onePieceService.deleteCustomer(params);
+            return new JsonResult(InfoCode.DELETE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult(InfoCode.DELETE_FAIL);
+        }
+    }
+
+    // 修改顾客信息
+    @RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+    public JsonResult updateCustomer (@RequestBody Map<String, Object> params) {
+
+        try {
+            onePieceService.updateCustomer(params);
+            return new JsonResult(InfoCode.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult(InfoCode.UPDATE_FAIL);
+        }
+    }
+
+    // 查询顾客信息
+    @RequestMapping(value = "/getCustomerTable", method = RequestMethod.POST)
+    public JsonResult getCustomerTable (@RequestBody Map<String, Object> params) {
+
+        try {
+            List<Map<String, Object>> customerTable = onePieceService.getCustomerTable(params);
+            return new JsonResult<>(customerTable, customerTable.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult<>(InfoCode.OPERATION_FAIL);
+        }
+    }
+
+    // 新增商品信息
+    @RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
+    public JsonResult insertProduct(@RequestBody Map<String, Object> params) {
+
+        try {
+            onePieceService.insertProduct(params);
+            return new JsonResult(InfoCode.SAVE_SUCCESS);
+        } catch(Exception e){
+            e.printStackTrace();
+            return new JsonResult<>(InfoCode.SAVE_FAIL);
+        }
+    }
+
+    // 删除顾客信息
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
+    public JsonResult deleteProduct (@RequestBody Map<String, Object> params) {
+
+        try {
+            onePieceService.deleteProduct(params);
+            return new JsonResult(InfoCode.DELETE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult(InfoCode.DELETE_FAIL);
+        }
+    }
+
+    // 修改顾客信息
+    @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
+    public JsonResult updateProduct (@RequestBody Map<String, Object> params) {
+
+        try {
+            onePieceService.updateProduct(params);
+            return new JsonResult(InfoCode.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult(InfoCode.UPDATE_FAIL);
+        }
+    }
+
+    // 查询顾客信息
+    @RequestMapping(value = "/getProductTable", method = RequestMethod.POST)
+    public JsonResult getProductTable (@RequestBody Map<String, Object> params) {
+
+        try {
+            List<Map<String, Object>> productTable = onePieceService.getProductTable(params);
+            return new JsonResult<>(productTable, productTable.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult<>(InfoCode.OPERATION_FAIL);
+        }
+    }
+
+    // 获取下拉框列表
+    @RequestMapping(value = "/getDropDownList", method = RequestMethod.POST)
+    public JsonResult getDropDownList () {
+
+        try {
+            Map<String, Object> dropDownList = onePieceService.getDropDownList();
+            return new JsonResult<>(dropDownList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult<>(InfoCode.DROP_DOWN_LIST_FAIL);
         }
     }
 }

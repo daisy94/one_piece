@@ -16,7 +16,8 @@ public enum InfoCode {
     OPERATION_FAIL(140, "操作失败"),
     PARAMS_ERROR(150, "每一个空都要填哦"),
     PHOTO_PARAMS_ERROR(160, "照片名字和照片备注都要填哦"),
-    PHOTO_ALBUM_PARAMS_ERROR(170, "相册的时间是必填的哦");
+    PHOTO_ALBUM_PARAMS_ERROR(170, "相册的时间是必填的哦"),
+    DROP_DOWN_LIST_FAIL(180, "获取下拉框列表失败");
 
     public final int code;
     public final String msg;
