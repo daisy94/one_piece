@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>收入统计</title>
-    <link rel="stylesheet" href="resources/layui/css/layui.css">
+    <title>支出统计</title>
+    <link rel="stylesheet" href="../resources/layui/css/layui.css">
     <style>
         .layui-btn, .layui-input{
             border-radius: 5px;
@@ -11,7 +11,7 @@
         .layui-col-md6, .layui-col-md, .layui-fluid{
             padding: 5px;
         }
-        #shouRuEchartsByYMD, #shouRuEchartsByYM{
+        #zhichuEchartsByYMD, #zhichuEchartsByYM{
             height:352px;
         }
     </style>
@@ -26,18 +26,24 @@
                         <div class="layui-row">
                             <div class="layui-col-md">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">收入金额：</label>
+                                    <label class="layui-form-label">支出类型：</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" id="insertShouRuData" placeholder="收入了多少钱呀" autocomplete="off" class="layui-input">
+                                        <input type="text" id="insertzhichuType" placeholder="支出明细是什么呀" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">收入时间：</label>
+                                    <label class="layui-form-label">支出金额：</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="insertzhichuData" placeholder="支出了多少钱呀" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">支出时间：</label>
                                     <div class="layui-inline">
-                                        <input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的收入呢" autocomplete="off">
+                                        <input type="text" readonly class="layui-input" id="insertDateYMD" placeholder="几号的支出呢" autocomplete="off">
                                     </div>
                                     <div class="layui-inline">
-                                        <button type="button" class="layui-btn" onclick="insertSRData()">保存</button>
+                                        <button type="button" class="layui-btn" onclick="insertZCData()">保存</button>
                                     </div>
                                 </div>
                             </div>
@@ -57,15 +63,15 @@
                                 <input type="text" readonly class="layui-input" id="selectDateYM" placeholder="想查几月鸭" autocomplete="off">
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="getSRDataByYM()">走你</button>
+                                <button type="button" class="layui-btn" onclick="getZCDataByYM()">走你</button>
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="excelShouRuDataByYM()">导出月收入</button>
+                                <button type="button" class="layui-btn" onclick="excelZhiChuDataByYM()">导出月支出</button>
                             </div>
                         </div>
                         <div class="layui-row">
                             <div>
-                                <table id="shouRuTableMonth"></table>
+                                <table id="zhiChuTableMonth"></table>
                             </div>
                         </div>
                     </div>
@@ -80,15 +86,15 @@
                                 <input type="text" readonly class="layui-input" id="selectDateY" placeholder="想查哪年鸭" autocomplete="off">
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="getSRDataByY()">走你</button>
+                                <button type="button" class="layui-btn" onclick="getZCDataByY()">走你</button>
                             </div>
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn" onclick="getSRCountByY()">合计收入</button>
+                                <button type="button" class="layui-btn" onclick="getZCCountByY()">合计支出</button>
                             </div>
                         </div>
                         <div class="layui-row">
                             <div>
-                                <table id="shouRuTableYear"></table>
+                                <table id="zhiChuTableYear"></table>
                             </div>
                         </div>
                     </div>
@@ -99,22 +105,22 @@
         <div class="layui-row">
             <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-body" id="shouRuEchartsByYMD"></div>
+                    <div class="layui-card-body" id="zhichuEchartsByYMD"></div>
                 </div>
             </div>
             <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-body" id="shouRuEchartsByYM"></div>
+                    <div class="layui-card-body" id="zhichuEchartsByYM"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="resources/layui/layui.all.js"></script>
-    <script src="resources/layui_exts/excel.js"></script>
-    <script src="resources/jquery/jquery-2.1.4.min.js"></script>
-    <script src="resources/echarts/echarts.js"></script>
-    <script src="resources/utils/utils.js"></script>
-    <script src="resources/webJS/shouru.js"></script>
+    <script src="../resources/layui/layui.all.js"></script>
+    <script src="../resources/layui_exts/excel.js"></script>
+    <script src="../resources/jquery/jquery-2.1.4.min.js"></script>
+    <script src="../resources/echarts/echarts.js"></script>
+    <script src="../resources/utils/utils.js"></script>
+    <script src="../resources/webJS/zhichu.js"></script>
 </body>
 </html>

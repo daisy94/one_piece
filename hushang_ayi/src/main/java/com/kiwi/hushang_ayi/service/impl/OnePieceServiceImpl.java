@@ -2,6 +2,7 @@ package com.kiwi.hushang_ayi.service.impl;
 
 import com.kiwi.hushang_ayi.mapper.OnePieceMapper;
 import com.kiwi.hushang_ayi.service.OnePieceService;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -162,13 +163,12 @@ public class OnePieceServiceImpl implements OnePieceService {
         params.put("updateTime", dateTime);
         if (fileName != null){
             String[] split = fileName.split("\\.");
-            fileName = split[0] + dateTime + "." + split[1];
+            fileName = split[0] + "_" + dateTime + "." + split[1];
         }
 
         // 文件上传后的路径
-        String filePath = photo_path;
         String photoTime = String.valueOf(params.get("photoAlbumName"));
-        filePath = filePath + photoTime + "/" + fileName;
+        String filePath = photo_path + photoTime + "/" + fileName;
         params.put("photoUrl", photo_url + photoTime + "/" + fileName);
         onePieceMapper.insertPhotoInfo(params);
 
@@ -190,26 +190,37 @@ public class OnePieceServiceImpl implements OnePieceService {
         String dateTime = sdf.format(new Date());
         // 获取文件名
         String fileName = file.getOriginalFilename();
+        String toFileName = file.getOriginalFilename();
         params.put("photoAlbumDate", String.valueOf(params.get("dateYearMonth")));
         params.put("updateTime", dateTime);
         if (fileName != null){
             String[] split = fileName.split("\\.");
-            fileName = split[0] + dateTime + "." + split[1];
+            fileName = split[0] + "_" + dateTime + "." + split[1];
+        }
+        if (toFileName != null){
+            String[] split = toFileName.split("\\.");
+            toFileName = split[0] + "_thumbnail_" + dateTime + "." + split[1];
         }
 
         // 文件上传后的路径
-        String filePath = photo_path;
-        filePath = filePath + "photo_album/" + fileName;
-        params.put("photoAlbumUrl", photo_url + "photo_album/" + fileName);
+        String filePath = photo_path + "photo_album/" + fileName;
+        String toFilePath = photo_path + "photo_album/" + toFileName;
+        params.put("photoAlbumUrl", photo_url + "photo_album/" + toFileName);
+        /*String filePath = "C:\\image\\" + fileName;
+        String toFilePath = "C:\\image\\" + toFileName;
+        params.put("photoAlbumUrl", "C:\\image\\" + "photo_album\\" + toFileName);*/
         onePieceMapper.insertPhotoAlbumInfo(params);
 
         File photoAlbumFile = new File(filePath);
+        File toPic = new File(toFilePath);
         // 检测是否存在目录
         if (photoAlbumFile.getParentFile().mkdirs()){
             file.transferTo(photoAlbumFile);
         } else{
             file.transferTo(photoAlbumFile);
         }
+        // 压缩原图
+        Thumbnails.of(photoAlbumFile).scale(1f).outputQuality(0.2f).toFile(toPic);
     }
 
     // 查询相册和相关信息

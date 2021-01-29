@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 class HushangAyiApplicationTests {
 
 	@Test
-	public static void main(String[] args) {
+	static void main(String[] args) {
 
 		String password = "940818";
 		try {

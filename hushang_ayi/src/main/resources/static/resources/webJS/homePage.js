@@ -1,16 +1,10 @@
 let element = layui.element,
+    $ = layui.jquery,
     username = document.cookie.split("; ")[0].split("=")[1],
-    userPower = document.cookie.split("; ")[1].split("=")[1],
     pathWeb = getRootPathWeb();
 
 $("#username").html(username);
 $(".logo").html("ONE PIECE");
-if(userPower !== "0"){
-    $(".onePiece").hide();
-    $(".heart-fill").hide();
-    $(".cellphone").hide();
-    $(".camera-fill").hide();
-}
 
 $("li>a").click(function (e) {
     //阻止超链接的默认跳转事件
@@ -35,10 +29,8 @@ function switchLength() {
         $('.layui-side').width(45); //设置宽度
         $("#layui-icon-shrink").attr("class", "layui-icon layui-icon-spread-left");
         $('.layui-logo').css('left', '-155px');
-        $('.layui-icon-android').css('left', '-8px');
-        $('.layui-icon-ios').css('left', '-8px');
-        $('.layui-icon-windows').css('left', '-8px');
         $('.layui-icon-rate-solid').css('left', '-8px');
+        $('.layui-icon-picture').css('left', '-8px');
         //将footer和body的宽度修改
         $('.layui-layout-left').css('left', 45 + 'px');
         $('.layui-body').css('left', 45 + 'px');
@@ -48,10 +40,8 @@ function switchLength() {
         $('.layui-side').width(200);
         $("#layui-icon-shrink").attr("class", "layui-icon layui-icon-shrink-right");
         $('.layui-logo').css('left', '0px');
-        $('.layui-icon-android').css('left', '0px');
-        $('.layui-icon-ios').css('left', '0px');
-        $('.layui-icon-windows').css('left', '0px');
         $('.layui-icon-rate-solid').css('left', '0px');
+        $('.layui-icon-picture').css('left', '0px');
         $('.layui-layout-left').css('left', 200 + 'px');
         $('.layui-body').css('left', 200 + 'px');
         $('.layui-footer').css('left', 200 + 'px');

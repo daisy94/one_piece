@@ -10,7 +10,7 @@ let element = layui.element,
     maxYearMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
 
 let dateYear = new Date().getFullYear();
-getPhotoAlbumInfo(dateYear);
+getPhotoAlbumInfo(2020);
 
 // 根据年份查询相册信息
 function getPhotoAlbumInfo(dateYear){
@@ -29,7 +29,7 @@ function getPhotoAlbumInfo(dateYear){
                 let htmlPhoto = "";
                 if (data.data !== null){
                     $.each(data.data, function(k, v){
-                        html += '<div class="layui-col-md3 layui-col-xs3">' +
+                        html += '<div class="layui-col-md2 layui-col-xs2">' +
                                     '<div class="layui-card">' +
                                         '<div class="layui-card-body">' +
                                             '<div class="layui-card">' +

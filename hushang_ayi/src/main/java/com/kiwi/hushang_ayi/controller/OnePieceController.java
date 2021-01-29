@@ -138,10 +138,10 @@ public class OnePieceController {
 
         try {
             onePieceService.updateOnePieceDeliverState(params);
-            return new JsonResult(InfoCode.UPDATE_SUCCESS);
+            return new JsonResult(InfoCode.DELIVER_GOODS_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            return new JsonResult(InfoCode.UPDATE_FAIL);
+            return new JsonResult(InfoCode.DELIVER_GOODS_SUCCESS);
         }
     }
 

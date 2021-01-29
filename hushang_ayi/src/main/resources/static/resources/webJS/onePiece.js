@@ -10,11 +10,58 @@ let element = layui.element,
     maxYearMonthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
     isTrue = false;
 let dateYearMonth = new Date().getFullYear() + formatDateMonth(new Date().getMonth() + 1);
-getDataByYearMonth(dateYearMonth);
+getDataByLikeSelect({"dateYearMonth": dateYearMonth});
+getOnePieceEChartsByYearMonth(dateYearMonth);
+getAchievementPercentage(dateYearMonth);
 let dateYear = new Date().getFullYear();
 getDataByYear(dateYear);
 customerTable();
 productTable();
+
+// 新增订单信息页弹框
+function insertOrder() {
+
+    layer.open({
+        title: ["新增订单信息", "font-size:18px;font-weight:bold;"],
+        type: 2,
+        area: ["40%", "550px"],
+        content: "insertOrder.html",
+        cancel: function(){
+            getDataByLikeSelect({"dateYearMonth": dateYearMonth});
+            getOnePieceEChartsByYearMonth(dateYearMonth);
+            getAchievementPercentage(dateYearMonth);
+            getDataByYear(dateYear);
+        }
+    });
+}
+
+// 新增顾客信息页弹框
+function insertCustomer() {
+
+    layer.open({
+        title: ["新增顾客信息", "font-size:18px;font-weight:bold;"],
+        type: 2,
+        area: ["33%", "252px"],
+        content: "insertCustomer.html",
+        cancel: function(){
+            customerTable();
+        }
+    });
+}
+
+// 新增商品信息页弹框
+function insertProduct() {
+
+    layer.open({
+        title: ["新增商品信息", "font-size:18px;font-weight:bold;"],
+        type: 2,
+        area: ["33%", "368px"],
+        content: "insertProduct.html",
+        cancel: function(){
+            productTable();
+        }
+    });
+}
 
 // 点击查询未发货订单
 $(".littleButton").click(function () {
@@ -44,7 +91,9 @@ function deleteTableData(params) {
                     };
                     getDataByLikeSelect(params);
                 } else {
-                    getDataByYearMonth(dateYearMonth);
+                    getDataByLikeSelect({"dateYearMonth": dateYearMonth});
+                    getOnePieceEChartsByYearMonth(dateYearMonth);
+                    getAchievementPercentage(dateYearMonth);
                     let dateYear = dateYearMonth.substring(0,4);
                     getDataByYear(dateYear);
                 }
@@ -76,7 +125,9 @@ function updateTableData(params) {
                     };
                     getDataByLikeSelect(params);
                 } else {
-                    getDataByYearMonth(dateYearMonth);
+                    getDataByLikeSelect({"dateYearMonth": dateYearMonth});
+                    getOnePieceEChartsByYearMonth(dateYearMonth);
+                    getAchievementPercentage(dateYearMonth);
                     let dateYear = dateYearMonth.substring(0,4);
                     getDataByYear(dateYear);
                 }
@@ -115,34 +166,6 @@ function queryKeyword() {
     }
 }
 
-// 根据月份查询订单信息
-function getDataByYearMonth(dateYearMonth){
-
-    table.render({
-        elem: '#onePieceTableYearMonth',
-        skin: 'line',
-        url: pathWeb + 'getOnePieceTableYearMonth',
-        contentType: 'application/json',
-        where: {
-            "dateYearMonth": dateYearMonth
-        },
-        height: 275,
-        method: 'post',
-        cols: [[
-            {field:'id', title: 'ID', hide: true},
-            {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
-            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 200},
-            {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'customer_address', title: '发货地址', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
-            {field:'date', title: '下单时间', align: 'center', unresize: true, width: 110},
-            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 145}
-        ]]
-    });
-    getOnePieceEChartsByYearMonth(dateYearMonth);
-    getAchievementPercentage(dateYearMonth);
-}
-
 // 模糊查询订单信息
 function getDataByLikeSelect(params) {
 
@@ -157,12 +180,12 @@ function getDataByLikeSelect(params) {
         cols: [[
             {field:'id', title: 'ID', hide: true},
             {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
-            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 200},
+            {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 150},
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
-            {field:'customer_address', title: '发货地址', align: 'center', unresize: true, edit: 'onePieceTable'},
+            {field:'customer_address', title: '发货地址', align: 'center', edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '下单时间', sort: true, align: 'center', unresize: true, width: 110},
-            {align:'center', title: '三思啊', unresize: true, toolbar: '#operationButton', width: 145}
+            {align:'center', title: '操作', unresize: true, toolbar: '#operationButton', width: 145}
         ]]
     });
 }
@@ -386,37 +409,6 @@ function getAchievementPercentage(dateYearMonth){
     });
 }
 
-// 新增订单信息页弹框
-function insertOrder() {
-
-    layer.open({
-        title: ["新增订单信息", "font-size:18px;font-weight:bold;"],
-        type: 2,
-        area: ["42%", "560px"],
-        content: "insertOrder.html",
-        resize: false,
-        cancel: function(){
-            getDataByYearMonth(dateYearMonth);
-            getDataByYear(dateYear);
-        }
-    });
-}
-
-// 新增顾客信息页弹框
-function insertCustomer() {
-
-    layer.open({
-        title: ["新增顾客信息", "font-size:18px;font-weight:bold;"],
-        type: 2,
-        area: ["35%", "237px"],
-        content: "insertCustomer.html",
-        resize: false,
-        cancel: function(){
-            customerTable();
-        }
-    });
-}
-
 // 模糊查询顾客信息表格
 function queryCustomer() {
     customerTable();
@@ -435,7 +427,7 @@ function customerTable() {
         method: "POST",
         cols: [[
             {field: "id", title: "ID", hide: true},
-            {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable", width: 200},
+            {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable", width: 150},
             {field: "customer_address", title: "发货地址", align: "center", unresize: true, edit: "customerTable"},
             {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonCustomer", width: 145}
         ]]
@@ -484,21 +476,6 @@ function updateCustomerTableData(params) {
         error: function(e){
             console.log(e.status);
             console.log(e.responseText);
-        }
-    });
-}
-
-// 新增商品信息页弹框
-function insertProduct() {
-
-    layer.open({
-        title: ["新增商品信息", "font-size:18px;font-weight:bold;"],
-        type: 2,
-        area: ["35%", "353px"],
-        content: "insertProduct.html",
-        resize: false,
-        cancel: function(){
-            productTable();
         }
     });
 }
@@ -567,10 +544,10 @@ function productTable() {
         method: "POST",
         cols: [[
             {field: "id", title: "ID", hide: true},
-            {field: "product_name", title: "商品名称", align: "center", unresize: true, edit: "productTable", width: 200},
-            {field: "product_price", title: "商品卖价", align: "center", unresize: true, edit: "productTable"},
-            {field: "product_cost", title: "商品拿价", align: "center", unresize: true, edit: "productTable"},
-            {field: "product_profit", title: "商品利润", align: "center", unresize: true, edit: "productTable"},
+            {field: "product_name", title: "名称", align: "center", unresize: true, edit: "productTable", width: 200},
+            {field: "product_price", title: "卖价", align: "center", unresize: true, edit: "productTable"},
+            {field: "product_cost", title: "拿价", align: "center", unresize: true, edit: "productTable"},
+            {field: "product_profit", title: "利润", align: "center", unresize: true, edit: "productTable"},
             {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonProduct", width: 145}
         ]]
     });
@@ -709,7 +686,9 @@ layDate.render({
         isTrue = false;
         let dateYearMonth = formatDate(value);
         if (dateYearMonth !== ""){
-            getDataByYearMonth(dateYearMonth);
+            getDataByLikeSelect({"dateYearMonth": dateYearMonth});
+            getOnePieceEChartsByYearMonth(dateYearMonth);
+            getAchievementPercentage(dateYearMonth);
         }
     }
 });

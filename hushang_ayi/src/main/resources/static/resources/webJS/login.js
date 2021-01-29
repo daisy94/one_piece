@@ -1,4 +1,5 @@
 let layer = layui.layer,
+    $ = layui.jquery,
     pathWeb = getRootPathWeb();
 
 $(function(){

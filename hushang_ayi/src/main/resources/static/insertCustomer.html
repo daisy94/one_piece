@@ -14,41 +14,33 @@
     </style>
 </head>
 <body>
-<div class="layui-fluid" style="background-color: #F2F2F2;">
+<div class="layui-fluid">
 
     <div class="layui-row">
         <div class="layui-col-md">
-            <div class="layui-card">
-                <div class="layui-card-body">
-                    <div class="layui-row">
-                        <div class="layui-col-md" style="padding: 0 5px 0 5px">
-                            <form class="layui-form" lay-filter="customerForm">
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <label class="layui-form-label" for="customerName">仙女微信：</label>
-                                        <div class="layui-inline">
-                                            <input type="text" class="layui-input" id="customerName" name="customerName" placeholder="这位仙女的微信叫什么呀" autocomplete="off" lay-verify="customerName" lay-verType="tips">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <label class="layui-form-label" for="customerAddress">发货地址：</label>
-                                        <div class="layui-inline">
-                                            <input type="text" class="layui-input" id="customerAddress" name="customerAddress" placeholder="宝贝发到哪里呀" autocomplete="off" lay-verify="customerAddress" lay-verType="tips">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item" style="margin-bottom: 0;">
-                                    <div class="layui-input-block">
-                                        <button type="button" class="layui-btn" style="margin-left: 350px;" lay-submit><i class="layui-icon">&#xe600;</i>保存</button>
-                                    </div>
-                                </div>
-                            </form>
+            <form class="layui-form" lay-filter="customerForm">
+                <div class="layui-form-item" style="margin-top: 15px;">
+                    <div class="layui-input-block">
+                        <label class="layui-form-label" for="customerName">仙女微信：</label>
+                        <div class="layui-inline">
+                            <input type="text" class="layui-input" id="customerName" name="customerName" placeholder="这位仙女的微信叫什么呀" autocomplete="off" lay-verify="customerName" lay-verType="tips">
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <label class="layui-form-label" for="customerAddress">发货地址：</label>
+                        <div class="layui-inline">
+                            <input type="text" class="layui-input" id="customerAddress" name="customerAddress" placeholder="宝贝发到哪里呀" autocomplete="off" lay-verify="customerAddress" lay-verType="tips">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 0;">
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn" style="margin-left: 25px;width: 268px;" lay-submit><i class="layui-icon">&#xe600;</i>保存</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
