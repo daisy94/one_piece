@@ -20,6 +20,23 @@ $("#productCost").bind("input propertychange", function() {
     }
 });
 
+// 监控商品信息表单输入框
+$("#productPrice").bind("input propertychange", function() {
+
+    if (form.val("productForm").productCost !== "") {
+
+        if (form.val("productForm").productPrice === "") {
+            form.val("productForm", {
+                "productProfit": ""
+            });
+        } else {
+            form.val("productForm", {
+                "productProfit": form.val("productForm").productPrice - form.val("productForm").productCost
+            });
+        }
+    }
+});
+
 // 提交表单，新增商品信息
 form.on("submit", function(data){
 
@@ -30,13 +47,10 @@ form.on("submit", function(data){
         data : JSON.stringify(data.field),
         success: function(result) {
             if(result.code === 0){
-                form.val("productForm", {
-                    "productName": "",
-                    "productPrice": "",
-                    "productCost": "",
-                    "productProfit": ""
-                });
                 layer.msg(result.msg);
+                window.setTimeout(function () {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                },1500);
             } else{
                 layer.msg(result.msg);
             }

@@ -187,7 +187,6 @@ public class OnePieceController {
         if (("").equals(dateYearMonth)){
             return new JsonResult(InfoCode.PHOTO_ALBUM_PARAMS_ERROR);
         }
-
         Map<String, Object> params = new HashMap<>();
         params.put("dateYearMonth", dateYearMonth);
         try {

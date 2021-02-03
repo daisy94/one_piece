@@ -13,11 +13,10 @@ form.on("submit", function(data){
         data : JSON.stringify(data.field),
         success: function(result) {
             if(result.code === 0){
-                form.val("customerForm", {
-                    "customerName": "",
-                    "customerAddress": ""
-                });
                 layer.msg(result.msg);
+                window.setTimeout(function () {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                },1500);
             } else{
                 layer.msg(result.msg);
             }

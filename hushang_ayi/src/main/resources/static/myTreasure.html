@@ -21,9 +21,6 @@
             width: 100%;
             border: none;
         }
-        .layui-form-label {
-            width: 45px;
-        }
     </style>
 </head>
 <body>
@@ -34,26 +31,24 @@
                     <div class="layui-card-body">
                         <div class="layui-row">
                             <div class="layui-col-md">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">年份：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" readonly class="layui-input layui-hide-xs" id="dateYear" placeholder="选择回忆的年份" autocomplete="off">
+                                <div class="layui-input-block" style="margin-left: 0;">
+                                    <div class="layui-inline">
+                                        <div class="layui-input-inline">
+                                            <input type="text" readonly class="layui-input layui-hide-xs" id="dateYear" placeholder="想康康哪一年的回忆呀" autocomplete="off">
+                                        </div>
+                                        <button type="button" class="layui-btn"><i class="layui-icon">&#xe615;</i>康康</button>
+                                    </div>
+                                    <div class="layui-inline" style="float: right;">
+                                        <div class="layui-input-inline">
+                                            <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="创建几月的回忆封面呀" autocomplete="off">
+                                        </div>
+                                        <button type="button" class="layui-btn" id="selectPhotoCover"><i class="layui-icon">&#xe67c;</i>创建相册</button>
+                                        <button type="button" class="layui-btn"><i class="layui-icon">&#xe68f;</i>记录美好的宝宝</button>
                                     </div>
                                 </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn">查询</button>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">月份：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="几月的回忆呀" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" id="selectPhotoCover"><i class="layui-icon">&#xe67c;</i>创建相册</button>
-                                </div>
+                            </div>
                         </div>
-                        <div class="layui-row">
+                        <!--<div class="layui-row">
                             <div class="layui-col-md2 layui-col-xs">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">名字：</label>
@@ -85,7 +80,7 @@
                                     <button type="button" class="layui-btn" id="selectPhoto"><i class="layui-icon">&#xe67c;</i>保存回忆</button>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

@@ -41,9 +41,9 @@ function insertCustomer() {
     layer.open({
         title: ["新增顾客信息", "font-size:18px;font-weight:bold;"],
         type: 2,
-        area: ["33%", "252px"],
+        area: ["32%", "252px"],
         content: "insertCustomer.html",
-        cancel: function(){
+        end: function(){
             customerTable();
         }
     });
@@ -55,9 +55,9 @@ function insertProduct() {
     layer.open({
         title: ["新增商品信息", "font-size:18px;font-weight:bold;"],
         type: 2,
-        area: ["33%", "368px"],
+        area: ["32%", "368px"],
         content: "insertProduct.html",
-        cancel: function(){
+        end: function(){
             productTable();
         }
     });
