@@ -1,4 +1,5 @@
-let $ = layui.jquery,
+let element = layui.element,
+    $ = layui.jquery,
     layer = layui.layer,
     form = layui.form,
     layDate = layui.laydate,
@@ -110,7 +111,7 @@ form.on("select(product)", function(data){
 
 // 监听是否包邮开关
 form.on("switch(switch)", function(data){
-
+    element.init();
     if (form.val("orderForm").productProfit !== "" && form.val("orderForm").productProfit != null) {
         if (data.elem.checked) {
             form.val("orderForm", {
@@ -197,6 +198,10 @@ function addProduct() {
                 }
             });
         }
+    } else {
+        layer.msg("添加前先选好买了什么", {
+            anim: 6
+        });
     }
 }
 

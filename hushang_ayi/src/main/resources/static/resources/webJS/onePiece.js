@@ -44,6 +44,7 @@ function insertCustomer() {
         area: ["32%", "252px"],
         content: "insertCustomer.html",
         end: function(){
+            $("#customerName").val("");
             customerTable();
         }
     });
@@ -58,6 +59,7 @@ function insertProduct() {
         area: ["32%", "368px"],
         content: "insertProduct.html",
         end: function(){
+            $("#productName").val("");
             productTable();
         }
     });
@@ -181,11 +183,11 @@ function getDataByLikeSelect(params) {
             {field:'id', title: 'ID', hide: true},
             {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
             {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 150},
-            {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable'},
+            {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable', width: 450},
             {field:'customer_address', title: '发货地址', align: 'center', edit: 'onePieceTable'},
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
             {field:'date', title: '下单时间', sort: true, align: 'center', unresize: true, width: 110},
-            {align:'center', title: '操作', unresize: true, toolbar: '#operationButton', width: 145}
+            {fixed:'right', align:'center', title: '操作', unresize: true, toolbar: '#operationButton', width: 145}
         ]]
     });
 }
@@ -269,7 +271,7 @@ function getDataByYear(dateYear){
             "dateYear": dateYear
         },
         cellMinWidth: 80,
-        height: 287,
+        height: 275,
         method: 'post',
         cols: [[
             {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true},
@@ -417,20 +419,37 @@ function queryCustomer() {
 // 查询顾客信息表格
 function customerTable() {
 
-    table.render({
-        elem: "#customerTable",
-        skin: "line",
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
         url: pathWeb + "getCustomerTable",
-        contentType: "application/json",
-        where: {"customerName": $("#customerName").val()},
-        height: 275,
-        method: "POST",
-        cols: [[
-            {field: "id", title: "ID", hide: true},
-            {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable", width: 150},
-            {field: "customer_address", title: "发货地址", align: "center", unresize: true, edit: "customerTable"},
-            {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonCustomer", width: 145}
-        ]]
+        data: JSON.stringify({"customerName": $("#customerName").val()}),
+        success: function(result) {
+            if (result.code === 0) {
+                table.render({
+                    elem: "#customerTable",
+                    skin: "line",
+                    page: true,
+                    limit: 8,
+                    limits: [8],
+                    height: 394,
+                    method: "POST",
+                    cols: [[
+                        {field: "id", title: "ID", hide: true},
+                        {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable", width: 150},
+                        {field: "customer_address", title: "发货地址", align: "center", unresize: true, edit: "customerTable"},
+                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonCustomer", width: 145}
+                    ]],
+                    data: result.data
+                });
+            } else {
+                layer.msg(result.msg);
+            }
+        },
+        error: function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
     });
 }
 
@@ -534,22 +553,39 @@ function queryProduct() {
 // 查询商品信息表格
 function productTable() {
 
-    table.render({
-        elem: "#productTable",
-        skin: "line",
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
         url: pathWeb + "getProductTable",
-        contentType: "application/json",
-        where: {"productName": $("#productName").val()},
-        height: 275,
-        method: "POST",
-        cols: [[
-            {field: "id", title: "ID", hide: true},
-            {field: "product_name", title: "名称", align: "center", unresize: true, edit: "productTable", width: 200},
-            {field: "product_price", title: "卖价", align: "center", unresize: true, edit: "productTable"},
-            {field: "product_cost", title: "拿价", align: "center", unresize: true, edit: "productTable"},
-            {field: "product_profit", title: "利润", align: "center", unresize: true, edit: "productTable"},
-            {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonProduct", width: 145}
-        ]]
+        data: JSON.stringify({"productName": $("#productName").val()}),
+        success: function(result) {
+            if (result.code === 0) {
+                table.render({
+                    elem: "#productTable",
+                    skin: "line",
+                    page: true,
+                    limit: 8,
+                    limits: [8],
+                    height: 394,
+                    method: "POST",
+                    cols: [[
+                        {field: "id", title: "ID", hide: true},
+                        {field: "product_name", title: "名称", align: "center", unresize: true, edit: "productTable", width: 200},
+                        {field: "product_price", title: "卖价", align: "center", unresize: true, edit: "productTable"},
+                        {field: "product_cost", title: "拿价", align: "center", unresize: true, edit: "productTable"},
+                        {field: "product_profit", title: "利润", align: "center", unresize: true, edit: "productTable"},
+                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonProduct", width: 145}
+                    ]],
+                    data: result.data
+                });
+            } else {
+                layer.msg(result.msg);
+            }
+        },
+        error: function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
     });
 }
 
