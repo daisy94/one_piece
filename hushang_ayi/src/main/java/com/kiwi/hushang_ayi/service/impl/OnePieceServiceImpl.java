@@ -40,6 +40,9 @@ public class OnePieceServiceImpl implements OnePieceService {
         String month = String.valueOf(params.get("yearMonthDay")).substring(5, 7);
         String day = String.valueOf(params.get("yearMonthDay")).substring(8, 10);
         params.put("date", year + month + day);
+        if (params.get("productName").equals("没恰到饭")) {
+            params.put("isDeliver", 1);
+        }
         onePieceMapper.insertOrder(params);
     }
 

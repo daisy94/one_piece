@@ -6,8 +6,29 @@
 
 	<!-- 新增恰饭收入数据 -->
 	<insert id="insertOrder" parameterType="java.util.Map">
-		INSERT INTO one_piece (customer_name, goods_name, customer_address, profit, `date`, update_time)
-		VALUES (#{customerName}, #{productList}, #{orderAddress}, #{productProfit}, #{date}, #{updateTime})
+		INSERT INTO one_piece
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				customer_name,
+				goods_name,
+				customer_address,
+				profit,
+				`date`,
+				update_time,
+			<if test="isDeliver != null">
+				is_deliver,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+				#{customerName},
+				#{productList},
+				#{orderAddress},
+				#{productProfit},
+				#{date},
+				#{updateTime},
+			<if test="isDeliver != null">
+				#{isDeliver},
+			</if>
+		</trim>
 	</insert>
 
 	<!-- 删除恰饭收入数据 -->

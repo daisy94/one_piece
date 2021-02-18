@@ -158,45 +158,54 @@ function getDropDownList() {
 function addProduct() {
 
     if (form.val("orderForm").productName !== "" && form.val("orderForm").productName != null) {
-        let productInfo = form.val("orderForm").productName + " * " + form.val("orderForm").productAmount;
-        $("#addProduct").append('<button type="button" class="layui-btn layui-btn-normal" style="margin-bottom: 5px;">' + productInfo +'</button>');
-        if (form.val("orderForm").productList !== "" && form.val("orderForm").productList != null) {
+        if (form.val("orderForm").productName === "没恰到饭") {
             form.val("orderForm", {
-                "productList": form.val("orderForm").productList + "，" + productInfo
+                "productList": form.val("orderForm").productName,
+                "productProfit": 0
             });
+            let productInfo = form.val("orderForm").productName;
+            $("#addProduct").append('<button type="button" class="layui-btn layui-btn-normal" style="margin-bottom: 5px;">' + productInfo +'</button>');
         } else {
-            form.val("orderForm", {
-                "productList": productInfo
-            });
-        }
-        if (form.val("orderForm").switch === "on") {
-            $.each(product, function(k,v) {
-                if (v.product_name === form.val("orderForm").productName) {
-                    if (form.val("orderForm").productProfit !== "" && form.val("orderForm").productProfit != null) {
-                        form.val("orderForm", {
-                            "productProfit": parseInt(form.val("orderForm").productProfit) + parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
-                        });
-                    } else {
-                        form.val("orderForm", {
-                            "productProfit": parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount) - 7
-                        });
+            let productInfo = form.val("orderForm").productName + " * " + form.val("orderForm").productAmount;
+            $("#addProduct").append('<button type="button" class="layui-btn layui-btn-normal" style="margin-bottom: 5px;">' + productInfo +'</button>');
+            if (form.val("orderForm").productList !== "" && form.val("orderForm").productList != null) {
+                form.val("orderForm", {
+                    "productList": form.val("orderForm").productList + "，" + productInfo
+                });
+            } else {
+                form.val("orderForm", {
+                    "productList": productInfo
+                });
+            }
+            if (form.val("orderForm").switch === "on") {
+                $.each(product, function(k,v) {
+                    if (v.product_name === form.val("orderForm").productName) {
+                        if (form.val("orderForm").productProfit !== "" && form.val("orderForm").productProfit != null) {
+                            form.val("orderForm", {
+                                "productProfit": parseInt(form.val("orderForm").productProfit) + parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
+                            });
+                        } else {
+                            form.val("orderForm", {
+                                "productProfit": parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount) - 7
+                            });
+                        }
                     }
-                }
-            });
-        } else {
-            $.each(product, function(k,v) {
-                if (v.product_name === form.val("orderForm").productName) {
-                    if (form.val("orderForm").productProfit !== "" && form.val("orderForm").productProfit != null) {
-                        form.val("orderForm", {
-                            "productProfit": parseInt(form.val("orderForm").productProfit) + parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
-                        });
-                    } else {
-                        form.val("orderForm", {
-                            "productProfit": parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
-                        });
+                });
+            } else {
+                $.each(product, function(k,v) {
+                    if (v.product_name === form.val("orderForm").productName) {
+                        if (form.val("orderForm").productProfit !== "" && form.val("orderForm").productProfit != null) {
+                            form.val("orderForm", {
+                                "productProfit": parseInt(form.val("orderForm").productProfit) + parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
+                            });
+                        } else {
+                            form.val("orderForm", {
+                                "productProfit": parseInt(v.product_profit) * parseInt(form.val("orderForm").productAmount)
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     } else {
         layer.msg("添加前先选好买了什么", {

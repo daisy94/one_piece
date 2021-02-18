@@ -24,7 +24,7 @@ function insertOrder() {
     layer.open({
         title: ["新增订单信息", "font-size:18px;font-weight:bold;"],
         type: 2,
-        area: ["40%", "550px"],
+        area: ["666px", "550px"],
         content: "insertOrder.html",
         cancel: function(){
             getDataByLikeSelect({"dateYearMonth": dateYearMonth});
@@ -41,7 +41,7 @@ function insertCustomer() {
     layer.open({
         title: ["新增顾客信息", "font-size:18px;font-weight:bold;"],
         type: 2,
-        area: ["32%", "252px"],
+        area: ["559px", "250px"],
         content: "insertCustomer.html",
         end: function(){
             $("#customerName").val("");
@@ -56,7 +56,7 @@ function insertProduct() {
     layer.open({
         title: ["新增商品信息", "font-size:18px;font-weight:bold;"],
         type: 2,
-        area: ["32%", "368px"],
+        area: ["559px", "365px"],
         content: "insertProduct.html",
         end: function(){
             $("#productName").val("");
@@ -184,10 +184,10 @@ function getDataByLikeSelect(params) {
             {fixed:'left', align:'center', title: '状态', unresize: true, toolbar: '#is_deliver', width: 100},
             {field:'customer_name', title: '微信名', align: 'center', unresize: true, edit: 'onePieceTable', width: 150},
             {field:'goods_name', title: '恰了什么', align: 'center', unresize: true, edit: 'onePieceTable', width: 450},
-            {field:'customer_address', title: '发货地址', align: 'center', edit: 'onePieceTable'},
-            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable', width: 100},
+            {field:'customer_address', title: '发货地址', align: 'center', edit: 'onePieceTable', width: 591},
+            {field:'profit', title: '恰饭', sort: true, align: 'center', unresize: true, edit: 'onePieceTable'},
             {field:'date', title: '下单时间', sort: true, align: 'center', unresize: true, width: 110},
-            {fixed:'right', align:'center', title: '操作', unresize: true, toolbar: '#operationButton', width: 145}
+            {fixed:'right', align:'center', title: '操作', unresize: true, toolbar: '#operationButton', width: 150}
         ]]
     });
 }
@@ -438,7 +438,7 @@ function customerTable() {
                         {field: "id", title: "ID", hide: true},
                         {field: "customer_name", title: "微信名", align: "center", unresize: true, edit: "customerTable", width: 150},
                         {field: "customer_address", title: "发货地址", align: "center", unresize: true, edit: "customerTable"},
-                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonCustomer", width: 145}
+                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonCustomer", width: 150}
                     ]],
                     data: result.data
                 });
@@ -574,7 +574,7 @@ function productTable() {
                         {field: "product_price", title: "卖价", align: "center", unresize: true, edit: "productTable"},
                         {field: "product_cost", title: "拿价", align: "center", unresize: true, edit: "productTable"},
                         {field: "product_profit", title: "利润", align: "center", unresize: true, edit: "productTable"},
-                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonProduct", width: 145}
+                        {align: "center", title: "操作", unresize: true, toolbar: "#operationButtonProduct", width: 150}
                     ]],
                     data: result.data
                 });
