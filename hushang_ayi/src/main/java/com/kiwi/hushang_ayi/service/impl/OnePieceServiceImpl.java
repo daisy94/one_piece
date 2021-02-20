@@ -159,29 +159,54 @@ public class OnePieceServiceImpl implements OnePieceService {
     public void savePhotoAndData(MultipartFile file, Map<String, Object> params) throws IOException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
         String dateTime = sdf.format(new Date());
+        String date = sdf2.format(new Date());
         // 获取文件名
         String fileName = file.getOriginalFilename();
-        params.put("photoName", String.valueOf(params.get("photoName")));
+        String toFileName = file.getOriginalFilename();
+        String dateYearMonth = String.valueOf(params.get("photoAlbumName"));
+        String photoTime = dateYearMonth.substring(0, 4) + "-" + dateYearMonth.substring(6, 8);
         params.put("updateTime", dateTime);
         if (fileName != null){
             String[] split = fileName.split("\\.");
-            fileName = split[0] + "_" + dateTime + "." + split[1];
+            fileName = date + "_" + dateTime + "." + split[1];
+        }
+        if (toFileName != null){
+            String[] split = toFileName.split("\\.");
+            toFileName = date + "_thumbnail_" + dateTime + "." + split[1];
         }
 
         // 文件上传后的路径
-        String photoTime = String.valueOf(params.get("photoAlbumName"));
-        String filePath = photo_path + photoTime + "/" + fileName;
-        params.put("photoUrl", photo_url + photoTime + "/" + fileName);
+        String filePath = photo_path + "memoryPhoto/" + photoTime + "/" + fileName;
+        String toFilePath = photo_path + "memoryPhoto/" + photoTime + "/" + toFileName;
+        params.put("photoUrl", photo_url + "memoryPhoto/" + photoTime + "/" + toFileName);
+        /*String filePath = "C:\\image\\" + "memoryPhoto\\" + photoTime + "\\" + fileName;
+        String toFilePath = "C:\\image\\" + "memoryPhoto\\" + photoTime + "\\" + toFileName;
+        params.put("photoUrl", "C:\\image\\" + "memoryPhoto\\" + photoTime + "\\" + toFileName);*/
         onePieceMapper.insertPhotoInfo(params);
+        params.put("thumbnailId", onePieceMapper.queryPhotoThumbnailId(params));
+        params.put("photoOriginalUrl", photo_url + "memoryPhoto/" + photoTime + "/" + fileName);
+        //params.put("photoOriginalUrl", "C:\\image\\" + "memoryPhoto\\" + photoTime + "\\" + fileName);
+        params.put("createTime", new Date());
+        onePieceMapper.insertPhotoOriginal(params);
 
         File photoFile = new File(filePath);
+        File toPic = new File(toFilePath);
         // 检测是否存在目录
         if (photoFile.getParentFile().mkdirs()){
             file.transferTo(photoFile);
         } else{
             file.transferTo(photoFile);
         }
+        // 压缩原图
+        Thumbnails.of(photoFile).scale(1f).outputQuality(0.2f).toFile(toPic);
+    }
+
+    // 查询该月份相册是否已经存在
+    @Override
+    public int queryPhotoAlbum(Map<String, Object> params) {
+        return onePieceMapper.queryPhotoAlbum(params);
     }
 
     // 保存相册封面至服务器，保存相册封面信息至数据库
@@ -190,7 +215,9 @@ public class OnePieceServiceImpl implements OnePieceService {
     public void savePhotoCover(MultipartFile file, Map<String, Object> params) throws IOException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
         String dateTime = sdf.format(new Date());
+        String date = sdf2.format(new Date());
         // 获取文件名
         String fileName = file.getOriginalFilename();
         String toFileName = file.getOriginalFilename();
@@ -198,11 +225,11 @@ public class OnePieceServiceImpl implements OnePieceService {
         params.put("updateTime", dateTime);
         if (fileName != null){
             String[] split = fileName.split("\\.");
-            fileName = split[0] + "_" + dateTime + "." + split[1];
+            fileName = date + "_" + dateTime + "." + split[1];
         }
         if (toFileName != null){
             String[] split = toFileName.split("\\.");
-            toFileName = split[0] + "_thumbnail_" + dateTime + "." + split[1];
+            toFileName = date + "_thumbnail_" + dateTime + "." + split[1];
         }
 
         // 文件上传后的路径

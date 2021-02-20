@@ -26,6 +26,7 @@ function insertOrder() {
         type: 2,
         area: ["666px", "550px"],
         content: "insertOrder.html",
+        resize: false,
         cancel: function(){
             getDataByLikeSelect({"dateYearMonth": dateYearMonth});
             getOnePieceEChartsByYearMonth(dateYearMonth);
@@ -43,6 +44,7 @@ function insertCustomer() {
         type: 2,
         area: ["559px", "250px"],
         content: "insertCustomer.html",
+        resize: false,
         end: function(){
             $("#customerName").val("");
             customerTable();
@@ -58,6 +60,7 @@ function insertProduct() {
         type: 2,
         area: ["559px", "365px"],
         content: "insertProduct.html",
+        resize: false,
         end: function(){
             $("#productName").val("");
             productTable();

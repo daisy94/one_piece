@@ -8,10 +8,10 @@
         .layui-btn, .layui-input{
             border-radius: 5px;
         }
-        .layui-col-md, .layui-col-md2, .layui-col-md3, .layui-fluid {
+        .layui-col-md, .layui-col-md2, .layui-fluid {
             padding: 5px;
         }
-        .site-flow {
+        .site-flow, .site-flow-photoList{
             width: 100%;
             height: 100%;
             overflow: auto;
@@ -19,6 +19,10 @@
         }
         .site-flow img {
             width: 100%;
+            border: none;
+        }
+        .site-flow-photoList img{
+            height: 200px;
             border: none;
         }
     </style>
@@ -32,61 +36,42 @@
                         <div class="layui-row">
                             <div class="layui-col-md">
                                 <div class="layui-input-block" style="margin-left: 0;">
-                                    <div class="layui-inline">
-                                        <div class="layui-input-inline">
-                                            <input type="text" readonly class="layui-input layui-hide-xs" id="dateYear" placeholder="想康康哪一年的回忆呀" autocomplete="off">
-                                        </div>
-                                        <button type="button" class="layui-btn"><i class="layui-icon">&#xe615;</i>康康</button>
+                                    <div class="layui-input-inline" style="float: left;">
+                                        <input type="text" class="layui-input" id="dateYear" placeholder="想康康哪一年的回忆呀" autocomplete="off" readonly>
                                     </div>
-                                    <div class="layui-inline" style="float: right;">
+                                    <form class="layui-form" lay-filter="albumCoverForm" style="float: left;margin-left: 5px;">
                                         <div class="layui-input-inline">
-                                            <input type="text" readonly class="layui-input" id="dateYearMonth" placeholder="创建几月的回忆封面呀" autocomplete="off">
+                                            <input type="text" class="layui-input" id="dateYearMonth" name="dateYearMonth" lay-verify="dateYearMonth" lay-verType="tips" placeholder="创建几月的回忆封面呀" autocomplete="off" readonly>
                                         </div>
-                                        <button type="button" class="layui-btn" id="selectPhotoCover"><i class="layui-icon">&#xe67c;</i>创建相册</button>
-                                        <button type="button" class="layui-btn"><i class="layui-icon">&#xe68f;</i>记录美好的宝宝</button>
-                                    </div>
+                                        <button type="button" class="layui-btn" lay-submit lay-filter="albumCoverForm"><i class="layui-icon">&#xe67c;</i>创建相册</button>
+                                        <button type="button" class="layui-btn" id="savePhotoCover" style="display: none;"></button>
+                                    </form>
+                                    <form class="layui-form" lay-filter="memoryForm" style="float: right;">
+                                        <div class="layui-input-inline">
+                                            <div class="layui-input-inline">
+                                                <select id="memoryDate" name="memoryDate" lay-search lay-verify="memoryDate" lay-verType="tips">
+                                                    <option value="">什么时候的回忆啊</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-input-inline">
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="memoryRemark" name="memoryRemark" placeholder="说点什么吧" autocomplete="off" lay-verify="memoryRemark" lay-verType="tips">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="layui-btn" lay-submit lay-filter="memoryForm"><i class="layui-icon">&#xe68f;</i>记录美好的宝宝</button>
+                                        <button type="button" class="layui-btn" id="saveMemory" style="display: none;"></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="layui-row">
-                            <div class="layui-col-md2 layui-col-xs">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">名字：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="photoName" placeholder="给这张照片取个名字吧" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md2 layui-col-xs">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">记录：</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="photoRemark" placeholder="给这张照片记录些什么吧" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md3 layui-col-xs">
-                                <div class="layui-inline">
-                                    <form class="layui-form">
-                                            <label class="layui-form-label">相册：</label>
-                                            <div class="layui-input-inline">
-                                                <select id="photoAlbum">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                    </form>
-                                </div>
-                                <div class="layui-inline">
-                                    <button type="button" class="layui-btn" id="selectPhoto"><i class="layui-icon">&#xe67c;</i>保存回忆</button>
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-row">
-            <div class="site-flow" id="photoList">
+
+            <div class="site-flow" id="photoAlbumList">
                 <div class="layui-row" id="layUIRowColList"></div>
             </div>
         </div>

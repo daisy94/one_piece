@@ -109,6 +109,15 @@ public interface OnePieceService {
     void savePhotoCover (MultipartFile file, Map<String, Object> params) throws IOException;
 
     /**
+     * @Author: fujianhao
+     * @Description: 查询该月份相册是否已经存在
+     * @Date: 2021/2/19
+     * @Param: [params]
+     * @Return: int
+     */
+    int queryPhotoAlbum(Map<String, Object> params);
+
+    /**
      * 查询相册和相关信息
      * @param params
      * @return

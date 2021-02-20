@@ -10,7 +10,7 @@ let element = layui.element,
     maxYearMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
 
 let dateYear = new Date().getFullYear();
-getPhotoAlbumInfo(2020);
+getPhotoAlbumInfo(dateYear);
 
 // 根据年份查询相册信息
 function getPhotoAlbumInfo(dateYear){
@@ -29,13 +29,13 @@ function getPhotoAlbumInfo(dateYear){
                 let htmlPhoto = "";
                 if (data.data !== null){
                     $.each(data.data, function(k, v){
-                        html += '<div class="layui-col-md2 layui-col-xs2">' +
+                        html += '<div class="layui-col-md2">' +
                                     '<div class="layui-card">' +
                                         '<div class="layui-card-body">' +
                                             '<div class="layui-card">' +
                                                 '<div class="layui-card-header"><h2><b>'+ v.photoAlbumDate +'</b></h2></div>' +
                                                 '<div class="layui-card-body">' +
-                                                    '<a href="javascript:" onclick="photoList(\''+ v.id +'\', \''+ v.photoAlbumDate +'\')"><img lay-src="'+ v.photoAlbumUrl +'"></a>' +
+                                                    '<a href="javascript:" onclick="photoList(\''+ v.id +'\', \''+ v.photoAlbumDate +'\')"><img lay-src="'+ v.photoAlbumUrl +'" alt="服务器有点慢哈，等等吧"></a>' +
                                                 '</div>' +
                                             '</div>' +
                                         '</div>' +
@@ -45,9 +45,79 @@ function getPhotoAlbumInfo(dateYear){
                     });
                 }
                 $("#layUIRowColList").append(html);
-                $("#photoAlbum").append(htmlPhoto);
+                $("#memoryDate").append(htmlPhoto);
                 // 动态拼接后再次渲染下拉框
-                form.render('select');
+                form.render("select");
+                // 动态拼接后再次渲染图片
+                flow.lazyimg({
+                    elem: "#photoAlbumList img"
+                });
+            }else {
+                layer.msg(data.msg, {
+                    anim: 6
+                });
+            }
+        },
+        error: function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+}
+
+// 弹出相册列表页面
+function photoList(id, photoAlbumDate){
+
+    layer.open({
+        title: [photoAlbumDate, "font-size:18px;font-weight:bold;"],
+        type: 1,
+        area: ["65%", "76.7%"],
+        content:
+        '<div class="layui-fluid" style="background-color: #F2F2F2;padding: 5px;">' +
+            '<div class="layui-row">' +
+                '<div class="site-flow-photoList" id="photoList">' +
+                    '<div class="layui-row" id="photoDetailsList"></div>' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    });
+    getPhotoInfo(id);
+}
+
+// 查询照片列表信息
+function getPhotoInfo(id){
+
+    let params = {
+        "photoAlbumId": id
+    };
+    $.ajax({
+        type : "POST",
+        contentType: "application/json;charset=UTF-8",
+        url : pathWeb + "getPhotoInfo",
+        data : JSON.stringify(params),
+        success: function(data) {
+            if(data.code === 0){
+                let html = "";
+                if (data.data !== null){
+                    $.each(data.data, function(k, v){
+                        html +=
+                            '<div class="layui-col-md4" style="padding: 5px;">' +
+                                '<div class="layui-card">' +
+                                    '<div class="layui-card-body">' +
+                                        '<div class="layui-card">' +
+                                            '<div class="layui-card-header">' +
+                                                '<h3><b>'+ v.photoName +'</b></h3>' +
+                                            '</div>' +
+                                            '<div class="layui-card-body" id="'+ v.id +'">' +
+                                                '<a href="javascript:void(0)" onclick="lookPhoto(\''+ v.id +'\')"><img lay-src="'+ v.photoUrl +'" layer-src="'+ v.photoOriginalUrl +'" src="'+ v.photoUrl +'" alt="' + v.photoName + '"></a>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+                    });
+                }
+                $("#photoDetailsList").append(html);
                 // 动态拼接后再次渲染图片
                 flow.lazyimg({
                     elem: '#photoList img'
@@ -65,26 +135,43 @@ function getPhotoAlbumInfo(dateYear){
     });
 }
 
-// 弹出相册列表IFrame页面
-function photoList(id, photoAlbumDate){
+// 查看原图
+function lookPhoto(id){
 
-    layer.open({
-        title: [photoAlbumDate, "font-size:18px;"],
-        type: 2,
-        area: ["100%", "100%"],
-        content: "photoList.html?id=" + id
+    layer.photos({
+        photos: "#" + id,
+        anim: 5
     });
 }
 
 // 按屏加载图片
 flow.lazyimg({
-    elem: '#photoList img'
+    elem: "#photoAlbumList img"
+});
+
+// 按屏加载图片
+flow.lazyimg({
+    elem: "#photoList img"
+});
+
+// 提交表单，保存相册封面
+form.on("submit(albumCoverForm)", function(){
+
+    $("#savePhotoCover").click();
+    return false;
+});
+
+// 提交表单，保存回忆
+form.on("submit(memoryForm)", function(){
+
+    $("#saveMemory").click();
+    return false;
 });
 
 // 相册封面上传
 upload.render({
-    elem: '#selectPhotoCover', // 绑定DOM容器
-    url: pathWeb + "savePhotoCover", // 数据请求接口
+    elem: "#savePhotoCover",
+    url: pathWeb + "savePhotoCover",
     data: {
         "dateYearMonth": function(){
             return formatDate($("#dateYearMonth").val());
@@ -97,8 +184,10 @@ upload.render({
         //上传完毕
         if (res.code === 0){
             $("#layUIRowColList").empty();
-            $("#photoAlbum").empty();
-            $("#dateYearMonth").val("");
+            $("#memoryDate").empty();
+            form.val("albumCoverForm", {
+                "dateYearMonth": ""
+            });
             getPhotoAlbumInfo(dateYear);
             layer.closeAll("loading");
             layer.msg(res.msg);
@@ -113,20 +202,17 @@ upload.render({
 
 // 照片上传
 upload.render({
-    elem: '#selectPhoto', // 绑定DOM容器
-    url: pathWeb + "savePhotoAndData", // 数据请求接口
+    elem: "#saveMemory",
+    url: pathWeb + "savePhotoAndData",
     data: {
         "photoName": function(){
-            return $("#photoName").val();
-        },
-        "remark": function(){
-            return $("#photoRemark").val();
+            return $("#memoryRemark").val();
         },
         "photoAlbumName": function(){
-            return $("#photoAlbum option:selected").text();
+            return $("#memoryDate option:selected").text();
         },
         "photoAlbumId": function(){
-            return $("#photoAlbum option:selected").val();
+            return $("#memoryDate option:selected").val();
         }
     },
     before: function(){
@@ -136,8 +222,9 @@ upload.render({
         //上传完毕
         if (res.code === 0){
             layer.closeAll("loading");
-            $("#photoName").val("");
-            $("#photoRemark").val("");
+            form.val("memoryForm", {
+                "memoryRemark": ""
+            });
             layer.msg(res.msg);
         } else{
             layer.closeAll("loading");
@@ -148,18 +235,46 @@ upload.render({
     }
 });
 
+// 订单信息表单验证规则
+form.verify({
+
+    dateYearMonth: function(value) {
+        if (value === "" || value == null) {
+            return "相册的时间是必选哒";
+        }
+    },
+    memoryDate: function(value) {
+        if (value === "" || value == null) {
+            return "回忆的时间是必选哒";
+        }
+    },
+    memoryRemark: function(value) {
+        if (value === "" || value == null) {
+            return "回忆的内容是必填哒";
+        }
+    }
+});
+
 // 年月选择器
 layDate.render({
-    elem: '#dateYearMonth',
-    trigger: 'click',
-    type: 'month',
+    elem: "#dateYearMonth",
+    trigger: "click",
+    type: "month",
     max: maxYearMonth
 });
 
 // 年选择器
 layDate.render({
-    elem: '#dateYear',
-    trigger: 'click',
-    type: 'year',
+    elem: "#dateYear",
+    trigger: "click",
+    type: "year",
     max: maxYear,
+    done: function(dateYear){
+
+        if (dateYear !== ""){
+            $("#layUIRowColList").empty();
+            $("#memoryDate").empty();
+            getPhotoAlbumInfo(dateYear);
+        }
+    }
 });

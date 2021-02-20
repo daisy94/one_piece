@@ -94,6 +94,33 @@ public interface OnePieceMapper {
     void insertPhotoInfo(Map<String, Object> params);
 
     /**
+     * @Author: fujianhao
+     * @Description: 新增原始照片信息
+     * @Date: 2021/2/20
+     * @Param: [params]
+     * @Return: void
+     */
+    void insertPhotoOriginal(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 查询照片缩略图ID
+     * @Date: 2021/2/20
+     * @Param: [params]
+     * @Return: int
+     */
+    int queryPhotoThumbnailId(Map<String, Object> params);
+
+    /**
+     * @Author: fujianhao
+     * @Description: 查询该月份相册是否已经存在
+     * @Date: 2021/2/19
+     * @Param: [params]
+     * @Return: int
+     */
+    int queryPhotoAlbum(Map<String, Object> params);
+
+    /**
      * 新增相册信息
      * @param params
      */

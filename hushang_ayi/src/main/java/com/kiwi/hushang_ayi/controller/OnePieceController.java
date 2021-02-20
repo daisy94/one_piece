@@ -162,7 +162,7 @@ public class OnePieceController {
     @RequestMapping(value = "/savePhotoAndData", method = RequestMethod.POST)
     public JsonResult savePhotoAndData(MultipartFile file, String photoName, String remark, String photoAlbumName, String photoAlbumId) {
 
-        if (("").equals(photoAlbumName) || ("").equals(remark) || ("").equals(photoName) || ("").equals(photoAlbumId)){
+        if (("").equals(photoAlbumName) || ("").equals(photoName) || ("").equals(photoAlbumId)){
             return new JsonResult(InfoCode.PHOTO_PARAMS_ERROR);
         }
 
@@ -189,9 +189,15 @@ public class OnePieceController {
         }
         Map<String, Object> params = new HashMap<>();
         params.put("dateYearMonth", dateYearMonth);
+
         try {
-            onePieceService.savePhotoCover(file, params);
-            return new JsonResult(InfoCode.SAVE_SUCCESS);
+            int count = onePieceService.queryPhotoAlbum(params);
+            if (count > 0) {
+                return new JsonResult(InfoCode.PHOTO_ALBUM_ERROR);
+            } else {
+                onePieceService.savePhotoCover(file, params);
+                return new JsonResult(InfoCode.SAVE_SUCCESS);
+            }
         } catch(Exception e){
             e.printStackTrace();
             return new JsonResult<>(InfoCode.SAVE_FAIL);

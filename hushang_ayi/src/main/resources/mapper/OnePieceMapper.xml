@@ -194,18 +194,49 @@
 			customer_name
 	</select>
 
+	<!-- 查询照片缩略图ID -->
+	<select id="queryPhotoThumbnailId" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		id
+		FROM
+		photo_information
+		WHERE
+		photo_url = #{photoUrl}
+	</select>
+
+	<!-- 新增原始照片信息 -->
+	<insert id="insertPhotoOriginal" parameterType="java.util.Map">
+		INSERT INTO photo_original
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="thumbnailId != null">
+				thumbnail_id,
+			</if>
+			<if test="photoOriginalUrl != null and photoOriginalUrl != ''">
+				photo_original_url,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test="thumbnailId != null">
+				#{thumbnailId},
+			</if>
+			<if test="photoOriginalUrl != null and photoOriginalUrl != ''">
+				#{photoOriginalUrl},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+
 	<!-- 新增照片信息 -->
 	<insert id="insertPhotoInfo" parameterType="java.util.Map">
 		INSERT INTO photo_information
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">
-				id,
-			</if>
 			<if test="photoName != null and photoName != ''">
 				photo_name,
-			</if>
-			<if test="remark != null and remark != ''">
-				photo_remark,
 			</if>
 			<if test="photoAlbumId != null and photoAlbumId != ''">
 				photo_album_id,
@@ -218,14 +249,8 @@
 			</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">
-				#{id},
-			</if>
 			<if test="photoName != null and photoName != ''">
 				#{photoName},
-			</if>
-			<if test="remark != null and remark != ''">
-				#{remark},
 			</if>
 			<if test="photoAlbumId != null and photoAlbumId != ''">
 				#{photoAlbumId},
@@ -239,6 +264,17 @@
 		</trim>
 	</insert>
 
+	<!-- 查询该月份相册是否已经存在 -->
+	<select id="queryPhotoAlbum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM
+		photo_album
+		WHERE
+		photo_album_date = #{dateYearMonth}
+	</select>
+
+	<!-- 新增相册信息 -->
 	<insert id="insertPhotoAlbumInfo" parameterType="java.util.Map">
 		INSERT INTO photo_album
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -270,6 +306,27 @@
 			</if>
 		</trim>
 	</insert>
+
+	<!-- 查询照片和相关信息 -->
+	<select id="getPhotoInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		pi.id,
+		pi.photo_name AS photoName,
+		pi.photo_url AS photoUrl,
+		po.photo_original_url AS photoOriginalUrl
+		FROM
+		photo_information pi
+		LEFT JOIN
+		photo_original po
+		ON
+		pi.id = po.thumbnail_id
+		WHERE
+		pi.is_del = 0
+		<if test="photoAlbumId != null">
+			AND
+			pi.photo_album_id = #{photoAlbumId}
+		</if>
+	</select>
 
 	<!-- 新增顾客信息 -->
 	<insert id="insertCustomer" parameterType="java.util.Map">
@@ -419,22 +476,5 @@
 				LEFT(photo_album_date, 4) = #{dateYear}
 		</if>
         ORDER BY photo_album_date
-	</select>
-
-	<!-- 查询照片和相关信息 -->
-	<select id="getPhotoInfo" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT
-			id,
-			photo_name AS photoName,
-			photo_remark AS photoRemark,
-			photo_url AS photoUrl
-		FROM
-			photo_information
-		WHERE
-			is_del = 0
-		<if test="photoAlbumId != null and photoAlbumId != ''">
-			AND
-                photo_album_id = #{photoAlbumId}
-		</if>
 	</select>
 </mapper>
