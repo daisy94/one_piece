@@ -148,8 +148,8 @@ function insertOrder() {
                         });
                     }
                 });
-                layer.close(index);
                 $(".layui-btn.orderForm").click();
+                layer.close(index);
             }
         });
     });
