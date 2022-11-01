@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.mapper.OnePieceMapper">
+
+    <!-- 新增恰饭收入数据 -->
+    <insert id="insertOrder" parameterType="java.util.Map">
+        INSERT INTO one_piece
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            customer_name,
+            goods_name,
+            customer_address,
+            profit,
+            `date`,
+            update_time,
+            <if test="isDeliver != null">
+                is_deliver,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            #{customerName},
+            #{productList},
+            #{orderAddress},
+            #{productProfit},
+            #{date},
+            #{updateTime},
+            <if test="isDeliver != null">
+                #{isDeliver},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 删除恰饭收入数据 -->
+    <delete id="deleteOnePieceTableData" parameterType="java.util.Map">
+        <if test="id != null and id != ''">
+            UPDATE one_piece SET is_del = 1 WHERE id = #{id}
+        </if>
+    </delete>
+
+    <!-- 修改恰饭收入数据 -->
+    <update id="updateOnePieceTableData" parameterType="java.util.Map">
+        UPDATE one_piece
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customer_name != null and customer_name != ''">
+                customer_name = #{customer_name},
+            </if>
+            <if test="goods_name != null and goods_name != ''">
+                goods_name = #{goods_name},
+            </if>
+            <if test="customer_address != null and customer_address != ''">
+                customer_address = #{customer_address},
+            </if>
+            <if test="profit != null and profit != ''">
+                profit = #{profit},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time = #{updateTime},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 按月份查询恰饭表格所需数据 -->
+    <select id="getOnePieceDataByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT id, customer_name, goods_name, customer_address, profit, `date`, is_deliver
+        FROM one_piece
+        WHERE is_del = 0
+        <if test="dateYearMonth != null and dateYearMonth != ''">
+            AND LEFT(`date`, 6) = #{dateYearMonth}
+        </if>
+        <if test="queryKeyword != null and queryKeyword != ''">
+            AND (customer_name LIKE CONCAT('%', #{queryKeyword}, '%') OR goods_name LIKE CONCAT('%', #{queryKeyword},
+            '%'))
+        </if>
+        <if test="is_deliver != null">
+            AND is_deliver = #{is_deliver}
+        </if>
+        <choose>
+            <when test="is_deliver != null">
+                ORDER BY customer_name
+            </when>
+            <otherwise>
+                ORDER BY `date`
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 按月份查询恰饭ECharts所需数据 -->
+    <select id="getOnePieceEChartsByYearMonth" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT SUM(profit) AS profit, `date`
+        FROM one_piece
+        WHERE is_del = 0
+        <if test="dateYearMonth != null and dateYearMonth != ''">
+            AND LEFT(`date`, 6) = #{dateYearMonth}
+        </if>
+        GROUP BY `date`
+        ORDER BY `date`
+    </select>
+
+    <!-- 按年份查询恰饭收入总和 -->
+    <select id="getOnePieceCountByYear" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT SUM(profit) AS profit
+        FROM one_piece
+        WHERE is_del = 0
+        <if test="dateYear != null and dateYear != ''">
+            AND LEFT(`date`, 4) = #{dateYear}
+        </if>
+    </select>
+
+    <!-- 按月份查询恰饭收入总和 -->
+    <select id="getOnePieceCountByMonth" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT IFNULL(SUM(profit), 0) AS profit
+        FROM one_piece
+        WHERE is_del = 0
+        <if test="dateYearMonth != null and dateYearMonth != ''">
+            AND LEFT(`date`, 6) = #{dateYearMonth}
+        </if>
+    </select>
+
+    <!-- 新增姨妈周期数据 -->
+    <insert id="insertMenstruationCycleData" parameterType="java.util.Map">
+        INSERT INTO menstruation_cycle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dateYearMonthDayStart != null and dateYearMonthDayStart != ''">
+                start_time,
+            </if>
+            <if test="dateYearMonthDayEnd != null and dateYearMonthDayEnd != ''">
+                end_time,
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="dateYearMonthDayStart != null and dateYearMonthDayStart != ''">
+                #{dateYearMonthDayStart},
+            </if>
+            <if test="dateYearMonthDayEnd != null and dateYearMonthDayEnd != ''">
+                #{dateYearMonthDayEnd},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 查询姨妈周期表格所需数据 -->
+    <select id="getMenstruationCycleTable" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT id, start_time, end_time
+        FROM menstruation_cycle
+        WHERE is_del = 0
+        <if test="dateYear != null and dateYear != ''">
+            AND LEFT(start_time, 4) = #{dateYear}
+        </if>
+        ORDER BY start_time
+    </select>
+
+    <!-- 修改是否已发货状态 -->
+    <update id="updateOnePieceDeliverState" parameterType="java.util.Map">
+        UPDATE one_piece
+        <trim prefix="SET" suffixOverrides=",">
+            is_deliver = #{is_deliver},
+            <if test="updateTime != null and updateTime != ''">
+                update_time = #{updateTime},
+            </if>
+        </trim>
+        WHERE
+        <if test="id != null and id != ''">
+            id = #{id}
+        </if>
+    </update>
+
+    <!-- 查询参与抽奖顾客信息 -->
+    <select id="getLuckDrawData" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        customer_name
+        FROM
+        one_piece
+        <if test="date != null and date != ''">
+            WHERE
+            LEFT (date, 6) = #{date}
+        </if>
+        GROUP BY
+        customer_name
+    </select>
+
+    <!-- 查询照片缩略图ID -->
+    <select id="queryPhotoThumbnailId" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT id
+        FROM photo_information
+        WHERE photo_url = #{photoUrl}
+    </select>
+
+    <!-- 新增原始照片信息 -->
+    <insert id="insertPhotoOriginal" parameterType="java.util.Map">
+        INSERT INTO photo_original
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="thumbnailId != null">
+                thumbnail_id,
+            </if>
+            <if test="photoOriginalUrl != null and photoOriginalUrl != ''">
+                photo_original_url,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="thumbnailId != null">
+                #{thumbnailId},
+            </if>
+            <if test="photoOriginalUrl != null and photoOriginalUrl != ''">
+                #{photoOriginalUrl},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 新增照片信息 -->
+    <insert id="insertPhotoInfo" parameterType="java.util.Map">
+        INSERT INTO photo_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="photoName != null and photoName != ''">
+                photo_name,
+            </if>
+            <if test="photoAlbumId != null and photoAlbumId != ''">
+                photo_album_id,
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time,
+            </if>
+            <if test="photoUrl != null and photoUrl != ''">
+                photo_url,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="photoName != null and photoName != ''">
+                #{photoName},
+            </if>
+            <if test="photoAlbumId != null and photoAlbumId != ''">
+                #{photoAlbumId},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                #{updateTime},
+            </if>
+            <if test="photoUrl != null and photoUrl != ''">
+                #{photoUrl},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 查询该月份相册是否已经存在 -->
+    <select id="queryPhotoAlbum" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM photo_album
+        WHERE photo_album_date = #{dateYearMonth}
+    </select>
+
+    <!-- 新增相册信息 -->
+    <insert id="insertPhotoAlbumInfo" parameterType="java.util.Map">
+        INSERT INTO photo_album
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                id,
+            </if>
+            <if test="photoAlbumDate != null and photoAlbumDate != ''">
+                photo_album_date,
+            </if>
+            <if test="photoAlbumUrl != null and photoAlbumUrl != ''">
+                photo_album_url,
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id},
+            </if>
+            <if test="photoAlbumDate != null and photoAlbumDate != ''">
+                #{photoAlbumDate},
+            </if>
+            <if test="photoAlbumUrl != null and photoAlbumUrl != ''">
+                #{photoAlbumUrl},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 查询照片和相关信息 -->
+    <select id="getPhotoInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        pi.id,
+        pi.photo_name AS photoName,
+        pi.photo_url AS photoUrl,
+        po.photo_original_url AS photoOriginalUrl
+        FROM
+        photo_information pi
+        LEFT JOIN
+        photo_original po
+        ON
+        pi.id = po.thumbnail_id
+        WHERE
+        pi.is_del = 0
+        <if test="photoAlbumId != null">
+            AND
+            pi.photo_album_id = #{photoAlbumId}
+        </if>
+    </select>
+
+    <!-- 新增顾客信息 -->
+    <insert id="insertCustomer" parameterType="java.util.Map">
+        INSERT INTO t_customers (customer_name, customer_address, update_time, create_time)
+        VALUES (#{customerName}, #{customerAddress}, #{updateTime}, #{createTime})
+    </insert>
+
+    <!-- 查询顾客信息 -->
+    <select id="getCustomerTable" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        id,
+        customer_name,
+        customer_address
+        FROM
+        t_customers
+        WHERE
+        is_use = 1
+        <if test="customerName != null and customerName != ''">
+            AND customer_name LIKE CONCAT('%', #{customerName}, '%')
+        </if>
+        ORDER BY update_time DESC
+    </select>
+
+    <!-- 删除顾客数据 -->
+    <delete id="deleteCustomer" parameterType="java.util.Map">
+        <if test="id != null">
+            UPDATE t_customers SET is_use = 0, update_time = #{updateTime} WHERE id = #{id}
+        </if>
+    </delete>
+
+    <!-- 修改顾客数据 -->
+    <update id="updateCustomer" parameterType="java.util.Map">
+        UPDATE t_customers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customer_name != null and customer_name != ''">
+                customer_name = #{customer_name},
+            </if>
+            <if test="customer_address != null and customer_address != ''">
+                customer_address = #{customer_address},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </trim>
+        WHERE
+        <if test="id != null">
+            id = #{id}
+        </if>
+    </update>
+
+    <!-- 新增商品信息 -->
+    <insert id="insertProduct" parameterType="java.util.Map">
+        INSERT INTO t_products
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">
+                product_name,
+            </if>
+            <if test="productPrice != null">
+                product_price,
+            </if>
+            <if test="productCost != null">
+                product_cost,
+            </if>
+            <if test="productProfit != null">
+                product_profit,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">
+                #{productName},
+            </if>
+            <if test="productPrice != null">
+                #{productPrice},
+            </if>
+            <if test="productCost != null">
+                #{productCost},
+            </if>
+            <if test="productProfit != null">
+                #{productProfit},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 删除商品数据 -->
+    <delete id="deleteProduct" parameterType="java.util.Map">
+        <if test="id != null">
+            UPDATE t_products SET is_use = 0, update_time = #{updateTime} WHERE id = #{id}
+        </if>
+    </delete>
+
+    <!-- 修改商品数据 -->
+    <update id="updateProduct" parameterType="java.util.Map">
+        UPDATE t_products SET
+        product_name = #{product_name},
+        product_price = #{product_price},
+        product_cost = #{product_cost},
+        product_profit = #{product_profit},
+        update_time = #{updateTime}
+        WHERE
+        <if test="id != null">
+            id = #{id}
+        </if>
+    </update>
+
+    <!-- 查询商品信息 -->
+    <select id="getProductTable" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        id,
+        product_name,
+        product_price,
+        product_cost,
+        product_profit
+        FROM
+        t_products
+        WHERE
+        is_use = 1
+        <if test="productName != null and productName != ''">
+            AND product_name LIKE CONCAT('%', #{productName}, '%')
+        </if>
+        ORDER BY product_name
+    </select>
+
+    <!-- 查询相册和相关信息 -->
+    <select id="getPhotoAlbumInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        id,
+        photo_album_date AS photoAlbumDate,
+        photo_album_url AS photoAlbumUrl
+        FROM
+        photo_album
+        WHERE
+        is_del = 0
+        <if test="dateYear != null and dateYear != ''">
+            AND
+            LEFT(photo_album_date, 4) = #{dateYear}
+        </if>
+        ORDER BY photo_album_date
+    </select>
+</mapper>

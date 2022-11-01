@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.mapper.OrderMapper">
+
+    <select id="selectByOrderVo" parameterType="com.kiwi.pojo.dto.OrderDto" resultType="com.kiwi.pojo.vo.OrderVo">
+        SELECT id, product_name, customer_name, customer_address, profit, order_time, is_deliver
+        FROM t_order
+        WHERE deleted = 0
+        <if test="orderVo.orderTime != null">
+            AND LEFT(order_time, 7) = #{orderVo.orderTime}
+        </if>
+        <if test="orderVo.keyword != null">
+            AND (customer_name LIKE CONCAT('%', #{orderVo.keyword}, '%') OR product_name LIKE CONCAT('%',
+            #{orderVo.keyword}, '%'))
+        </if>
+        ORDER BY order_time DESC, id DESC
+    </select>
+
+    <select id="selectUndelivered" resultType="com.kiwi.pojo.vo.OrderVo">
+        SELECT id, product_name, customer_name, customer_address, order_time, is_deliver
+        FROM t_order
+        WHERE deleted = 0
+          AND is_deliver = 0
+        ORDER BY customer_name, order_time DESC
+    </select>
+
+    <select id="selectMonthDataByOrderVo" parameterType="com.kiwi.pojo.dto.OrderDto" resultType="java.util.Map">
+        SELECT SUM(profit)         AS profit,
+               LEFT(order_time, 7) AS date
+        FROM t_order
+        WHERE deleted = 0
+          AND LEFT(order_time, 4) = #{orderVo.orderTime}
+        GROUP BY LEFT(order_time, 7)
+        ORDER BY ANY_VALUE(order_time)
+    </select>
+
+    <select id="getOrderEChartsByMonth" parameterType="com.kiwi.pojo.dto.OrderDto" resultType="java.util.Map">
+        SELECT SUM(profit) AS profit, order_time AS date
+        FROM t_order
+        WHERE deleted = 0
+        <if test="orderVo.orderTime != null and orderVo.orderTime != ''">
+            AND LEFT(order_time, 7) = #{orderVo.orderTime}
+        </if>
+        GROUP BY date
+        ORDER BY date
+    </select>
+
+    <select id="getOrderEChartsByYear" parameterType="com.kiwi.pojo.dto.OrderDto" resultType="java.util.Map">
+        SELECT SUM(profit) AS profit, LEFT(order_time, 7) AS date
+        FROM t_order
+        WHERE deleted = 0
+        <if test="orderVo.orderTime != null and orderVo.orderTime != ''">
+            AND LEFT(order_time, 4) = #{orderVo.orderTime}
+        </if>
+        GROUP BY date
+        ORDER BY date
+    </select>
+
+</mapper>

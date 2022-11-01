@@ -1,0 +1,73 @@
+<script type="text/html" id="openProduct">
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <form class="layui-form" lay-filter="productQueryForm">
+                    <div class="layui-form-item" style="margin: 0;">
+                        <div class="layui-input-inline" style="margin: 0;">
+                            <div class="layui-inline" style="margin-bottom: 0;">
+                                <input type="text" class="layui-input searchInput" name="name"
+                                       placeholder="输入商品名称查询" autocomplete="off">
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn searchButton" onclick="queryProduct()"
+                                style="margin-left: -10px;"><i
+                                class="layui-icon">&#xe615;</i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-normal" onclick="insertProduct()"
+                                style="float: right;"><i class="layui-icon">&#xe624;</i>
+                        </button>
+                    </div>
+                </form>
+                <table id="productTable" lay-filter="productTable"></table>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="insertProduct">
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <form class="layui-form" lay-filter="productForm">
+                    <div class="layui-form-item marginTop">
+                        <div class="layui-input-block">
+                            <label class="layui-form-label" for="name">商品名称：</label>
+                            <div class="layui-inline">
+                                <input type="text" class="layui-input" id="name" name="name"
+                                       placeholder="请填写商品名称" autocomplete="off" lay-verify="name"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <label class="layui-form-label" for="price">商品售价：</label>
+                            <div class="layui-inline">
+                                <input type="text" class="layui-input" id="price" name="price"
+                                       placeholder="请填写商品售价" autocomplete="off" lay-verify="price|number"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <label class="layui-form-label" for="cost">商品成本：</label>
+                            <div class="layui-inline">
+                                <input type="text" class="layui-input" id="cost" name="cost"
+                                       placeholder="请填写商品成本" autocomplete="off" lay-verify="cost|number"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-hide">
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn productForm" lay-filter="productForm" lay-submit>
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

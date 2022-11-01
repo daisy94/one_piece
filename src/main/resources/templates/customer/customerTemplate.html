@@ -1,0 +1,64 @@
+<script type="text/html" id="openCustomer">
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <form class="layui-form" lay-filter="customerQueryForm">
+                    <div class="layui-form-item" style="margin: 0;">
+                        <div class="layui-input-inline" style="margin: 0;">
+                            <div class="layui-inline" style="margin-bottom: 0;">
+                                <input type="text" class="layui-input searchInput" name="name"
+                                       placeholder="输入微信名查询" autocomplete="off">
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn searchButton" onclick="queryCustomer()"
+                                style="margin-left: -10px;"><i
+                                class="layui-icon">&#xe615;</i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-normal" onclick="insertCustomer()"
+                                style="float: right;"><i
+                                class="layui-icon">&#xe624;</i>
+                        </button>
+                    </div>
+                </form>
+                <table id="customerTable" lay-filter="customerTable"></table>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="insertCustomer">
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md">
+                <form class="layui-form" lay-filter="customerForm">
+                    <div class="layui-form-item marginTop">
+                        <label class="layui-form-label" for="name">微信名：</label>
+                        <div class="layui-input-inline">
+                            <div class="layui-inline">
+                                <input type="text" class="layui-input" id="name"
+                                       name="name" placeholder="微信名叫什么呀" autocomplete="off"
+                                       lay-verify="customerNameCustomer" lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" for="address">收货地址：</label>
+                        <div class="layui-input-inline">
+                            <div class="layui-inline" style="width: 350px;">
+                                <input type="text" class="layui-input" id="address" name="address"
+                                       placeholder="宝贝发到哪里呀" autocomplete="off" lay-verify="customerAddress"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-hide">
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn customerForm" lay-filter="customerForm" lay-submit>
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>月经周期</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        .layui-btn, .layui-input {
+            border-radius: 8px;
+        }
+
+        .layui-col-md6, .layui-col-md, .layui-fluid {
+            padding: 5px;
+        }
+
+        .layui-card {
+            height: 765px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-row">
+                        <div class="layui-col-md">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="dateYearMonthDay"
+                                           placeholder="想一下开始结束时间" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn insertByYearMonthDay">保存</button>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">选择时间：</label>
+                                <div class="layui-inline">
+                                    <input type="text" readonly class="layui-input" id="dateYear"
+                                           placeholder="想查哪一年的" autocomplete="off">
+                                </div>
+                                <div class="layui-inline">
+                                    <button type="button" class="layui-btn selectByYear">走你</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <table id="menstruationCycleTable"></table>
+                        </div>
+                        <div class="layui-col-md6">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/layui/layui.all.js"></script>
+<script src="/echarts/echarts.js"></script>
+<script src="/utils/utils.js"></script>
+<script src="/webJS/menstruationCycle.js"></script>
+
+</body>
+</html>

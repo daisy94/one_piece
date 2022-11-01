@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiwi.mapper.CustomerMapper">
+
+    <select id="selectByCustomerVo" parameterType="com.kiwi.pojo.dto.CustomerDto" resultType="customerPo">
+        SELECT id, name, address, update_time
+        FROM t_customer
+        WHERE deleted = 0
+        <if test="customerVo.name != null and customerVo.name != ''">
+            AND name LIKE CONCAT('%', #{customerVo.name}, '%')
+        </if>
+        ORDER BY update_time DESC
+    </select>
+
+</mapper>

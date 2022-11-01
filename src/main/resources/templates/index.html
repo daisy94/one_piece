@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>ONE PIECE</title>
+    <link rel="shortcut icon" href="/image/favicon.ico"/>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style type="text/css">
+        .layui-btn, .layui-input {
+            border-radius: 8px;
+        }
+
+        .layui-form-item .layui-input-inline {
+            width: 260px;
+        }
+
+        .layui-fluid, .layui-col-md3, .layui-col-md {
+            padding: 5px;
+        }
+
+        .logo {
+            font-size: 25px;
+            color: #0066ffb3;
+            font-weight: 800;
+            margin-left: 60px;
+        }
+
+        .loginMenu {
+            margin-top: 25%;
+        }
+
+        .account {
+            background: url(/image/username.png) no-repeat 5px center;
+            padding-left: 40px;
+        }
+
+        .password {
+            background: url(/image/password.png) no-repeat 5px center;
+            padding-left: 40px;
+        }
+
+        .box-shadow {
+            -webkit-box-shadow: 5px 5px 5px #0200005c;
+            -moz-box-shadow: 5px 5px 5px #0200005c;
+            box-shadow: 5px 5px 5px #0200005c;
+            border-radius: 10px;
+            background: rgba(190, 190, 190, 0.4);
+        }
+    </style>
+</head>
+<body style="background: url(/image/background.jpg) no-repeat center;background-size: 100% 100%;">
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md loginMenu">
+            <div class="layui-card box-shadow" style="margin: 0 40% 10% 40%;">
+                <div class="layui-card-body">
+                    <div class="layui-row">
+                        <div class="layui-col-md" style="margin-top: 25px;">
+                            <form class="layui-form" lay-filter="userForm">
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input account" id="account" name="account"
+                                                   placeholder="请输入用户名" autocomplete="off" lay-verify="account"
+                                                   lay-verType="tips">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <div class="layui-input-inline">
+                                            <input type="password" class="layui-input password" id="password"
+                                                   name="password" placeholder="请输入密码" autocomplete="off"
+                                                   lay-verify="password" lay-verType="tips">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <div class="layui-input-inline">
+                                            <button type="button" class="layui-btn layui-btn-fluid"
+                                                    lay-filter="userForm" lay-submit>登录
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/layui/layui.all.js"></script>
+<script src="/utils/utils.js"></script>
+<script src="/webJS/index.js"></script>
+
+</body>
+</html>
