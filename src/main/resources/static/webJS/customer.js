@@ -115,12 +115,9 @@ form.on("submit(customerForm)", function (data) {
         data: data.field,
         success: function (result) {
             if (result.code === 0) {
-                layer.msg(result.msg, {
-                    time: 1500
-                }, function () {
-                    layer.close(customerIndex);
-                    customerTable();
-                });
+                layer.close(customerIndex);
+                layer.msg(result.msg);
+                customerTable();
             } else {
                 layer.alert(result.msg, {
                     title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"],
@@ -147,11 +144,8 @@ table.on("tool(customerTable)", function (obj) {
             },
             success: function (result) {
                 if (result.code === 0) {
-                    layer.msg(result.msg, {
-                        time: 1500
-                    }, function () {
-                        customerTable();
-                    });
+                    layer.msg(result.msg);
+                    customerTable();
                 } else {
                     layer.alert(result.msg, {
                         title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"],
@@ -179,11 +173,8 @@ table.on('edit(customerTable)', function (obj) {
             },
             success: function (result) {
                 if (result.code === 0) {
-                    layer.msg(result.msg, {
-                        time: 1500
-                    }, function () {
-                        customerTable();
-                    });
+                    layer.msg(result.msg);
+                    customerTable();
                 } else {
                     layer.alert(result.msg, {
                         title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"],

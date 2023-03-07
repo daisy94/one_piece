@@ -23,9 +23,9 @@ getDataByYear(dateYear);
 function insertOrder() {
     layTPL($("#insertOrder").html()).render(1, function (html) {
         layer.open({
-            title: ["新增订单信息", "font-size:18px;font-weight:bold;background-color: #009688;"],
+            title: ["创建订单", "font-size:18px;font-weight:bold;background-color: #009688;"],
             type: 1,
-            area: ["650px", "685px"],
+            area: ["520px", "650px"],
             content: html,
             btn: ["保存并继续", "保存后关闭"],
             resize: false,
@@ -105,8 +105,10 @@ function insertOrder() {
                                     'customerAddress': '',
                                     'productName': '',
                                     'productAmount': '',
-                                    'profit': ''
+                                    'profit': '',
+                                    'productList': ''
                                 });
+                                productNameAndNumber = [];
                                 getInsertOrderTable([]);
                                 getOrderInfo({"orderTime": data.field.orderTime.slice(0, 7)});
                                 getOrderEChartsByMonth(data.field.orderTime.slice(0, 7));
@@ -229,6 +231,7 @@ function getInsertOrderTable(data) {
                 field: "productName",
                 title: "商品名称",
                 align: "center",
+                width: 200,
                 unresize: true
             },
             {
@@ -240,6 +243,7 @@ function getInsertOrderTable(data) {
             {
                 field: "productProfit",
                 title: "利润",
+                templet: '<div><button type="button" class="layui-btn layui-btn-primary layui-btn-xs layui-btn-radius layui-border-green">{{ d.productProfit }}</button></div>',
                 align: "center",
                 unresize: true
             },
@@ -344,10 +348,8 @@ function deleteTableData(params) {
         data: params,
         success: function (result) {
             if (result.code === 0) {
+                layer.msg('删除成功');
                 refreshData();
-                layer.msg('删除成功', {
-                    time: 1000
-                });
             } else {
                 layer.alert(result.msg, {
                     title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"],
@@ -368,10 +370,8 @@ function updateTableData(params) {
         data: params,
         success: function (result) {
             if (result.code === 0) {
+                layer.msg('修改成功');
                 refreshData();
-                layer.msg('修改成功', {
-                    time: 1000
-                });
             } else {
                 layer.alert(result.msg, {
                     title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"],
@@ -388,7 +388,7 @@ function queryKeyword() {
     if (form.val('orderQueryForm').date === '' && form.val('orderQueryForm').name === '') {
         layer.alert(
             "请至少填写一个查询条件",
-            {title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"], icon: 3, anim: 6}
+            {title: ["纳尼！", "font-size:18px;font-weight:bold;background-color: #009688;"], icon: 0, anim: 6}
         );
     } else {
         let params = {
@@ -558,13 +558,10 @@ form.on("switch(isDeliver)", function (data) {
         success: function (result) {
             if (result.code === 0) {
                 let msg = isDeliver = 1 ? '发货成功' : '发货撤销'
-                layer.msg(msg, {
-                    time: 1000
-                }, function () {
-                    getUndeliveredOrderInfo();
-                    getOrderInfo({
-                        "orderTime": form.val("orderQueryForm").date !== '' ? form.val("orderQueryForm").date : orderTime
-                    });
+                layer.msg(msg);
+                getUndeliveredOrderInfo();
+                getOrderInfo({
+                    "orderTime": form.val("orderQueryForm").date !== '' ? form.val("orderQueryForm").date : orderTime
                 });
             } else {
                 layer.alert(result.msg, {

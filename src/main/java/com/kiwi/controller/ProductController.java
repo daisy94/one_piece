@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 商品 控制器
+ *
+ * @author FuJH
+ */
 @RestController
 @RequestMapping("/product")
 public class ProductController extends BaseController {

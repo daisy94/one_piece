@@ -14,6 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
+/**
+ * 登录 控制器
+ *
+ * @author FuJH
+ */
 @RestController
 public class LoginController extends BaseController {
 
@@ -68,7 +73,7 @@ public class LoginController extends BaseController {
     public JsonResult logout() {
 
         try {
-            StpUtil.logout();
+            StpUtil.logout(StpUtil.getLoginId());
             log.info("\n==================== 退出成功 ====================");
             return JsonResult.success();
         } catch (Exception e) {

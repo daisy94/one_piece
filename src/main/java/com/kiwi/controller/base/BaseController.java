@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 基础控制器
+ * 日志工厂配置
+ *
+ * @author FuJH
  */
 public class BaseController {
 

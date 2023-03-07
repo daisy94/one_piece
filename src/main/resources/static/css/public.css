@@ -61,10 +61,43 @@
     border-radius: 0 12px 12px 0;
 }
 
+.cursorPointer, .layui-input.order-form, .query-form {
+    padding-left: 45px;
+}
+
+.layui-form.order-form .layui-input-block {
+    margin-left: 60px;
+}
+
 .cursorPointer {
     cursor: pointer;
-    background: url(../image/calendar.png) no-repeat 5px 2px;
-    padding-left: 45px;
+    background: url(../image/calendar.png) no-repeat 5px 1px;
+}
+
+.order-form.customer {
+    cursor: pointer;
+    background: url(../image/customer.png) no-repeat 5px 1px;
+}
+
+.order-form.product {
+    cursor: pointer;
+    background: url(../image/product.png) no-repeat 5px 1px;
+}
+
+.order-form.address {
+    background: url(../image/address.png) no-repeat 5px 1px;
+}
+
+.order-form.profit {
+    background: url(../image/profit.png) no-repeat 5px 1px;
+}
+
+.order-form.amount {
+    background: url(../image/amount.png) no-repeat 5px 1px;
+}
+
+.query {
+    background: url(../image/query.png) no-repeat 5px 1px;
 }
 
 .layui-form-select .layui-select-title .layui-input {
@@ -99,7 +132,7 @@
 }
 
 .layui-field-title {
-    margin: 10px 0 0;
+    margin: 0;
     font-size: 20px;
     color: rgb(0, 150, 136);
 }
@@ -121,4 +154,8 @@
 
 .layui-btn-xs i {
     font-size: 20px !important;
+}
+
+.insertProduct .layui-input-block {
+    margin-left: 85px;
 }

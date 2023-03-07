@@ -10,9 +10,11 @@ import java.util.Date;
 
 /**
  * Mybatis-Plus自动填充策略配置类
+ *
+ * @author FuJH
  */
 @Configuration
-public class MyBatisPLusMetaObjectConfigurer implements MetaObjectHandler {
+public class MyBatisPLusConfig implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {

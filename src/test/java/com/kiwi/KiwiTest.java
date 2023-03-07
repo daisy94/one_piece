@@ -1,18 +1,11 @@
 package com.kiwi;
 
-import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.kiwi.controller.base.BaseController;
-import com.kiwi.pojo.po.base.BasePo;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Collections;
 
 @SpringBootTest
 public class KiwiTest {
 
-    @Test
+    /*@Test
     public void MyBatisPlusGenerator() {
 
         FastAutoGenerator.create(
@@ -54,6 +47,6 @@ public class KiwiTest {
                         .enableMapperAnnotation()
                         .formatXmlFileName("%sMapper"))
                 .execute();
-    }
+    }*/
 
 }

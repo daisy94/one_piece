@@ -10,11 +10,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Web配置类
+ *
+ * @author FuJH
  */
 @Configuration
-public class SaTokenWebMvcConfigurer implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
-    // 路由过滤器
+    /**
+     * 路由过滤器
+     *
+     * @author FuJH
+     */
     @Bean
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 全局异常拦截
+ *
+ * @author FuJH
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler extends BaseController {

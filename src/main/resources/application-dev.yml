@@ -1,7 +1,5 @@
 server:
   port: 80
-  servlet:
-    context-path: /
 
 # Sa-Token配置
 sa-token:
@@ -9,8 +7,8 @@ sa-token:
   token-name: t
   # token 有效期，单位s 默认30天, -1代表永不过期
   timeout: 28800
-  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
-  is-share: false
+  # 非并发登录
+  is-concurrent: false
   # token风格
   token-style: simple-uuid
 
@@ -18,14 +16,11 @@ spring:
   # 数据库配置
   datasource:
     # 连接地址
-    url: jdbc:mysql://47.117.0.159:3306/one_piece?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&&serverTimezone=Asia/Shanghai
-    #    url: jdbc:mysql://127.0.0.1:3306/one_piece?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/one_piece?useUnicode=true&characterEncoding=UTF-8
     # 用户名
     username: root
     # 测试库密码
-    #    password: 123456
-    # 生产库密码
-    password: Ddt951105!
+    password: 123456
     # 驱动地址
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接配置
@@ -34,16 +29,11 @@ spring:
       max-idle: 5
       # 最大连接数
       max-active: 10
-
   # 配置可上传文件的最大容量
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
-
-  #  resources:
-  #    static-locations: "classpath:/templates/,classpath:/static/"
-
   # Freemarker配置
   freemarker:
     # 关闭缓存，及时进行刷新，上线生产环境，需要改成 true
@@ -60,7 +50,6 @@ spring:
     request-context-attribute: request
     # 后缀
     suffix: .html
-
   # 格式化后台返回日期格式
   jackson:
     date-format: yyyy-MM-dd

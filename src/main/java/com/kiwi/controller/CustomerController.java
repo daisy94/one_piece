@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 顾客 控制器
+ *
+ * @author FuJH
+ */
 @RestController
 @RequestMapping("/customer")
 public class CustomerController extends BaseController {
